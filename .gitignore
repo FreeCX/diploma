@@ -1,0 +1,10 @@
+*.exe
+*.dll
+*.so
+*.o
+*.d
+*.a
+*.pdf
+*.djvu
+*.txt
+*.avi
