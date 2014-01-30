@@ -3,11 +3,14 @@
 #include <GL/glut.h>
 #include "alglib/specialfunctions.h"
 
-const float q0 = 1.0, q1 = 1.1, q2 = 0.9;
-const float m0 = 1.0, m1 = 2.0, m2 = sqrt( 2.0 );
+float q0 = 1.0, q1 = 1.1, q2 = 0.9;
+float m0 = 1.0, m1 = 2.0, m2 = sqrt( 2.0 );
+
+float adder = 0.1f;
+int state = 0;
 
 const float range = 2.00f;
-const float delta = 0.05f;
+const float delta = 0.04f;
 const unsigned long N = pow( (unsigned long)( 2*range / delta ) + 1, 2 );
 
 int w_width = 800;
@@ -19,36 +22,65 @@ GLfloat aspect;
 float *vertex = NULL;
 float *color = NULL;
 
+void renderFont( float x, float y, void *font, const char *fmt, ... ) 
+{
+    char text[256], *c;
+    va_list ap;
+    float x1 = x;
+    
+    va_start( ap, fmt );
+    vsprintf( text, fmt, ap );
+    va_end( ap );
+    for ( c = text; *c != '\0'; c++ ) {
+        glRasterPos2f( x1, y );
+        glutBitmapCharacter( font, *c );
+        x1 += 0.07f / n;
+    }
+}
+
 double V( double r )
 {
-	return 2.0 * M_PI * ( 
-		pow( q0, 2.0 ) * alglib::besselk0( m0 * r ) - 
-		pow( q1, 2.0 ) * alglib::besselk0( m1 * r ) - 
-		pow( q2, 2.0 ) * alglib::besselk0( m2 * r ) 
-	);
+    return 2.0 * M_PI * ( 
+        pow( q0, 2.0 ) * alglib::besselk0( m0 * r ) - 
+        pow( q1, 2.0 ) * alglib::besselk0( m1 * r ) - 
+        pow( q2, 2.0 ) * alglib::besselk0( m2 * r ) 
+    );
 }
 
 void calculate( void )
 {
-	int i = 0;
-	vertex = new float [3*N];
-	color = new float [3*N];
-	for ( float x = -range; x <= range; x += delta ) {
-    	for ( float y = -range; y <= range; y += delta ) {
-    		vertex[3*i+0] = x;
-    		vertex[3*i+1] = y;
-    		vertex[3*i+2] = V( sqrt( x*x+y*y ) );
-    		if ( vertex[3*i+2] < 0 ) {
-    			color[3*i+0] = 0.0f;
-    			color[3*i+1] = 0.0f;
-    			color[3*i+2] = 1.0f;
-    		} else if ( vertex[3*i+2] > 0 ) {
-    			color[3*i+0] = 1.0f;
-    			color[3*i+1] = 0.0f;
-    			color[3*i+2] = 0.0f;
-    		}
-    		i++;
-    	}
+    int i = 0;
+    float min, max, mid;
+    if ( vertex == NULL ) {
+        vertex = new float [3*N];
+        color = new float [3*N];
+    }
+    min = max = V( sqrt( 2*range*range ) );
+    for ( float x = -range; x <= range; x += delta ) {
+        for ( float y = -range; y <= range; y += delta ) {
+            vertex[3*i+0] = x;
+            vertex[3*i+1] = y;
+            vertex[3*i+2] = V( sqrt( x*x+y*y ) );
+            if ( min > vertex[3*i+2] ) {
+                min = vertex[3*i+2];
+            }
+            if ( max < vertex[3*i+2] ) {
+                max = vertex[3*i+2];
+            }
+            i++;
+        }
+    }
+    mid = 0.5 * ( max + min );
+    for ( int i = 0; i < N; i++ ) {
+        if ( vertex[3*i+2] > mid ) {
+            color[3*i+0] = max / vertex[3*i+2];
+            color[3*i+2] = 0.0f;
+        } else {
+            color[3*i+0] = 0.0f;
+            color[3*i+2] = min / vertex[3*i+2];
+        }
+        color[3*i+1] = mid / vertex[3*i+2];
+        vertex[3*i+2] = 0.0f;
     }
 }
 
@@ -58,26 +90,21 @@ void program_init( void )
     GLint sh = glutGet( GLUT_SCREEN_HEIGHT );
     glutPositionWindow( ( sw - w_width ) / 2, ( sh - w_height) / 2 );
     glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
-    glPointSize( 2.0f );
-    glEnable( GL_DEPTH_TEST );
+    glPointSize( 5.0f );
     calculate();
 }
 
 void program_free( void )
 {
-	delete color;
-	delete vertex;
+    delete color;
+    delete vertex;
 }
 
 void program_render( void )
 {
-	static float t = -2*M_PI;
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+    glClear( GL_COLOR_BUFFER_BIT );
     glLoadIdentity();
     glScalef( 0.5f, 0.5f, 0.5f );
-    glColor3f( 1.0f, 1.0f, 1.0f );
-    glRotatef( 45.0f, -1.0f, 0.0f, 0.0f );
-    glRotatef( 100*t, 0.0f, 0.0f, 1.0f );
     glEnableClientState( GL_VERTEX_ARRAY );
     glEnableClientState( GL_COLOR_ARRAY );
     glVertexPointer( 3, GL_FLOAT, 0, vertex );
@@ -85,12 +112,11 @@ void program_render( void )
     glDrawArrays( GL_POINTS, 0, N );
     glDisableClientState( GL_COLOR_ARRAY );
     glDisableClientState( GL_VERTEX_ARRAY );
+    glColor3f( 1.0f, 1.0f, 1.0f );
+    renderFont( -2.3f, 2.2f, GLUT_BITMAP_8_BY_13, 
+        "[%d]: q0 = %.3f, q1 = %.3f, q2 = %.3f, a = %.0E", 
+        state+1, q0, q1, q2, adder );
     glutSwapBuffers();
-    if ( t > 2*M_PI ) {
-    	t = -2*M_PI;
-    } else {
-    	t += 0.01f;
-    }
 }
 
 void program_redraw( int value )
@@ -110,22 +136,62 @@ void program_resize( int width, int height )
     } else {
         glOrtho( -n * aspect, n * aspect, -n, n, n, -n );
     }
-    gluPerspective( 0.0f, aspect, 0.0f, 20.0f );
+    gluPerspective( 0.0f, aspect, 0.0f, 10.0f );
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
 }
 void program_keyboard( unsigned char key, int x, int y )
 {
     static int fullscreen = 1;
-    if ( key == 'q' ) {
-        glutDestroyWindow( win_id );
-    } else if ( key == 'f' ) {
-        if ( fullscreen ) {
-            glutFullScreen();
-        } else {
-            glutReshapeWindow( w_width, w_height );
-        }
-        fullscreen = !fullscreen;
+    switch ( key ) {
+        case 'q':
+            glutDestroyWindow( win_id );
+            break;
+        case 'f':
+            if ( fullscreen ) {
+                glutFullScreen();
+            } else {
+                glutReshapeWindow( w_width, w_height );
+            }
+            fullscreen = !fullscreen;
+            break;
+        case '+':
+            switch ( state ) {
+                case 0:
+                    q0 += adder;
+                    break;
+                case 1:
+                    q1 += adder;
+                    break;
+                case 2:
+                    q2 += adder;
+                    break;
+                case 3:
+                    adder *= 10.0f;
+                    break;
+            }
+            calculate();
+            break;
+        case '-':
+            switch ( state ) {
+                case 0:
+                    q0 -= adder;
+                    break;
+                case 1:
+                    q1 -= adder;
+                    break;
+                case 2:
+                    q2 -= adder;
+                    break;
+                case 3:
+                    adder /= 10.0f;
+                    break;
+            }
+            calculate();
+            break;
+        case '1' ... '4':
+            state = key-'0'-1;
+            break;
     }
 }
 int main( int argc, char *argv[] )
