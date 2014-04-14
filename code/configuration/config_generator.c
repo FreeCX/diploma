@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 
-int d[2] = { 100, 200 };
+int d[4] = { 10, 20, 60, 100 };
 double alpha2[3] = { -0.0625, 0.1, 0.5 };
-double eta[3] = { 0.0, 0.3, 1.41 };
-double e[3] = { 0.7, 1.3, 1.41 };
+double eta[2] = { 0.3, 1.41 };
+double e[2] = { 0.7, 1.3 };
 const char fmt[] = 
-	"int Nx = 100\n"
-	"int Ny = 100\n"
+	"int Nx = 1200\n"
+	"int Ny = 1200\n"
 	"int d = %d\n"
 	"double alpha1 = -1.0\n"
 	"double alpha2 = %.4f\n"
@@ -29,9 +29,9 @@ int main( void )
 
 	for ( i = 0; i < 2; i++ ) {
         for ( l = 0; l < 3; l++ ) {
-		    for ( j = 0; j < 3; j++ ) {
-			    for ( k = 0; k < 3; k++ ) {
-				    sprintf( buffer, fmt, d[i], alpha2[l], eta[j], e[k] );
+		    for ( j = 0; j < 2; j++ ) {
+			    for ( k = 0; k < 4; k++ ) {
+				    sprintf( buffer, fmt, d[k], alpha2[l], eta[j], e[i] );
 				    sprintf( f_name, "input_%02d.txt", counter );
 				    counter++;
 				    f = fopen( f_name, "w" );

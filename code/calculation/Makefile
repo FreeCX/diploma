@@ -1,5 +1,4 @@
 PROG=vortex
-
 ALGP=./include/alglib/src
 HLBP=./include/HLBFGS
 ALGLIB=$(ALGP)/alglibinternal.cpp $(ALGP)/alglibmisc.cpp \
