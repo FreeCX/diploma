@@ -11,11 +11,11 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <vector>
-#include "include/alglib/src/optimization.h"
+#include <сstdlib>
+#include <сstring>
 #include "cppad/cppad.hpp"
 #include "HLBFGS/HLBFGS.h"
-#include "parser.h"
+#include "include/alglib/src/optimization.h"
 
 #define USE_OPENMP 1
 
@@ -84,6 +84,87 @@ std::complex<double> *f1v, *f2v;
 real_1d_array x;
 // Вспомогательные переменные
 
+struct u_type {
+    char type[16];
+    char utype;
+};
+typedef struct u_type u_type_t;
+
+struct p_block {
+    char name[32];
+    short utype;
+    int *ivalue;
+    float *fvalue;
+    double *dvalue;
+};
+typedef struct p_block p_block_t;
+
+enum {
+    E_FAILED = -1,
+    E_SUCCESS = 0,
+    T_INT = 0,
+    T_FLOAT,
+    T_DOUBLE
+};
+
+u_type_t t[4] = {
+    { "int", T_INT },
+    { "float", T_FLOAT },
+    { "double", T_DOUBLE },
+    { 0 }
+};
+
+// функция чтения файлов конфигураций
+int config_parser( const char *filename, int count, p_block_t *a )
+{
+    char *p, utype, line[1024];
+    FILE *f;
+    int i;
+
+    f = fopen( filename, "r" );
+    if ( f == NULL ) {
+        return E_FAILED;
+    }
+    while ( !feof( f ) ) {
+        fgets( line, 1024, f );
+        p = strtok( line, " " );
+        for ( i = 0; t[i].type != NULL; i++ ) {
+            if ( strcmp( t[i].type, p ) == 0 ) {
+                utype = t[i].utype;
+                break;
+            }
+        }
+        p = strtok( NULL, " " );
+        if ( p == NULL ) {
+            break;
+        }
+        for ( i = 0; a[i].name != NULL; i++ ) {
+            if ( strcmp( a[i].name, p ) == 0 ) {
+                break;
+            }
+        }
+        if (i > count) {
+            continue;
+        }
+        a[i].utype = (char) utype;
+        p = strtok( NULL, "=" );
+        switch ( a[i].utype ) {
+            case T_INT:
+                *a[i].ivalue = strtol( p, (char **) NULL, 10 );
+                break;
+            case T_FLOAT:
+                *a[i].fvalue = strtof( p, (char **) NULL );
+                break;
+            case T_DOUBLE:
+                *a[i].dvalue = strtod( p, (char **) NULL );
+                break;
+        }
+    }
+    fclose( f );
+    return E_SUCCESS;
+}
+
+// функция получения текущего времени
 void get_time( void )
 {
 	struct tm * ti;
@@ -96,6 +177,7 @@ void get_time( void )
 	puts( buffer );
 }
 
+// функция получения количества тактов процессора
 uint32_t get_ticks( void )
 {
     struct timeval tv;

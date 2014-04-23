@@ -11,7 +11,7 @@ ALGLIB=$(ALGP)/alglibinternal.cpp $(ALGP)/alglibmisc.cpp \
 HLBFGS=$(HLBP)/HLBFGS_BLAS.cpp $(HLBP)/HLBFGS.cpp \
 	$(HLBP)/ICFS.cpp $(HLBP)/LineSearch.cpp \
 	$(HLBP)/Lite_Sparse_Matrix.cpp
-MAIN=parser.cpp vortex.cpp
+MAIN=vortex.cpp
 
 SOURCES=$(ALGLIB) $(HLBFGS) $(MAIN)
 CFLAGS=-Wall -g -O2 -pipe -march=native -mfpmath=sse -omp -lpthread -I./include
