@@ -2,8 +2,8 @@
 /*   Автоматизированное построение графиков   */
 /* программа: Light Plotter                   */
 /* автор: dr.FreeCX                           */
-/* релиз: 11/04/2014                          */
-/* версия: 0.3                                */
+/* релиз: 20/04/2014                          */
+/* версия: 0.5                                */
 /* ------------------------------------------ */
 #include <cmath>
 #include <complex>
@@ -48,6 +48,9 @@ void create_plot( const char *input, const char *output, int type, int format )
     }
     switch ( type ) {
         case PLOT_3D:
+            fprintf( p, "set contour base\n" );
+            fprintf( p, "set cntrparam level auto 10\n" );
+            /* configure this level */
             fprintf( p, "set pm3d\n" );
             // fprintf( p, "set view 45,45,1,1\n" );
             strcpy( f_type, "3d" );
@@ -85,7 +88,7 @@ int convert_fplot( int N, const char *output_file )
             fscanf( f0, "%lf", &x );
             fscanf( f1, "%lf", &y );
             tmp = {x, y};
-            data[j][i] = pow( std::abs( tmp ), 2 );
+            data[j][i] = std::abs( tmp );
         }
     }
     puts( "[ Done ]" );
@@ -107,43 +110,6 @@ int convert_fplot( int N, const char *output_file )
     puts( "[ Done ]" );
     return 1;
 }
-
-// int convert_plot( const char *input_file, const char *output_file )
-// {
-//     FILE *f;
-//     int i, j, k, m;
-//     double tmp;
-//     char buffer[256];
-
-//     printf( "  >> Loading '%s' file .... ", input_file );
-//     f = fopen( input_file, "r" );
-//     if ( f == NULL ) {
-//         printf( "[FAILED]\n  [-] Can't open '%s' file!\n", input_file );
-//         exit( 0 );
-//     }
-//     for ( int j = 0; j <= Ny; j++ ) {
-//         for ( int i = 0; i <= Nx; i++ ) {
-//             fscanf( f, "%lf", &data[j][i] );
-//         }
-//     }
-//     fclose( f );
-//     puts( "[ Done ]" );
-//     printf( "  >> Convert '%s' file .... ", input_file );
-//     f = fopen( output_file, "w" );
-//     if ( f == NULL ) {
-//         printf( "[FAILED]\n  [-] Can't create '%s' file!", output_file );
-//         return 0;
-//     }
-//     for ( int i = 0; i <= Ny; i++ ) {
-//         for ( int j = 0; j <= Nx; j++ ) {
-//             fprintf( f, "%+.16lf ", data[j][i] );
-//         }
-//         fprintf( f, "\n" );
-//     }
-//     fclose( f );
-//     puts( "[ Done ]" );
-//     return 1;
-// }
 
 void clean_folder( void )
 {
@@ -168,12 +134,18 @@ void main_procedure( int output_format )
 {
     char input[64], output[64];
 
-    // if ( convert_plot( "dataB.dat", fieldB_file ) ) {
-    //     create_plot( fieldB_file, "field_B", PLOT_3D, output_format );
-    //     create_plot( fieldB_file, "field_B", PLOT_MAP, output_format );
-    // }
     create_plot( "dataB.dat", "field_B", PLOT_3D, output_format );
     create_plot( "dataB.dat", "field_B", PLOT_MAP, output_format );
+    /* не обязательный блок */
+    create_plot( "dataT.dat", "field_T", PLOT_3D, output_format );
+    create_plot( "dataT.dat", "field_T", PLOT_MAP, output_format );
+    create_plot( "dataW.dat", "field_W", PLOT_3D, output_format );
+    create_plot( "dataW.dat", "field_W", PLOT_MAP, output_format );
+    create_plot( "dataAx.dat", "field_Ax", PLOT_3D, output_format );
+    create_plot( "dataAx.dat", "field_Ax", PLOT_MAP, output_format );
+    create_plot( "dataAy.dat", "field_Ay", PLOT_3D, output_format );
+    create_plot( "dataAy.dat", "field_Ay", PLOT_MAP, output_format );
+    /* конец блока */
     for ( int i = 1; i <= 2; i++ ) {
         sprintf( input, fieldF_file, i );
         sprintf( output, "field_F%d", i );
@@ -203,7 +175,11 @@ int folder_scan( int output_format )
         if ( ( fst.st_mode & S_IFMT ) == S_IFDIR ) {
             printf( ">> Enter to '%s' folder\n", dp->d_name );
             chdir( dp->d_name );
-            main_procedure( output_format );
+            if ( access( ".ignore", 0) != 0 ) {
+                main_procedure( output_format );
+            } else {
+                printf( ">> Ignore '%s' folder\n", dp->d_name );
+            }
             chdir( ".." );
             printf( ">> Work in folder '%s' complete!\n", dp->d_name );
         }

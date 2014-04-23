@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int d[4] = { 10, 20, 60, 100 };
+int d[4] = { 40, 20, 60, 100 };
 double alpha2[3] = { -0.0625, 0.1, 0.5 };
 double eta[2] = { 0.3, 1.41 };
 double e[2] = { 0.7, 1.3 };
