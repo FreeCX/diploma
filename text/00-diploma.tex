@@ -1,0 +1,123 @@
+\documentclass[a4paper,14pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{indentfirst}
+\usepackage{amssymb,amsfonts,amsmath,mathtext,cite,enumerate,float}
+\usepackage{graphicx}
+\usepackage{multicol, multirow, array}
+\usepackage{times}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage[square, numbers, sort&compress]{natbib}
+\usepackage{tocloft}
+\usepackage{caption}
+\geometry{left=2cm}
+\geometry{right=1.5cm}
+\geometry{top=1cm}
+\geometry{bottom=2cm}
+\graphicspath{{images/}}
+
+\renewcommand{\rmdefault}{ftm}
+\renewcommand{\cfttoctitlefont}{\normalfont}
+\makeatletter 
+\renewcommand*\l@chapter[2]{% 
+  \ifnum \c@tocdepth >\z@ 
+    \addpenalty\@secpenalty 
+    \addvspace{1.0em \@plus\p@}% 
+    \setlength\@tempdima{1.5em}% 
+    \begingroup 
+      \parindent \z@ \rightskip \@pnumwidth 
+      \parfillskip -\@pnumwidth 
+      \leavevmode 
+      \advance\leftskip\@tempdima 
+      \hskip -\leftskip 
+      #1\nobreak\cftdotfill{\cftdotsep} \nobreak\hb@xt@\@pnumwidth{\hss #2}\par 
+    \endgroup 
+  \fi} 
+\renewcommand*\l@section[2]{% 
+  \ifnum \c@tocdepth >\z@ 
+    \addpenalty\@secpenalty 
+    \addvspace{1.0em \@plus\p@}% 
+    \setlength\@tempdima{1.5em}% 
+    \begingroup 
+      \parindent \z@ \rightskip \@pnumwidth 
+      \parfillskip -\@pnumwidth 
+      \leavevmode 
+      \advance\leftskip\@tempdima 
+      \hskip -\leftskip 
+      #1\nobreak\cftdotfill{\cftdotsep} \nobreak\hb@xt@\@pnumwidth{\hss #2}\par 
+    \endgroup 
+  \fi} 
+\makeatother
+
+\makeatletter
+% \bibliographystyle{srt}
+\renewcommand{\@biblabel}[1]{#1} 
+\makeatother
+\titleformat{\chapter}
+    {\normalsize\MakeUppercase}
+    {\thechapter}
+    {1em}{}
+
+\titleformat{\section}
+    {\normalsize}
+    {\thesection}
+    {1em}{}
+
+\titleformat{\subsection}
+    {\normalsize}
+    {\thesubsection}
+    {1em}{}
+\renewcommand{\bibsection}{%
+    \titleformat{\chapter} {\normalfont\filcenter}{}{}{}
+    \titlespacing*{\chapter}{\parindent}{*4}{*0}
+    \chapter*{ \bibname \markboth{\bibname}{\bibname}}}
+% Настройка вертикальных и горизонтальных отступов
+\titlespacing*{\chapter}{\parindent}{*4}{18pt}
+\titlespacing*{\section}{\parindent}{*4}{18pt}
+% \titlespacing*{\subsection}{\parindent}{*4}{*1}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
+\renewcommand{\arraystretch}{1.2}
+
+\renewcommand{\small}{\fontsize{12pt}{14.4pt}\selectfont}
+\DeclareCaptionLabelFormat{figure}{Рисунок #2}
+\DeclareCaptionLabelFormat{table}{Таблица #2}
+\DeclareCaptionLabelSeparator{sep}{~---~}
+\captionsetup{labelsep=sep,justification=centering,font=small}
+\captionsetup[figure]{labelformat=figure}
+\captionsetup[table]{labelformat=table}
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\arabic{enumi})}
+\renewcommand{\theenumii}{.\arabic{enumii}}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii})}
+\renewcommand{\theenumiii}{.\arabic{enumiii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii})}
+\begin{document}
+\onehalfspacing
+\setlength{\parindent}{1.25cm}
+\input{01-title}
+\input{02-referat}
+\newpage
+\renewcommand{\contentsname}{\begin{center}Содержание\end{center}}
+\tableofcontents
+\newpage
+\input{03-abbreviations}
+\newpage
+\input{04-intro}
+\newpage
+\input{05-text}
+\newpage
+\input{06-math}
+\newpage
+\input{07-main}
+\newpage
+\input{08-conclusion}
+\newpage
+\input{09-literature}
+\newpage
+\input{10-apps}
+\end{document}
