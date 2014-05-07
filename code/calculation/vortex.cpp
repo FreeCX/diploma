@@ -162,7 +162,7 @@ int config_parser( const char *filename, int count, p_block_t *a )
 }
 
 // get and print local time
-void get_time(  void  )
+void get_time( void )
 {
 	struct tm *ti;
 	time_t raw;
@@ -170,7 +170,7 @@ void get_time(  void  )
 
 	time( &raw );
 	ti = localtime( &raw );
-	strftime( buffer, 64, "%d / %m / %y %H:%M:%S", ti );
+	strftime( buffer, 64, "%d/%m/%y %H:%M:%S", ti );
 	puts( buffer );
 }
 
@@ -183,7 +183,7 @@ uint32_t get_ticks( void )
 }
 
 // calculating potential energy associated with the node i,j coord
-inline double CalculateW( int i, int j, double  *vars )
+inline double CalculateW( int i, int j, double *vars )
 {
 	double f1real = vars[( Ny + 1 ) * i + j];
 	double f1imag = vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )];
