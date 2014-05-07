@@ -164,14 +164,14 @@ int config_parser( const char *filename, int count, p_block_t *a )
 // get and print local time
 void get_time( void )
 {
-	struct tm *ti;
-	time_t raw;
-	char buffer[64];
+    struct tm *ti;
+    time_t raw;
+    char buffer[64];
 
-	time( &raw );
-	ti = localtime( &raw );
-	strftime( buffer, 64, "%d/%m/%y %H:%M:%S", ti );
-	puts( buffer );
+    time( &raw );
+    ti = localtime( &raw );
+    strftime( buffer, 64, "%d/%m/%y %H:%M:%S", ti );
+    puts( buffer );
 }
 
 // get cpu ticks
@@ -185,821 +185,821 @@ uint32_t get_ticks( void )
 // calculating potential energy associated with the node i,j coord
 inline double CalculateW( int i, int j, double *vars )
 {
-	double f1real = vars[( Ny + 1 ) * i + j];
-	double f1imag = vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )];
-	double f2real = vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )];
-	double f2imag = vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )];
-	double Theta1 = atan2( f1imag, f1real );
-	double Theta2 = atan2( f2imag, f2real );
-	double f1abs = f1real * f1real + f1imag * f1imag;
-	double f2abs = f2real * f2real + f2imag * f2imag;
-	double W = 0.5 * ( ( 2 * alpha1 + beta1 * f1abs ) * f1abs + ( 2 * alpha2 +  
+    double f1real = vars[( Ny + 1 ) * i + j];
+    double f1imag = vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )];
+    double f2real = vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )];
+    double f2imag = vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )];
+    double Theta1 = atan2( f1imag, f1real );
+    double Theta2 = atan2( f2imag, f2real );
+    double f1abs = f1real * f1real + f1imag * f1imag;
+    double f2abs = f2real * f2real + f2imag * f2imag;
+    double W = 0.5 * ( ( 2 * alpha1 + beta1 * f1abs ) * f1abs + ( 2 * alpha2 +  
         beta2 * f2abs ) * f2abs ) - etta * sqrt( f1abs * f2abs ) * 
         cos( Theta2 - Theta1 );
-	return W;
+    return W;
 }
 
 // calculating kinetic energy associated with the node i,j coord
 inline double CalculateT( int i, int j, double *vars )
 {
-	double f1xre;
-	double f2xre;
-	double f1yre;
-	double f2yre;
-	double f1xim;
-	double f2xim;
-	double f1yim;
-	double f2yim;
+    double f1xre;
+    double f2xre;
+    double f1yre;
+    double f2yre;
+    double f1xim;
+    double f2xim;
+    double f1yim;
+    double f2yim;
 
-	if ( i < Nx && j < Ny && i > 0 && j > 0 ) {
-		f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j]  -  
+    if ( i < Nx && j < Ny && i > 0 && j > 0 ) {
+        f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j]  -  
             vars[( Ny + 1 ) * ( i - 1 ) + j] ) / 2 * rax;
-		f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * rax;
-		f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * rax;
-		f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * rax;
 
-		f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
             vars[( Ny + 1 ) * i + j - 1] ) / 2 * ray;
-		f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * ray;
-		f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * ray;
-		f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * ray;
-	} else if ( i == 0 && j == 0 ) {
-		f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j] - 
+    } else if ( i == 0 && j == 0 ) {
+        f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j] - 
             vars[( Ny + 1 ) * i + j] ) * rax;
-		f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
             vars[( Ny + 1 ) * i + j] ) * ray;
-		f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	} else if ( i == 0 && j > 0 && j < Ny ) {
-		f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j] - 
+    } else if ( i == 0 && j > 0 && j < Ny ) {
+        f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j] - 
             vars[( Ny + 1 ) * i + j] ) * rax;
-		f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] -  vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
             vars[( Ny + 1 ) * i + j - 1] ) / 2 * ray;
-		f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) / 2 * ray;
-		f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * ray;
-		f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * ray;
-	} else if ( i == 0 && j == Ny ) {
-		f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j] - 
+    } else if ( i == 0 && j == Ny ) {
+        f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j] - 
             vars[( Ny + 1 ) * i + j] ) * rax;
-		f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( vars[( Ny + 1 ) * i + j] - 
+        f1yre = ( vars[( Ny + 1 ) * i + j] - 
             vars[( Ny + 1 ) * i + j - 1] ) * ray;
-		f1yim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	} else if ( i > 0 && i < Nx && j == 0 ) {
-		f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j] - 
+    } else if ( i > 0 && i < Nx && j == 0 ) {
+        f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j] ) / 2 * rax;
-		f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * rax;
-		f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * rax;
-		f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * rax;
 
-		f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
             vars[( Ny + 1 ) * i + j] ) * ray;
-		f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	} else if ( i > 0 && i < Nx && j == Ny ) {
-		f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j] - 
+    } else if ( i > 0 && i < Nx && j == Ny ) {
+        f1xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j] ) / 2 * rax;
-		f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * rax;
-		f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * rax;
-		f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] - vars[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * rax;
 
-		f1yre = ( vars[( Ny + 1 ) * i + j] - 
+        f1yre = ( vars[( Ny + 1 ) * i + j] - 
             vars[( Ny + 1 ) * i + j - 1] ) * ray;
-		f1yim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	} else if ( i == Nx && j == 0 ) {
-		f1xre = ( vars[( Ny + 1 ) * i + j] - 
+    } else if ( i == Nx && j == 0 ) {
+        f1xre = ( vars[( Ny + 1 ) * i + j] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j] ) * rax;
-		f1xim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
             vars[( Ny + 1 ) * i + j] ) * ray;
-		f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	} else if ( i == Nx && j > 0 && j < Ny  ) {
-		f1xre = ( vars[( Ny + 1 ) * i + j] - 
+    } else if ( i == Nx && j > 0 && j < Ny  ) {
+        f1xre = ( vars[( Ny + 1 ) * i + j] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j] ) * rax;
-		f1xim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( vars[( Ny + 1 ) * i + j + 1] - 
             vars[( Ny + 1 ) * i + j - 1] ) / 2 * ray;
-		f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( vars[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) / 2 * ray;
-		f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( vars[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * ray;
-		f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( vars[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * ray;
-	} else if ( i == Nx && j == Ny  ) {
-		f1xre = ( vars[( Ny + 1 ) * i + j] - 
+    } else if ( i == Nx && j == Ny  ) {
+        f1xre = ( vars[( Ny + 1 ) * i + j] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j] ) * rax;
-		f1xim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( vars[( Ny + 1 ) * i + j] - 
+        f1yre = ( vars[( Ny + 1 ) * i + j] - 
             vars[( Ny + 1 ) * i + j - 1] ) * ray;
-		f1yim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             vars[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	}
+    }
 
-	double Axf1re = vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    double Axf1re = vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
         vars[( Ny + 1 ) * i + j];
-	double Axf1im = vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    double Axf1im = vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
         vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )];
-	double Axf2re = vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    double Axf2re = vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
         vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )];
-	double Axf2im = vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    double Axf2im = vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
         vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )];
-	double Ayf1re = vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    double Ayf1re = vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
         vars[( Ny + 1 ) * i + j];
-	double Ayf1im = vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    double Ayf1im = vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
         vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )];
-	double Ayf2re = vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    double Ayf2re = vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
         vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )];
-	double Ayf2im = vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    double Ayf2im = vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
         vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )];
 
-	double T1x = ( f1xre - e * Axf1im ) * ( f1xre - e * Axf1im ) + 
+    double T1x = ( f1xre - e * Axf1im ) * ( f1xre - e * Axf1im ) + 
         ( f1xim + e * Axf1re ) * ( f1xim + e * Axf1re );
-	double T1y = ( f1yre - e * Ayf1im ) * ( f1yre - e * Ayf1im ) + 
+    double T1y = ( f1yre - e * Ayf1im ) * ( f1yre - e * Ayf1im ) + 
         ( f1yim + e * Ayf1re ) * ( f1yim + e * Ayf1re );
-	double T2x = ( f2xre - e * Axf2im ) * ( f2xre - e * Axf2im ) + 
+    double T2x = ( f2xre - e * Axf2im ) * ( f2xre - e * Axf2im ) + 
         ( f2xim + e * Axf2re ) * ( f2xim + e * Axf2re );
-	double T2y = ( f2yre - e * Ayf2im ) * ( f2yre - e * Ayf2im ) + 
+    double T2y = ( f2yre - e * Ayf2im ) * ( f2yre - e * Ayf2im ) + 
         ( f2yim + e * Ayf2re ) * ( f2yim + e * Ayf2re );
-	double T = 0.5 * ( ( T1x  +  T1y )  +  ( T2x  +  T2y ) );
-	return T;
+    double T = 0.5 * ( ( T1x  +  T1y )  +  ( T2x  +  T2y ) );
+    return T;
 }
 
 // calculating magnetic field associated with the node i,j coord
 inline double CalculateH2( int i, int j, double *vars )
 {
-	double Ay_up = ( vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] + 
+    double Ay_up = ( vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] + 
         vars[( Ny + 1 ) * i + j + 1 + 5 * ( Nx + 1 ) * ( Ny + 1 )] ) / 2;
-	double Ay_down = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 5 * ( Nx + 1 ) * 
+    double Ay_down = ( vars[( Ny + 1 ) * ( i + 1 ) + j + 5 * ( Nx + 1 ) * 
         ( Ny + 1 )] + vars[( Ny + 1 ) * ( i + 1 ) + j + 1 + 5 * ( Nx + 1 ) * 
         ( Ny + 1 )] ) / 2;
-	double Ax_right = ( vars[( Ny + 1 ) * i + j + 1 + 4 * ( Nx + 1 ) * 
+    double Ax_right = ( vars[( Ny + 1 ) * i + j + 1 + 4 * ( Nx + 1 ) * 
         ( Ny + 1 )] + vars[( Ny + 1 ) * ( i + 1 ) + j + 1 + 4 * ( Nx + 1 ) * 
         ( Ny + 1 )] ) / 2;
-	double Ax_left = ( vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] + 
+    double Ax_left = ( vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] + 
         vars[( Ny + 1 ) * ( i + 1 ) + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] ) / 2;
-	double H = ( - Ay_up * ay + Ax_left * ax + Ay_down * ay - Ax_right * ax ) 
+    double H = ( - Ay_up * ay + Ax_left * ax + Ay_down * ay - Ax_right * ax ) 
         * rax * ray;
 
-	return 0.5 * H * H;
+    return 0.5 * H * H;
 }
 
 // calculating energy associated with the node i,j and your neighbor
 inline double CalculateNeihbourF(  int i, int j, double  *  x  )
 {
-	double F = 0.0;
-	for ( int ii = i - 1; ii <= i + 1; ii++ ) {
-		for ( int jj = j - 1; jj <= j + 1; jj++ ) {
-			if ( ( ii >= 0 ) && ( ii < Nx + 1 ) && ( jj >= 0 ) && 
+    double F = 0.0;
+    for ( int ii = i - 1; ii <= i + 1; ii++ ) {
+        for ( int jj = j - 1; jj <= j + 1; jj++ ) {
+            if ( ( ii >= 0 ) && ( ii < Nx + 1 ) && ( jj >= 0 ) && 
                  ( jj < Ny + 1 ) ) {
-				F += CalculateW( ii, jj, x ) + CalculateT( ii, jj, x );
-			}
-		}
-	}
-	if ( i < Nx && j < Ny && i > 0 && j > 0 ) {
-		F += CalculateH2( i - 1, j - 1, x ) + CalculateH2( i, j - 1, x ) + 
+                F += CalculateW( ii, jj, x ) + CalculateT( ii, jj, x );
+            }
+        }
+    }
+    if ( i < Nx && j < Ny && i > 0 && j > 0 ) {
+        F += CalculateH2( i - 1, j - 1, x ) + CalculateH2( i, j - 1, x ) + 
              CalculateH2( i - 1, j + 0, x ) + CalculateH2( i, j + 0, x );
-	} else if ( i == 0 && j == 0 ) {
-		F += CalculateH2( i, j, x );
-	} else if ( i == 0 && j > 0 && j < Ny ) {
-		F += CalculateH2( i, j - 1, x ) + CalculateH2( i, j, x );
-	} else if ( i == 0 && j == Ny ) {
-		F += CalculateH2( i, j - 1, x );
-	} else if ( i > 0 && i < Nx && j == 0 )	{
-		F += CalculateH2( i - 1, j, x ) + CalculateH2( i, j, x );
-	} else if ( i > 0 && i < Nx && j == Ny ) {
-		F += CalculateH2( i - 1, j - 1, x ) + CalculateH2( i, j - 1, x );
-	} else if ( i == Nx && j == 0 )	{
-		F += CalculateH2( i - 1, j, x );
-	} else if ( i == Nx && j > 0 && j < Ny ) {
-		F += CalculateH2( i - 1, j - 1, x ) + CalculateH2( i - 1, j, x );
-	} else if ( i == Nx && j == Ny ) {
-		F += CalculateH2( i - 1, j - 1, x );
-	}
-	return ax * ay * F;
+    } else if ( i == 0 && j == 0 ) {
+        F += CalculateH2( i, j, x );
+    } else if ( i == 0 && j > 0 && j < Ny ) {
+        F += CalculateH2( i, j - 1, x ) + CalculateH2( i, j, x );
+    } else if ( i == 0 && j == Ny ) {
+        F += CalculateH2( i, j - 1, x );
+    } else if ( i > 0 && i < Nx && j == 0 ) {
+        F += CalculateH2( i - 1, j, x ) + CalculateH2( i, j, x );
+    } else if ( i > 0 && i < Nx && j == Ny ) {
+        F += CalculateH2( i - 1, j - 1, x ) + CalculateH2( i, j - 1, x );
+    } else if ( i == Nx && j == 0 ) {
+        F += CalculateH2( i - 1, j, x );
+    } else if ( i == Nx && j > 0 && j < Ny ) {
+        F += CalculateH2( i - 1, j - 1, x ) + CalculateH2( i - 1, j, x );
+    } else if ( i == Nx && j == Ny ) {
+        F += CalculateH2( i - 1, j - 1, x );
+    }
+    return ax * ay * F;
 }
 
 void CalculateGradient( double *vars, double *grad )
 {
-	for ( int i = 0; i < Nx + 1; i++ ) {
-		for ( int j = 0; j < Ny + 1; j++ ) {
-			// f1real
-			vars[( Ny + 1 ) * i + j] += deltap;
-			F1 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j] -= 2 * deltap;
-			F2 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j] += deltap;
-			grad[( Ny + 1 ) * i + j] = 0.5 * ( F1 - F2 ) * rdeltap;
+    for ( int i = 0; i < Nx + 1; i++ ) {
+        for ( int j = 0; j < Ny + 1; j++ ) {
+            // f1real
+            vars[( Ny + 1 ) * i + j] += deltap;
+            F1 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j] -= 2 * deltap;
+            F2 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j] += deltap;
+            grad[( Ny + 1 ) * i + j] = 0.5 * ( F1 - F2 ) * rdeltap;
 
-			// f1imag
-			vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] += deltap;
-			F1 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] -= 2 * deltap;
-			F2 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] += deltap;
-			grad[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] = 0.5 * 
+            // f1imag
+            vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] += deltap;
+            F1 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] -= 2 * deltap;
+            F2 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] += deltap;
+            grad[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] = 0.5 * 
                 ( F1 - F2 ) * rdeltap;
 
-			// f2real
-			vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
-			F1 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] -= 
+            // f2real
+            vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
+            F1 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] -= 
                 2 * deltap;
-			F2 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
-			grad[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] = 0.5 * 
+            F2 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
+            grad[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] = 0.5 * 
                 ( F1 - F2 ) * rdeltap;
 
-			// f2imag
-			vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
-			F1 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] -= 
+            // f2imag
+            vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
+            F1 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] -= 
                 2 * deltap;
-			F2 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
-			grad[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] = 0.5 * 
+            F2 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
+            grad[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] = 0.5 * 
                 ( F1 - F2 ) * rdeltap;
 
-			// Ax
-			vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
-			F1 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] -= 
+            // Ax
+            vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
+            F1 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] -= 
                 2 * deltap;
-			F2 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
-			grad[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] = 0.5 * 
+            F2 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
+            grad[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] = 0.5 * 
                 ( F1 - F2 ) * rdeltap;
 
-			// Ay
-			vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
-			F1 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] -= 
+            // Ay
+            vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
+            F1 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] -= 
                 2 * deltap;
-			F2 = CalculateNeihbourF( i, j, vars );
-			vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
-			grad[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] = 0.5 * 
+            F2 = CalculateNeihbourF( i, j, vars );
+            vars[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] += deltap;
+            grad[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] = 0.5 * 
                 ( F1 - F2 ) * rdeltap;
-		}
-	}
+        }
+    }
 }
 
 // fill table of energy node and square integration method
 inline double FillEnergyTableSquare(  double  *  x  )
 {
-	double F = 0.0;
-	double W0 = 0.0;
-	double T0 = 0.0;
-	double H20 = 0.0;
-	for ( int i = 0; i < Nx + 1; i ++ ) {
-		for ( int j = 0; j < Ny + 1; j++ ) {
-			W[i][j] = CalculateW( i, j, x );
-			T[i][j] = CalculateT( i, j, x );
-			F += T[i][j] + W[i][j];
-		}
-	}
-	for ( int i = 0; i < Nx; i++ ) {
-		for ( int j = 0; j < Ny; j++ ) {
-			H2[i][j] = CalculateH2( i, j, x );
-			F += H2[i][j];
-		}
-	}
-	return ax * ay * F;
+    double F = 0.0;
+    double W0 = 0.0;
+    double T0 = 0.0;
+    double H20 = 0.0;
+    for ( int i = 0; i < Nx + 1; i ++ ) {
+        for ( int j = 0; j < Ny + 1; j++ ) {
+            W[i][j] = CalculateW( i, j, x );
+            T[i][j] = CalculateT( i, j, x );
+            F += T[i][j] + W[i][j];
+        }
+    }
+    for ( int i = 0; i < Nx; i++ ) {
+        for ( int j = 0; j < Ny; j++ ) {
+            H2[i][j] = CalculateH2( i, j, x );
+            F += H2[i][j];
+        }
+    }
+    return ax * ay * F;
 }
 
 // fill table of energy node and trapezoid integration method
 inline double FillEnergyTableTrapz( double *x )
 {
-	double F1 = 0.0;
-	double F2 = 0.0;
-	double W0 = 0.0;
-	double T0 = 0.0;
-	double H20 = 0.0;
-	for ( int i = 0; i < Nx + 1; i++ ) {
-		for ( int j = 0; j < Ny + 1; j++ ) {
-			W[i][j] = CalculateW( i, j, x );
-			T[i][j] = CalculateT( i, j, x );
-		}
-	}
-	F1 += T[0][0] + W[0][0];
-	F1 += T[Nx][Ny] + W[Nx][Ny];
-	F1 += T[0][Ny] + W[0][Ny];
-	F1 += T[Nx][0] + W[Nx][0];
-	for ( int i = 1; i < Nx; i++ ) {
-		F1 += 2 * ( T[i][0] + W[i][0] );
-		F1 += 2 * ( T[i][Ny] + W[i][Ny] );
-	}
-	for ( int j = 1; j < Ny; j++ ) {
-		F1 += 2 * ( T[0][j] + W[0][j] );
-		F1 += 2 * ( T[Nx][j] + W[Nx][j] );
-	}
-	for ( int i = 1; i < Nx; i++ ) {
-		for ( int j = 1; j < Ny; j++ ) {
-			F1 += 4 * ( T[i][j] + W[i][j] );
-		}
-	}
-	for ( int i = 0; i < Nx; i++ ) {
-		for ( int j = 0; j < Ny; j++ ) {
-			H2[i][j] = CalculateH2( i, j, x );
-		}
-	}
-	F2 += H2[0][0];
-	F2 += H2[Nx - 1][Ny - 1];
-	F2 += H2[0][Ny - 1];
-	F2 += H2[Nx - 1][0];
-	for ( int i = 1; i < Nx - 1; i++ ) {
-		F2 += 2 * H2[i][0];
-		F2 += 2 * H2[i][Ny - 1];
-	}
-	for ( int j = 1; j < Ny - 1; j++  ) {
-		F2 += 2 * H2[0][j];
-		F2 += 2 * H2[Nx - 1][j];
-	}
-	for ( int i = 1; i < Nx - 1; i++ ) {
-		for ( int j = 1; j < Ny - 1; j++  ) {
-			F2 += 4 * H2[i][j];
-		}
-	}
-	return 0.25 * ax * ay * ( F1 + F2 );
+    double F1 = 0.0;
+    double F2 = 0.0;
+    double W0 = 0.0;
+    double T0 = 0.0;
+    double H20 = 0.0;
+    for ( int i = 0; i < Nx + 1; i++ ) {
+        for ( int j = 0; j < Ny + 1; j++ ) {
+            W[i][j] = CalculateW( i, j, x );
+            T[i][j] = CalculateT( i, j, x );
+        }
+    }
+    F1 += T[0][0] + W[0][0];
+    F1 += T[Nx][Ny] + W[Nx][Ny];
+    F1 += T[0][Ny] + W[0][Ny];
+    F1 += T[Nx][0] + W[Nx][0];
+    for ( int i = 1; i < Nx; i++ ) {
+        F1 += 2 * ( T[i][0] + W[i][0] );
+        F1 += 2 * ( T[i][Ny] + W[i][Ny] );
+    }
+    for ( int j = 1; j < Ny; j++ ) {
+        F1 += 2 * ( T[0][j] + W[0][j] );
+        F1 += 2 * ( T[Nx][j] + W[Nx][j] );
+    }
+    for ( int i = 1; i < Nx; i++ ) {
+        for ( int j = 1; j < Ny; j++ ) {
+            F1 += 4 * ( T[i][j] + W[i][j] );
+        }
+    }
+    for ( int i = 0; i < Nx; i++ ) {
+        for ( int j = 0; j < Ny; j++ ) {
+            H2[i][j] = CalculateH2( i, j, x );
+        }
+    }
+    F2 += H2[0][0];
+    F2 += H2[Nx - 1][Ny - 1];
+    F2 += H2[0][Ny - 1];
+    F2 += H2[Nx - 1][0];
+    for ( int i = 1; i < Nx - 1; i++ ) {
+        F2 += 2 * H2[i][0];
+        F2 += 2 * H2[i][Ny - 1];
+    }
+    for ( int j = 1; j < Ny - 1; j++  ) {
+        F2 += 2 * H2[0][j];
+        F2 += 2 * H2[Nx - 1][j];
+    }
+    for ( int i = 1; i < Nx - 1; i++ ) {
+        for ( int j = 1; j < Ny - 1; j++  ) {
+            F2 += 4 * H2[i][j];
+        }
+    }
+    return 0.25 * ax * ay * ( F1 + F2 );
 }
 
 // calculating potential energy associated with the node i,j coord
 template <class Type>
 inline Type CalculateWPT(  int i, int j, vector<Type> &varsp  )
 {
-	Type f1real = varsp[( Ny + 1 ) * i + j];
-	Type f1imag = varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )];
-	Type f2real = varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )];
-	Type f2imag = varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )];
-	Type Theta1 = CppAD::atan2( f1imag + 1e-30, f1real + 1e-30 );
-	Type Theta2 = CppAD::atan2( f2imag + 1e-30, f2real + 1e-30 );
-	Type f1abs = f1real * f1real + f1imag * f1imag + 1e-30;
-	Type f2abs = f2real * f2real + f2imag * f2imag + 1e-30;
-	Type W = 0;
-	W = 0.5 * ( ( 2 * alpha1 + beta1 * f1abs ) * f1abs + 
+    Type f1real = varsp[( Ny + 1 ) * i + j];
+    Type f1imag = varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )];
+    Type f2real = varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )];
+    Type f2imag = varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )];
+    Type Theta1 = CppAD::atan2( f1imag + 1e-30, f1real + 1e-30 );
+    Type Theta2 = CppAD::atan2( f2imag + 1e-30, f2real + 1e-30 );
+    Type f1abs = f1real * f1real + f1imag * f1imag + 1e-30;
+    Type f2abs = f2real * f2real + f2imag * f2imag + 1e-30;
+    Type W = 0;
+    W = 0.5 * ( ( 2 * alpha1 + beta1 * f1abs ) * f1abs + 
         ( 2 * alpha2 + beta2 * f2abs ) * f2abs ) - 
         etta * sqrt( f1abs * f2abs ) * ( CppAD::cos( Theta2 - Theta1 ) );
-	return W;
+    return W;
 }
 
 // analyticl calculating kinetic energy associated with the node i,j coord
 template <class Type>
 inline Type CalculateTPT(  int i, int j, vector<Type> &varsp  )
 {
-	Type f1xre;
-	Type f2xre;
-	Type f1yre;
-	Type f2yre;
-	Type f1xim;
-	Type f2xim;
-	Type f1yim;
-	Type f2yim;
+    Type f1xre;
+    Type f2xre;
+    Type f1yre;
+    Type f2yre;
+    Type f1xim;
+    Type f2xim;
+    Type f1yim;
+    Type f2yim;
 
-	if ( i < Nx && j < Ny && i > 0 && j > 0 ) {
-		f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
+    if ( i < Nx && j < Ny && i > 0 && j > 0 ) {
+        f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
                   varsp[( Ny + 1 ) * ( i - 1 ) + j] ) / 2 * rax;
-		f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
                   varsp[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * 
                         ( Ny + 1 )] ) / 2 * rax;
-		f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
                         ( Ny + 1 )] - 
                   varsp[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
                         ( Ny + 1 )] ) / 2 * rax;
-		f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
                         ( Ny + 1 )] - 
                   varsp[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
                         ( Ny + 1 )] ) / 2 * rax;
 
-		f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
                   varsp[( Ny + 1 ) * i + j - 1] ) / 2 * ray;
-		f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
                   varsp[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * 
                         ( Ny + 1 )] ) / 2 * ray;
-		f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
                   varsp[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * 
                         ( Ny + 1 )] ) / 2 * ray;
-		f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
                   varsp[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * 
                         ( Ny + 1 )] ) / 2 * ray;
-	} else if ( i == 0 && j == 0 ) {
-		f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
+    } else if ( i == 0 && j == 0 ) {
+        f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
             varsp[( Ny + 1 ) * i + j] ) * rax;
-		f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] - varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
             varsp[( Ny + 1 ) * i + j] ) * ray;
-		f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	} else if ( i == 0 && j > 0 && j < Ny ) {
-		f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
+    } else if ( i == 0 && j > 0 && j < Ny ) {
+        f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
             varsp[( Ny + 1 ) * i + j] ) * rax;
-		f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] - varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
             varsp[( Ny + 1 ) * i + j - 1] ) / 2 * ray;
-		f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) / 2 * ray;
-		f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * ray;
-		f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * ray;
-	} else if ( i == 0 && j == Ny ) {
-		f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
+    } else if ( i == 0 && j == Ny ) {
+        f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
             varsp[( Ny + 1 ) * i + j] ) * rax;
-		f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] - varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( varsp[( Ny + 1 ) * i + j] - 
+        f1yre = ( varsp[( Ny + 1 ) * i + j] - 
             varsp[( Ny + 1 ) * i + j - 1] ) * ray;
-		f1yim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	} else if ( i > 0 && i < Nx && j == 0 ) {
-		f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
+    } else if ( i > 0 && i < Nx && j == 0 ) {
+        f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j] ) / 2 * rax;
-		f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * rax;
-		f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - varsp[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * rax;
-		f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] - varsp[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * rax;
 
-		f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
             varsp[( Ny + 1 ) * i + j] ) * ray;
-		f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	} else if ( i > 0 && i < Nx && j == Ny ) {
-		f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
+    } else if ( i > 0 && i < Nx && j == Ny ) {
+        f1xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j] ) / 2 * rax;
-		f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) 
             / 2 * rax;
-		f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
+        f2xre = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] - varsp[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * rax;
-		f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
+        f2xim = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] - varsp[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * rax;
 
-		f1yre = ( varsp[( Ny + 1 ) * i + j] - 
+        f1yre = ( varsp[( Ny + 1 ) * i + j] - 
             varsp[( Ny + 1 ) * i + j - 1] ) * ray;
-		f1yim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	} else if ( i == Nx && j == 0 )	{
-		f1xre = ( varsp[( Ny + 1 ) * i + j] - 
+    } else if ( i == Nx && j == 0 ) {
+        f1xre = ( varsp[( Ny + 1 ) * i + j] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j] ) * rax;
-		f1xim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
             varsp[( Ny + 1 ) * i + j] ) * ray;
-		f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	} else if ( i == Nx && j > 0 && j < Ny ) {
-		f1xre = ( varsp[( Ny + 1 ) * i + j] - 
+    } else if ( i == Nx && j > 0 && j < Ny ) {
+        f1xre = ( varsp[( Ny + 1 ) * i + j] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j] ) * rax;
-		f1xim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
+        f1yre = ( varsp[( Ny + 1 ) * i + j + 1] - 
             varsp[( Ny + 1 ) * i + j - 1] ) / 2 * ray;
-		f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( varsp[( Ny + 1 ) * i + j + 1 + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) / 2 * ray;
-		f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( varsp[( Ny + 1 ) * i + j + 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) / 2 * ray;
-		f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( varsp[( Ny + 1 ) * i + j + 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * 
                 ( Ny + 1 )] ) / 2 * ray;
-	} else if ( i == Nx && j == Ny ) {
-		f1xre = ( varsp[( Ny + 1 ) * i + j] - 
+    } else if ( i == Nx && j == Ny ) {
+        f1xre = ( varsp[( Ny + 1 ) * i + j] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j] ) * rax;
-		f1xim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1xim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + ( Nx + 1 ) * ( Ny + 1 )] ) * rax;
-		f2xre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + 2 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
-		f2xim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2xim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * ( i - 1 ) + j + 3 * ( Nx + 1 ) * 
             ( Ny + 1 )] ) * rax;
 
-		f1yre = ( varsp[( Ny + 1 ) * i + j] - 
+        f1yre = ( varsp[( Ny + 1 ) * i + j] - 
             varsp[( Ny + 1 ) * i + j - 1] ) * ray;
-		f1yim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
+        f1yim = ( varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yre = ( varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + 2 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-		f2yim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
+        f2yim = ( varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] - 
             varsp[( Ny + 1 ) * i + j - 1 + 3 * ( Nx + 1 ) * ( Ny + 1 )] ) * ray;
-	}
+    }
 
-	Type Axf1re = varsp[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    Type Axf1re = varsp[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
         varsp[( Ny + 1 ) * i + j];
-	Type Axf1im = varsp[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    Type Axf1im = varsp[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
         varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )];
-	Type Axf2re = varsp[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    Type Axf2re = varsp[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
         varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )];
-	Type Axf2im = varsp[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    Type Axf2im = varsp[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] * 
         varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )];
-	Type Ayf1re = varsp[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    Type Ayf1re = varsp[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
         varsp[( Ny + 1 ) * i + j];
-	Type Ayf1im = varsp[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    Type Ayf1im = varsp[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
         varsp[( Ny + 1 ) * i + j + ( Nx + 1 ) * ( Ny + 1 )];
-	Type Ayf2re = varsp[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    Type Ayf2re = varsp[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
         varsp[( Ny + 1 ) * i + j + 2 * ( Nx + 1 ) * ( Ny + 1 )];
-	Type Ayf2im = varsp[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
+    Type Ayf2im = varsp[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] * 
         varsp[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )];
 
-	Type T1x = ( f1xre - e * Axf1im ) * ( f1xre - e * Axf1im ) + 
+    Type T1x = ( f1xre - e * Axf1im ) * ( f1xre - e * Axf1im ) + 
         ( f1xim + e * Axf1re ) * ( f1xim + e * Axf1re );
-	Type T1y = ( f1yre - e * Ayf1im ) * ( f1yre - e * Ayf1im ) + 
+    Type T1y = ( f1yre - e * Ayf1im ) * ( f1yre - e * Ayf1im ) + 
         ( f1yim + e * Ayf1re ) * ( f1yim + e * Ayf1re );
-	Type T2x = ( f2xre - e * Axf2im ) * ( f2xre - e * Axf2im ) + 
+    Type T2x = ( f2xre - e * Axf2im ) * ( f2xre - e * Axf2im ) + 
         ( f2xim + e * Axf2re ) * ( f2xim + e * Axf2re );
-	Type T2y = ( f2yre - e * Ayf2im ) * ( f2yre - e * Ayf2im ) + 
+    Type T2y = ( f2yre - e * Ayf2im ) * ( f2yre - e * Ayf2im ) + 
         ( f2yim + e * Ayf2re ) * ( f2yim + e * Ayf2re );
-	Type T = 0.5 * ( ( T1x  +  T1y )  +  ( T2x  +  T2y ) );
-	return T;
+    Type T = 0.5 * ( ( T1x  +  T1y )  +  ( T2x  +  T2y ) );
+    return T;
 }
 
 // analytic calculation energy of magnetic field associated with node i,j coord
 template <class Type> 
 inline Type CalculateH2PT( int i, int j, vector<Type> &varsp )
 {
-	Type H;
-	Type Ay_up = ( varsp[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] + 
+    Type H;
+    Type Ay_up = ( varsp[( Ny + 1 ) * i + j + 5 * ( Nx + 1 ) * ( Ny + 1 )] + 
         varsp[( Ny + 1 ) * i + j + 1 + 5 * ( Nx + 1 ) * ( Ny + 1 )] ) / 2;
-	Type Ay_down = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 5 * ( Nx + 1 ) * 
+    Type Ay_down = ( varsp[( Ny + 1 ) * ( i + 1 ) + j + 5 * ( Nx + 1 ) * 
         ( Ny + 1 )] + varsp[( Ny + 1 ) * ( i + 1 ) + j + 1 + 5 * ( Nx + 1 ) * 
         ( Ny + 1 )] ) / 2;
-	Type Ax_right = ( varsp[( Ny + 1 ) * i + j + 1 + 4 * ( Nx + 1 ) * 
+    Type Ax_right = ( varsp[( Ny + 1 ) * i + j + 1 + 4 * ( Nx + 1 ) * 
         ( Ny + 1 )] + varsp[( Ny + 1 ) * ( i + 1 ) + j + 1 + 4 * ( Nx + 1 ) * 
         ( Ny + 1 )] ) / 2;
-	Type Ax_left = ( varsp[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] + 
+    Type Ax_left = ( varsp[( Ny + 1 ) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] + 
         varsp[( Ny + 1 ) * ( i + 1 ) + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] ) / 2;
-	H = ( - Ay_up * ay + Ax_left * ax + Ay_down * ay - Ax_right * ax ) * 
+    H = ( - Ay_up * ay + Ax_left * ax + Ay_down * ay - Ax_right * ax ) * 
         rax * ray;
 
-	return 0.5 * H * H;
+    return 0.5 * H * H;
 }
 
 // analytic integration by the square method
 template <class Type> inline Type EnergySquareT( vector<Type> &varsp )
 {
-	Type F = 0.0;
-	Type W0 = 0.0;
-	Type T0 = 0.0;
-	Type H20 = 0.0;
+    Type F = 0.0;
+    Type W0 = 0.0;
+    Type T0 = 0.0;
+    Type H20 = 0.0;
 
-	for ( int i = 0; i < Nx + 1; i++ ) {
-		for ( int j = 0; j < Ny + 1; j++ ) {
-			F += CalculateWPT( i, j, varsp ) + CalculateTPT( i, j, varsp );
-		}
-	}
-	for ( int i = 0; i < Nx; i++ ) {
-		for ( int j = 0; j < Ny; j++ ) {
-			F += CalculateH2PT( i, j, varsp );
-		}
-	}
-	return ax * ay * F;
+    for ( int i = 0; i < Nx + 1; i++ ) {
+        for ( int j = 0; j < Ny + 1; j++ ) {
+            F += CalculateWPT( i, j, varsp ) + CalculateTPT( i, j, varsp );
+        }
+    }
+    for ( int i = 0; i < Nx; i++ ) {
+        for ( int j = 0; j < Ny; j++ ) {
+            F += CalculateH2PT( i, j, varsp );
+        }
+    }
+    return ax * ay * F;
 }
 
 // analytic integration by the trapezoid method
 template <class Type> inline Type EnergyTrapzT( vector<Type> &varsp )
 {
-	Type F1 = 0.0;
-	Type F2 = 0.0;
-	Type W0 = 0.0;
-	Type T0 = 0.0;
-	Type H20 = 0.0;
+    Type F1 = 0.0;
+    Type F2 = 0.0;
+    Type W0 = 0.0;
+    Type T0 = 0.0;
+    Type H20 = 0.0;
 
-	F1 += CalculateWP( 0, 0, varsp ) + CalculateTP( 0, 0, varsp );
-	F1 += CalculateWP( Nx, Ny, varsp ) + CalculateTP( Nx, Ny, varsp );
-	F1 += CalculateWP( 0, Ny, varsp ) + CalculateTP( 0, Ny, varsp );
-	F1 += CalculateWP( Nx, 0, varsp ) + CalculateTP( Nx, 0, varsp );
-	for (  int i = 1; i < Nx; i++ ) {
-		F1 += 2 * ( CalculateWP( i, 0, varsp ) + 
+    F1 += CalculateWP( 0, 0, varsp ) + CalculateTP( 0, 0, varsp );
+    F1 += CalculateWP( Nx, Ny, varsp ) + CalculateTP( Nx, Ny, varsp );
+    F1 += CalculateWP( 0, Ny, varsp ) + CalculateTP( 0, Ny, varsp );
+    F1 += CalculateWP( Nx, 0, varsp ) + CalculateTP( Nx, 0, varsp );
+    for (  int i = 1; i < Nx; i++ ) {
+        F1 += 2 * ( CalculateWP( i, 0, varsp ) + 
             CalculateTP( i, 0, varsp ) );
-		F1 += 2 * ( CalculateWP( i, Ny, varsp ) + 
+        F1 += 2 * ( CalculateWP( i, Ny, varsp ) + 
             CalculateTP( i, Ny, varsp ) );
-	}
-	for (  int j = 1; j < Ny; j++  ) {
-		F1 += 2 * ( CalculateWP( 0, j, varsp ) + CalculateTP( 0, j, varsp ) );
-		F1 += 2 * ( CalculateWP( Nx, j, varsp ) + CalculateTP( Nx, j, varsp ) );
-	}
-	for (  int i = 1; i < Nx; i++ ) {
-		for (  int j = 1; j < Ny; j++  ) {
-			F1 += 4 * ( CalculateWP( i, j, varsp ) + 
+    }
+    for (  int j = 1; j < Ny; j++  ) {
+        F1 += 2 * ( CalculateWP( 0, j, varsp ) + CalculateTP( 0, j, varsp ) );
+        F1 += 2 * ( CalculateWP( Nx, j, varsp ) + CalculateTP( Nx, j, varsp ) );
+    }
+    for (  int i = 1; i < Nx; i++ ) {
+        for (  int j = 1; j < Ny; j++  ) {
+            F1 += 4 * ( CalculateWP( i, j, varsp ) + 
                 CalculateTP( i, j, varsp ) );
-		}
-	}
-	F2 += CalculateH2P( 0, 0, varsp );
-	F2 += CalculateH2P( Nx - 1, Ny - 1, varsp );
-	F2 += CalculateH2P( 0, Ny - 1, varsp );
-	F2 += CalculateH2P( Nx - 1, 0, varsp );
-	for (  int i = 1; i < Nx - 1; i++ ) {
-		F2 += 2 * CalculateH2P( i, 0, varsp );
-		F2 += 2 * CalculateH2P( i, Ny - 1, varsp );
-	}
-	for (  int j = 1; j < Ny - 1; j++ ) {
-		F2 += 2 * CalculateH2P( 0, j, varsp );
-		F2 += 2 * CalculateH2P( Nx - 1, j, varsp );
-	}
-	for (  int i = 1; i < Nx - 1; i++ ) {
-		for (  int j = 1; j < Ny - 1; j++ ) {
-			F2 += 4 * CalculateH2P( i, j, varsp );
-		}
-	}
-	return 0.25 * ax * ay * ( F1 + F2 );
+        }
+    }
+    F2 += CalculateH2P( 0, 0, varsp );
+    F2 += CalculateH2P( Nx - 1, Ny - 1, varsp );
+    F2 += CalculateH2P( 0, Ny - 1, varsp );
+    F2 += CalculateH2P( Nx - 1, 0, varsp );
+    for (  int i = 1; i < Nx - 1; i++ ) {
+        F2 += 2 * CalculateH2P( i, 0, varsp );
+        F2 += 2 * CalculateH2P( i, Ny - 1, varsp );
+    }
+    for (  int j = 1; j < Ny - 1; j++ ) {
+        F2 += 2 * CalculateH2P( 0, j, varsp );
+        F2 += 2 * CalculateH2P( Nx - 1, j, varsp );
+    }
+    for (  int i = 1; i < Nx - 1; i++ ) {
+        for (  int j = 1; j < Ny - 1; j++ ) {
+            F2 += 4 * CalculateH2P( i, j, varsp );
+        }
+    }
+    return 0.25 * ax * ay * ( F1 + F2 );
 }
 
 // block of minimization algorithm LBFGS from HLBFGS
 void evalfunc( int n, double *x, double *prev_x, double *f, double *g )
 {
-	double ff = FillEnergyTableSquare( x );
-	*f = ff;
-	vector<double> g1( n );
-	vector<double> xx( n );
-	for ( int i = 0; i < n; i++ ) {
-		xx[i] = x[i];
-	}
-	g1 = fun.Jacobian( xx );
-	for ( int i = 0; i < n; i++ ) {
-		g[i] = g1[i];
-	}
-	g1.clear();
+    double ff = FillEnergyTableSquare( x );
+    *f = ff;
+    vector<double> g1( n );
+    vector<double> xx( n );
+    for ( int i = 0; i < n; i++ ) {
+        xx[i] = x[i];
+    }
+    g1 = fun.Jacobian( xx );
+    for ( int i = 0; i < n; i++ ) {
+        g[i] = g1[i];
+    }
+    g1.clear();
 }
 
 // print information about new iteration
 void newiteration( int iter, int call_iter, double *x, double *f, double *g, 
                    double *gnorm )
 {
-	nextTime = get_ticks();
-	printf( "[%u][%d]: %.8f %.8f %.8f\n", nextTime - predTime, call_iter, 
+    nextTime = get_ticks();
+    printf( "[%u][%d]: %.8f %.8f %.8f\n", nextTime - predTime, call_iter, 
         *g, *f, *gnorm );
-	predTime = nextTime;
+    predTime = nextTime;
 }
 
 // main block of programm
