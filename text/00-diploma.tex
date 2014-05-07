@@ -13,11 +13,22 @@
 \usepackage[square, numbers, sort&compress]{natbib}
 \usepackage{tocloft}
 \usepackage{caption}
+\usepackage{listings}
 \geometry{left=2cm}
 \geometry{right=1.5cm}
 \geometry{top=1cm}
 \geometry{bottom=2cm}
 \graphicspath{{images/}}
+
+\lstset{
+    extendedchars=\true,
+    inputencoding=utf8,
+    basicstyle=\footnotesize,
+    keepspaces=true,
+    breaklines=true,
+    breakatwhitespace=false, 
+    tabsize=2, 
+}
 
 \renewcommand{\rmdefault}{ftm}
 \renewcommand{\cfttoctitlefont}{\normalfont}
@@ -101,23 +112,15 @@
 \setlength{\parindent}{1.25cm}
 \input{01-title}
 \input{02-referat}
-\newpage
 \renewcommand{\contentsname}{\begin{center}Содержание\end{center}}
 \tableofcontents
 \newpage
 \input{03-abbreviations}
-\newpage
 \input{04-intro}
-\newpage
 \input{05-text}
-\newpage
 \input{06-math}
-\newpage
 \input{07-main}
-\newpage
 \input{08-conclusion}
-\newpage
 \input{09-literature}
-\newpage
 \input{10-apps}
 \end{document}
