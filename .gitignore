@@ -7,3 +7,6 @@
 *.djvu
 *.txt
 *.avi
+books/
+text/draft/
+data/
