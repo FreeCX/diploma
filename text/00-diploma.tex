@@ -3,7 +3,8 @@
 \usepackage[utf8x]{inputenc}
 \usepackage[english,russian]{babel}
 \usepackage{indentfirst}
-\usepackage{amssymb,amsfonts,amsmath,mathtext,cite,enumerate,float}
+\usepackage{amssymb, amsthm, amsfonts, amsmath, mathtext, wasysym}
+\usepackage{cite, enumerate, float}
 \usepackage{graphicx}
 \usepackage{multicol, multirow, array}
 \usepackage{times}
@@ -14,6 +15,7 @@
 \usepackage{tocloft}
 \usepackage{caption}
 \usepackage{listings}
+\usepackage[colorlinks,linkcolor=black,citecolor=black,urlcolor=blue]{hyperref}
 \geometry{left=2cm}
 \geometry{right=1.5cm}
 \geometry{top=1cm}
@@ -64,7 +66,7 @@
 \makeatother
 
 \makeatletter
-% \bibliographystyle{srt}
+\bibliographystyle{srt}
 \renewcommand{\@biblabel}[1]{#1} 
 \makeatother
 \titleformat{\chapter}
@@ -107,11 +109,25 @@
 \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii})}
 \renewcommand{\theenumiii}{.\arabic{enumiii}}
 \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii})}
+
+\newcommand{\pder}[2] {\frac{\partial #1}{\partial #2}}
+% частная производная от #1 по #2
+\newcommand{\ppder}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
+% вторая частная производная от #1 по #2
+\newcommand{\pcder}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+% вторая частная производная от #1 по #2 и #3
+\newcommand{\der}[2]  {\frac{d #1}{d #2}}
+% производная от #1 по #2
+\newcommand{\dder}[2] {\frac{d^2 #1}{d {#2}^2}}
+% вторая производная от #1 по #2
+\newcommand{\abs}[1]{\left| #1 \right|}
+% обозначение модуля
+
 \begin{document}
 \onehalfspacing
 \setlength{\parindent}{1.25cm}
-\input{01-title}
-\input{02-referat}
+% \input{01-title}
+% \input{02-referat}
 \renewcommand{\contentsname}{\begin{center}Содержание\end{center}}
 \tableofcontents
 \newpage
@@ -119,7 +135,7 @@
 \input{04-intro}
 \input{05-text}
 \input{06-math}
-\input{07-main}
+% \input{07-main}
 \input{08-conclusion}
 \input{09-literature}
 \input{10-apps}
