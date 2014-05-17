@@ -1,17 +1,7 @@
-\addcontentsline{toc}{chapter}{Приложение А Результаты экспериментов}
-\label{ch:A}
-\begin{center}
-    Приложение А\\
-    Результаты экспериментов
-\end{center}
+\append{Приложение А Результаты экспериментов}
 \newpage
 
-\addcontentsline{toc}{chapter}{Приложение А Единицы измерения}
-\label{ch:B}
-\begin{center}
-    Приложение Б\\
-    Единицы измерения
-\end{center}
+\append{Приложение Б Единицы измерения}
 
 В этом разделе дадим явное отображение используемого представления модели ГЛ к 
 более общему виду представленного в учебниках. Рассмотрим модель 
@@ -23,8 +13,8 @@
   & - \nu\hbar^2 \Re\left\{ \left( \nabla - i\frac{e^*}{\hbar c}
     \right)\psi_1 \left( \nabla + i\frac{e^*}{\hbar c}A \right)
     \psi^*_2\right\} + \frac{1}{8\pi}\left( \nabla\times A \right)^2 +
-    \alpha_1\abs{\psi_1}^2 + \frac{1}{2}\beta_1\abs{\psi_1}^4 + \nonumber \\
-  & + \alpha_2\abs{\psi_2}^2 + \frac{1}{2}
+    \alpha_1\abs{\psi_1}^2 + \nonumber \\
+  & \frac{1}{2}\beta_1\abs{\psi_1}^4 + \alpha_2\abs{\psi_2}^2 + \frac{1}{2}
     \beta_2\abs{\psi_2}^4 - \eta_1\abs{\psi_1}\abs{\psi_2}
     \cos(\theta_1 - \theta_2) + \eta_2\abs{\psi_1}^2\abs{\psi_2}^2.
     \label{eq:B-1}
@@ -46,10 +36,12 @@
 \begin{align}
   \tilde{F} = & \frac{1}{2}\abs{\left( \nabla + ie^*\tilde{A} \right)
     \tilde{\psi}_2}^2 + \frac{1}{2}\abs{\left( \nabla + ie^*\tilde{A} \right)
-    \tilde{\psi}_2}^2 - \tilde{\nu} \Re\left\{ \left( \nabla + ie^*\tilde{A}
+    \tilde{\psi}_2}^2 - \nonumber \\ 
+  & \tilde{\nu} \Re\left\{ \left( \nabla + ie^*\tilde{A}
     \right)\tilde{\psi}_1 \cdot \left( \nabla + ie^*\tilde{A} \right)
-    \tilde{\psi}^*_2 \right\} + \nonumber \\
-  & \frac{1}{2}\abs{\nabla\times\tilde{A}}^2 - \tilde{\alpha}_1
+    \tilde{\psi}^*_2 \right\} + \frac{1}{2}\abs{\nabla\times\tilde{A}}^2 - 
+    \nonumber \\
+  & \tilde{\alpha}_1
     \abs{\tilde{\psi}_1}^2 + \frac{\tilde{\beta}_1}{2}\abs{\tilde{\psi}_1}^2 +
     \tilde{\alpha}_2\abs{\tilde{\psi}_2}^2 +
     \frac{\tilde{\beta}_2}{2}\abs{\tilde{\psi}_2}^2 + \nonumber \\
@@ -107,7 +99,8 @@
 \begin{align}
   \bar{F} = & \frac{1}{2}\abs{\left( \hat{\nabla} + i\hat{e}\hat{A} \right)
     \hat{\psi}_1}^2 + \frac{1}{2}\abs{\left( \hat{\nabla} + i\hat{e}\hat{A}
-    \right)\hat{\psi}_2}^2 - \nu\Re\left\{ \left( \hat{\nabla} + i\hat{e}\hat{A}
+    \right)\hat{\psi}_2}^2 - \nonumber \\ 
+  & \nu\Re\left\{ \left( \hat{\nabla} + i\hat{e}\hat{A}
     \right) \hat{\psi}_1 \cdot \left( \hat{\nabla} - i\hat{e}\hat{A} \right)
     \hat{\psi}^*_2 \right\} + \nonumber \\
   & + \frac{1}{2}\abs{\hat{\nabla}\times\hat{A}}^2 - \abs{\hat{\psi}_1}^2 +
@@ -135,10 +128,5 @@
 
 \newpage
 
-\addcontentsline{toc}{chapter}{Приложение В Код программы}
-\label{ch:C}
-\begin{center}
-    Приложение В\\
-    Код программы
-\end{center}
+\append{Приложение В Код программы}
 \lstinputlisting[language=c++]{../code/calculation/vortex.cpp}

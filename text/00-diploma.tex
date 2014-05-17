@@ -15,82 +15,65 @@
 \usepackage{tocloft}
 \usepackage{caption}
 \usepackage{listings}
-\usepackage[colorlinks,linkcolor=black,citecolor=black,urlcolor=blue]{hyperref}
-\geometry{left=2cm}
+\usepackage{fancyhdr}
+\usepackage[colorlinks, linkcolor=black, citecolor=black, urlcolor=blue]{hyperref}
+\geometry{left=3cm}
 \geometry{right=1.5cm}
-\geometry{top=1cm}
-\geometry{bottom=2cm}
+\geometry{top=2.4cm}
+\geometry{bottom=2.4cm}
 \graphicspath{{images/}}
 
 \lstset{
+    language=C++,
     extendedchars=\true,
     inputencoding=utf8,
-    basicstyle=\footnotesize,
-    keepspaces=true,
-    breaklines=true,
-    breakatwhitespace=false, 
+    keywordstyle=\bfseries\ttfamily,
+    basicstyle=\footnotesize\ttfamily,
+    numbers=left,
+    numberstyle=\small\color{black},
     tabsize=2, 
 }
 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\fancyheadoffset{0mm}
+\fancyfootoffset{0mm}
+\setlength{\headheight}{17pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \rhead{\thepage}}
+\setcounter{page}{5}
+
 \renewcommand{\rmdefault}{ftm}
 \renewcommand{\cfttoctitlefont}{\normalfont}
-\makeatletter 
-\renewcommand*\l@chapter[2]{% 
-  \ifnum \c@tocdepth >\z@ 
-    \addpenalty\@secpenalty 
-    \addvspace{1.0em \@plus\p@}% 
-    \setlength\@tempdima{1.5em}% 
-    \begingroup 
-      \parindent \z@ \rightskip \@pnumwidth 
-      \parfillskip -\@pnumwidth 
-      \leavevmode 
-      \advance\leftskip\@tempdima 
-      \hskip -\leftskip 
-      #1\nobreak\cftdotfill{\cftdotsep} \nobreak\hb@xt@\@pnumwidth{\hss #2}\par 
-    \endgroup 
-  \fi} 
-\renewcommand*\l@section[2]{% 
-  \ifnum \c@tocdepth >\z@ 
-    \addpenalty\@secpenalty 
-    \addvspace{1.0em \@plus\p@}% 
-    \setlength\@tempdima{1.5em}% 
-    \begingroup 
-      \parindent \z@ \rightskip \@pnumwidth 
-      \parfillskip -\@pnumwidth 
-      \leavevmode 
-      \advance\leftskip\@tempdima 
-      \hskip -\leftskip 
-      #1\nobreak\cftdotfill{\cftdotsep} \nobreak\hb@xt@\@pnumwidth{\hss #2}\par 
-    \endgroup 
-  \fi} 
-\makeatother
+\titleformat{\chapter}[display]
+  {\filcenter}
+  {\MakeUppercase{\chaptertitlename} \thechapter}
+  {8pt}
+  {\bfseries}{}
+  
+\titleformat{\section}
+  {\normalsize\bfseries}
+  {\thesection}
+  {1em}{}
+  
+\titleformat{\subsection}
+  {\normalsize\bfseries}
+  {\thesubsection}
+  {1em}{}
+  
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\paragraph}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
 
 \makeatletter
 \bibliographystyle{gost780s}
 \renewcommand{\@biblabel}[1]{#1} 
 \makeatother
-\titleformat{\chapter}
-    {\normalsize\MakeUppercase}
-    {\thechapter}
-    {1em}{}
-
-\titleformat{\section}
-    {\normalsize}
-    {\thesection}
-    {1em}{}
-
-\titleformat{\subsection}
-    {\normalsize}
-    {\thesubsection}
-    {1em}{}
-\renewcommand{\bibsection}{%
-    \titleformat{\chapter} {\normalfont\filcenter}{}{}{}
-    \titlespacing*{\chapter}{\parindent}{*4}{*0}
-    \chapter*{ \bibname \markboth{\bibname}{\bibname}}}
-% Настройка вертикальных и горизонтальных отступов
-\titlespacing*{\chapter}{\parindent}{*4}{18pt}
-\titlespacing*{\section}{\parindent}{*4}{18pt}
-% \titlespacing*{\subsection}{\parindent}{*4}{*1}
 
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
 \renewcommand{\arraystretch}{1.2}
@@ -102,6 +85,12 @@
 \captionsetup{labelsep=sep,justification=centering,font=small}
 \captionsetup[figure]{labelformat=figure}
 \captionsetup[table]{labelformat=table}
+
+\newcommand{\append}[1]{
+    \clearpage
+    \stepcounter{chapter}   
+    \paragraph{\MakeUppercase{#1}}
+    \addcontentsline{toc}{chapter}{\texorpdfstring{{#1}}{#1}}}
 
 \renewcommand{\theenumi}{\arabic{enumi}}
 \renewcommand{\labelenumi}{\arabic{enumi})}
@@ -123,19 +112,19 @@
 \newcommand{\abs}[1]{\left| #1 \right|}
 % обозначение модуля
 
+\addto{\captionsrussian}{\renewcommand*{\contentsname}{СОДЕРЖАНИЕ}}
+
 \begin{document}
 \onehalfspacing
-\setlength{\parindent}{1.25cm}
 % \input{01-title}
 % \input{02-referat}
-\renewcommand{\contentsname}{\begin{center}Содержание\end{center}}
 \tableofcontents
 \newpage
 \input{03-abbreviations}
 \input{04-intro}
 \input{05-text}
 \input{06-math}
-% \input{07-main}
+\input{07-main}
 \input{08-conclusion}
 \input{09-literature}
 \input{10-apps}
