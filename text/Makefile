@@ -8,4 +8,4 @@ default:
 	$(COMPILER) $(FLAGS) $(SOURCE)
 
 clean:
-	rm -f *.{log,aux,toc}
+	rm -f *.{aux,bbl,blg,log,out,toc,gz}
