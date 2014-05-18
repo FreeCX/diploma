@@ -48,22 +48,21 @@
 \setcounter{page}{5}
 
 \renewcommand{\rmdefault}{ftm}
-\renewcommand{\cfttoctitlefont}{\normalfont}
-\titleformat{\chapter}[display]
-  {\filcenter}
-  {\MakeUppercase{\chaptertitlename} \thechapter}
-  {8pt}
-  {\bfseries}{}
-  
+
+\titleformat{\chapter}
+    {\centering\normalsize}
+    {\thechapter}
+    {8pt}{}
+ 
 \titleformat{\section}
-  {\normalsize\bfseries}
-  {\thesection}
-  {1em}{}
-  
+    {\centering\normalsize}
+    {\thesection}
+    {1em}{}
+ 
 \titleformat{\subsection}
-  {\normalsize\bfseries}
-  {\thesubsection}
-  {1em}{}
+    {\centering\normalsize}
+    {\thesubsection}
+    {1em}{}
   
 \titlespacing*{\chapter}{0pt}{-30pt}{8pt}
 \titlespacing*{\paragraph}{0pt}{-30pt}{8pt}
@@ -86,11 +85,20 @@
 \captionsetup[figure]{labelformat=figure}
 \captionsetup[table]{labelformat=table}
 
-\newcommand{\append}[1]{
-    \clearpage
-    \stepcounter{chapter}   
-    \paragraph{\MakeUppercase{#1}}
-    \addcontentsline{toc}{chapter}{\texorpdfstring{{#1}}{#1}}}
+\renewcommand{\cfttoctitlefont}{\normalfont\hspace{0.38\textwidth}}
+\renewcommand{\cftbeforetoctitleskip}{-1em}
+\renewcommand{\cftchapfont}{\normalsize}
+\renewcommand{\cftsecfont}{\hspace{-21pt}}
+\renewcommand{\cftsubsecfont}{\hspace{-53pt}}
+\renewcommand{\cftbeforechapskip}{0em}
+\renewcommand{\cftparskip}{-1mm}
+\renewcommand{\cftdotsep}{1}
+\renewcommand{\cftsecpresnum}{}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecaftersnum}{.}
+\renewcommand{\cftsubsecaftersnum}{.}
+\setcounter{tocdepth}{2}
 
 \renewcommand{\theenumi}{\arabic{enumi}}
 \renewcommand{\labelenumi}{\arabic{enumi})}
@@ -116,8 +124,8 @@
 
 \begin{document}
 \onehalfspacing
-% \input{01-title}
-% \input{02-referat}
+\input{01-title}
+\input{02-referat}
 \tableofcontents
 \newpage
 \input{03-abbreviations}
