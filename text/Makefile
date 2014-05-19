@@ -4,6 +4,7 @@ SOURCE=00-diploma.tex
 
 default:
 	$(COMPILER) $(FLAGS) $(SOURCE)
+	-bibtexu diploma.aux
 	$(COMPILER) $(FLAGS) $(SOURCE)
 	$(COMPILER) $(FLAGS) $(SOURCE)
 
