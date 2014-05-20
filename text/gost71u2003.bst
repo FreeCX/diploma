@@ -330,10 +330,10 @@ FUNCTION {bbl.vvolume} %  { "\bblVolume{}" }
 
 FUNCTION {bbl.vvol}    %  { "\bblVol{}" }
 {  curlanguage "english" =
-    {"Vol."}
+    {"V."}
     { curlanguage "ukrainian" = curlanguage "russian" = or
            {"\CYRT."}
-           {"language is not defined: " language  "Vol." * * warning$ "Vol."}
+           {"language is not defined: " language  "V." * * warning$ "V."}
       if$}
   if$
 }
@@ -515,7 +515,7 @@ FUNCTION {format.names.rev}
       format.name$ 't :=
       nameptr #1 >
         {
-          nameptr #4 =
+          nameptr #2 =
           numnames #4 > and
             { "others" 't :=
               #1 'namesleft := }
@@ -937,7 +937,7 @@ FUNCTION {format.url}
 { url empty$
     { "" }
     { after.sentence 'output.state :=
-      "\BibUrl{ " url * "}" *
+      " --- Режим доступа : \BibUrl{ " url * "}" *
     }
   if$
 }
