@@ -933,11 +933,20 @@ FUNCTION {editor.organization.after}
   if$
 }
 
+FUNCTION {format.access} 
+{ curlanguage "english" = 
+    { " --- Available at : "}
+    { curlanguage "russian" =
+      { " --- Режим доступа : " }
+    if%$}
+  if%$
+}
+
 FUNCTION {format.url}
 { url empty$
     { "" }
     { after.sentence 'output.state :=
-      " --- Режим доступа : \BibUrl{ " url * "}" *
+      format.access * "\BibUrl{ " url * "}" *
     }
   if$
 }
