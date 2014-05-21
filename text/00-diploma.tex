@@ -17,6 +17,7 @@
 \usepackage{listings}
 \usepackage{fancyhdr}
 \usepackage[colorlinks, linkcolor=black, citecolor=black, urlcolor=blue]{hyperref}
+\usepackage{algorithm2e}
 \geometry{left=3cm}
 \geometry{right=1.5cm}
 \geometry{top=2.4cm}
@@ -81,7 +82,7 @@
 \DeclareCaptionLabelFormat{figure}{Рисунок #2}
 \DeclareCaptionLabelFormat{table}{Таблица #2}
 \DeclareCaptionLabelSeparator{sep}{~---~}
-\captionsetup{labelsep=sep,justification=centering,font=small}
+\captionsetup{labelsep=sep, justification=centering, font=small}
 \captionsetup[figure]{labelformat=figure}
 \captionsetup[table]{labelformat=table}
 
@@ -119,6 +120,13 @@
 % вторая производная от #1 по #2
 \newcommand{\abs}[1]{\left| #1 \right|}
 % обозначение модуля
+
+% Перевод плагина algorithm2e
+\SetKwInput{KwData}{Исходные параметры}
+\SetKwInput{KwResult}{Результат}
+\SetKwIF{If}{ElseIf}{Else}{если}{тогда}{иначе\ если}{иначе}{конец\ условия}
+\SetKwFor{While}{до\ тех\ пор,\ пока}{выполнять}{конец\ цикла}
+\SetAlgorithmName{Алгоритм}{алгоритм}{Список алгоритмов}
 
 \addto{\captionsrussian}{\renewcommand*{\contentsname}{СОДЕРЖАНИЕ}}
 
