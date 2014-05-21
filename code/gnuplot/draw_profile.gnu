@@ -1,5 +1,4 @@
-set terminal pdf font 'Meslo LG L, 12' size 5.0in,5.0in
-set size square 1.0,1.0
+set terminal pdf font 'Meslo LG L, 12' size 5.0in,4.0in
 set format y '%.1f'
 set key above
 set output 'band_profile.pdf'
