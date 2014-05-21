@@ -4,6 +4,7 @@
 \usepackage[utf8x]{inputenc}
 \usepackage[russian]{babel}
 \usepackage{graphicx}
+\usepackage{algorithm2e}
 \usetheme{Pittsburgh}
 
 \graphicspath{{../plots/data_01/},{../images/}}
@@ -19,6 +20,13 @@
         }%
     }
 \makeatother
+
+% Перевод плагина algorithm2e
+\SetKwInput{KwData}{Исходные параметры}
+\SetKwInput{KwResult}{Результат}
+\SetKwIF{If}{ElseIf}{Else}{если}{тогда}{иначе\ если}{иначе}{конец\ условия}
+\SetKwFor{While}{до\ тех\ пор,\ пока}{выполнять}{конец\ цикла}
+\SetAlgorithmName{Алгоритм}{алгоритм}{Список алгоритмов}
 
 \begin{document}
     \input{text}
