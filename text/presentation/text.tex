@@ -63,7 +63,29 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Моделирование структуры вихрей}
+    \frametitle{Метод моделирование структуры вихрей}
+    \framesubtitle{Алгоритм Бройдена -- Флетчера -- Гольдфарба -- Шанно}
+    \begin{center}
+        \begin{minipage}{2in}
+            \begin{algorithm}[H]
+                \scriptsize
+                \SetAlgoLined
+                \KwData{$x_0, \delta, C_0$}
+                $k \gets 0$\;
+                \While{ истина }{
+                    $ d_0 \gets -C_k \nabla f(x_k) $\;
+                    $ \alpha_k \gets $ Линейный поиск($ x_k, f) $\;
+                    $ x_{k+1} \gets x_k + \alpha_k d_k $\;
+                    Посчитать $ C_{k+1} $ \;
+                    $ k \gets k + 1 $ \;
+                    \If{$ ||\nabla f(x_k) || \leq \delta $}{
+                        остановить\;
+                    }
+                }
+                \KwResult{$ x_k, f(x_k) $ и $ \nabla f(x_k) $}
+            \end{algorithm}
+        \end{minipage}
+    \end{center}
 \end{frame}
 
 \begin{frame}
