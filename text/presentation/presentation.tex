@@ -1,8 +1,12 @@
-\documentclass[14pt,pdf,hyperref={unicode}]{beamer}
+\documentclass[14pt,pdf,hyperref={unicode},aspectratio=169]{beamer}
+% \documentclass[14pt,pdf,hyperref={unicode}]{beamer}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage[russian]{babel}
+\usepackage{graphicx}
 \usetheme{Pittsburgh}
+
+\graphicspath{{../plots/data_01/},{../images/}}
 
 \makeatletter
     \long\def\beamer@@frametitle[#1]#2{%
@@ -18,4 +22,4 @@
 
 \begin{document}
     \input{text}
-\end
+\end{document}
