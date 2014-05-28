@@ -935,10 +935,8 @@ FUNCTION {editor.organization.after}
 
 FUNCTION {bbl.access} 
 { curlanguage "english" = 
-    { "Available at"}
-    { curlanguage "russian" =
-      { "Режим доступа" }
-    if$}
+    { "Available at" }
+    { "Режим доступа" }
   if$
 }
 
