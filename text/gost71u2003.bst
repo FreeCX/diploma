@@ -583,11 +583,20 @@ FUNCTION {format.compiler.after}
   if$
 }
 
+FUNCTION {format.resource} 
+{ curlanguage "english" = 
+    { " [Electronic resource]" }
+    { " [Электронный ресурс]" }
+  if$
+}
+
 FUNCTION {format.title}
 { title empty$
     { "" }
-    { title "t" change.case$
-    }
+    { url empty$
+      { title "t" change.case$ }
+      { title format.resource * }
+    if$ }
   if$
 }
 
