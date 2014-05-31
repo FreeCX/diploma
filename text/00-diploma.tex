@@ -22,15 +22,16 @@
 \geometry{right=1.5cm}
 \geometry{top=2.4cm}
 \geometry{bottom=2.4cm}
-\graphicspath{{images/},{matplotlib/}}
+\graphicspath{{images/},{plots/}}
 
 \newcommand{\spch}{:~}
 
+\renewcommand{\ttdefault}{pcr} % use Courier font
 \lstset{
     language=C++,
     extendedchars=\true,
     inputencoding=utf8,
-    basicstyle=\footnotesize,
+    basicstyle=\ttfamily,
     keywordstyle=\bfseries,
     commentstyle=\itshape,
     numbers=left,
