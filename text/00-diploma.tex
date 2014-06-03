@@ -77,8 +77,30 @@
 \titlespacing*{\subsection}{\parindent}{*4}{*4}
 
 \makeatletter
+
 \bibliographystyle{gost71u2003}
 \renewcommand{\@biblabel}[1]{#1} 
+
+\renewenvironment{thebibliography}[1]
+    {\chapter*{\bibname}%
+    \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+    \list{\@biblabel{\@arabic\c@enumiv}}%
+        {\settowidth\labelwidth{\@biblabel{#1}}%
+        \leftmargin=0pt
+        \itemindent=50pt
+        \@openbib@code
+        \usecounter{enumiv}%
+        \let\p@enumiv\@empty
+        \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+    \sloppy
+    \clubpenalty4000
+    \@clubpenalty \clubpenalty
+    \widowpenalty4000%
+    \sfcode`\.\@m}
+        {\def\@noitemerr
+        {\@latex@warning{Empty `thebibliography' environment}}%
+    \endlist}
+    
 \makeatother
 
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
