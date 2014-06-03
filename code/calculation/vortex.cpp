@@ -17,6 +17,7 @@
 #include "HLBFGS/HLBFGS.h"
 #include "include/alglib/src/optimization.h"
 
+// using OPENMP for parallel computation in HLBFGS
 #define USE_OPENMP 1
 
 using namespace alglib;
@@ -1026,12 +1027,21 @@ int main( int argc, char *argv[] )
     string word;
     ifstream file;
 
-    file.open( argv[1] );
-    while ( file >> word ) {
-        cout << word << endl;
-        names.push_back( word );
+    if ( argc > 2 ) {
+        file.open( argv[1] );
+        if ( !file.is_open() ) {
+            printf( "[error]: can't open %s file!\n", argv[1] );
+            exit( EXIT_FAILURE );
+        }
+        while ( file >> word ) {
+            cout << word << endl;
+            names.push_back( word );
+        }
+        file.close();
+    } else {
+        printf( "usage: %s <file-list>\n", argv[0] );
+        exit( EXIT_FAILURE );
     }
-    file.close();
     printf( ">> Start working [names = %lu]\n", names.size() );
     while ( names.size() > (size_t) k_file ) {
         printf( ">> Start Job#%02d [ %s ]\n", k_file, names[k_file].c_str() );
@@ -1046,7 +1056,7 @@ int main( int argc, char *argv[] )
         jv2 = Ny / 2;
         
         // allocation memory for array
-        n = 6 * (Nx+1) * (Ny+1);
+        n = 6 * ( Nx + 1 ) * ( Ny + 1 );
         X.resize( n );
         x.setlength( n );
         df1re = new double *[Nx + 1];
@@ -1145,6 +1155,7 @@ int main( int argc, char *argv[] )
         // save results
         char buffer[32];
         sprintf( buffer, "job#%02d_%s", k_file, names[k_file].c_str() );
+        // put results in 'job#%02d_%s' format directory
 #ifdef WIN32
         mkdir( buffer );
 #else
@@ -1153,6 +1164,7 @@ int main( int argc, char *argv[] )
         chdir( buffer );
 
         FILE *f;
+        // write result to file
         f = fopen( "dataF1r.dat", "w" );
         if ( f == NULL ) {
             f = stdout;
@@ -1202,7 +1214,7 @@ int main( int argc, char *argv[] )
         }
         for ( int i = 0; i < Nx + 1; i++ ) {
             for ( int j = 0; j < Ny + 1; j++) {
-                fprintf( f, "%+.16f ",vars[(Ny+1) * i+j+3 * (Nx+1) * (Ny+1)] );
+                fprintf( f, "%+.16f ", vars[(Ny+1) * i+j+3 * (Nx+1) * (Ny+1)] );
             }
             fprintf( f, "\n" );
         }
@@ -1308,5 +1320,5 @@ int main( int argc, char *argv[] )
         printf( ">> Time end: " );
         get_time();
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
