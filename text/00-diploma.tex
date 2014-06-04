@@ -1,4 +1,4 @@
-\documentclass[a4paper,14pt]{extreport}
+\documentclass[a4paper, 14pt]{extreport}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage[english, russian]{babel}
@@ -24,9 +24,13 @@
 \geometry{bottom=2.0cm}
 \graphicspath{{images/},{plots/}}
 
+% bibtex cyrillic hack
 \newcommand{\spch}{:~}
 
-\renewcommand{\ttdefault}{pcr} % use Courier font
+% use Courier font for listings
+\renewcommand{\ttdefault}{pcr}
+% use Times New Roman for text
+\renewcommand{\rmdefault}{ftm}
 \lstset{
     language=C++,
     extendedchars=\true,
@@ -41,6 +45,7 @@
     tabsize=2, 
 }
 
+% fancyhdr page style
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[R]{\thepage}
@@ -50,22 +55,19 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \fancypagestyle{plain}{
-  \fancyhf{}
-  \rhead{\thepage}}
+    \fancyhf{}
+    \rhead{\thepage}}
 \setcounter{page}{5}
 
-\renewcommand{\rmdefault}{ftm}
-
+% title style
 \titleformat{\chapter}
     {\centering\normalsize}
     {\thechapter}
     {8pt}{\MakeUppercase}
- 
 \titleformat{\section}
     {\centering\normalsize}
     {\thesection}
     {1em}{}
- 
 \titleformat{\subsection}
     {\centering\normalsize}
     {\thesubsection}
@@ -81,6 +83,7 @@
 \bibliographystyle{gost71u2003}
 \renewcommand{\@biblabel}[1]{#1} 
 
+% bibliography bibitem item indent
 \renewenvironment{thebibliography}[1]
     {\chapter*{\bibname}%
     \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
@@ -106,7 +109,6 @@
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
 \renewcommand{\arraystretch}{1.2}
 
-\renewcommand{\small}{\fontsize{12pt}{14.4pt}\selectfont}
 \DeclareCaptionLabelFormat{figure}{Рисунок #2}
 \DeclareCaptionLabelFormat{table}{Таблица #2}
 \DeclareCaptionLabelSeparator{sep}{~---~}
@@ -159,17 +161,17 @@
 \addto{\captionsrussian}{\renewcommand*{\contentsname}{СОДЕРЖАНИЕ}}
 
 \begin{document}
-\onehalfspacing
-\input{01-title}
-\input{02-referat}
-\tableofcontents
-\newpage
-\input{03-abbreviations}
-\input{04-intro}
-\input{05-text}
-\input{06-math}
-\input{07-main}
-\input{08-conclusion}
-\input{09-literature}
-\input{10-apps}
+    \onehalfspacing
+    \input{01-title}
+    \input{02-referat}
+    \tableofcontents
+    \newpage
+    \input{03-abbreviations}
+    \input{04-intro}
+    \input{05-text}
+    \input{06-math}
+    \input{07-main}
+    \input{08-conclusion}
+    \input{09-literature}
+    \input{10-apps}
 \end{document}
