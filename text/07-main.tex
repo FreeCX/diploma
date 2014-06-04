@@ -239,20 +239,35 @@
 параметрах, уравнения Гинзбурга-Ландау \eqref{eq:2} для вихрей абрикосова в 
 сверхпроводнике полуторного рода.
 
+% --------------------------------------------------------------------------- %
+
 \begin{table}[h!]
     \centering
     \begin{tabular}{|c|c|}
         \hline 
-        Параметр & Значение \\ \hline
-        \( N_x, N_y \) & \( 1200 \) \\ \hline
+        Параметр           & Значение              \\ \hline
+        \( N_x, N_y \)     & \( 1200 \)            \\ \hline
+        \( d \)            & \( 20 \)              \\ \hline
         \( \alpha_{1,2} \) & \( (-1.0, -0.0625) \) \\ \hline
-        \( \beta_{1,2} \) & \( (1.0, 0.25) \) \\ \hline
-        \( \eta \) & \( 0.3 \) \\ \hline
-        \( e \) & \( 0.7 \) \\ \hline
+        \( \beta_{1,2} \)  & \( (1.0, 0.25) \)     \\ \hline
+        \( \eta \)         & \( 0.3 \)             \\ \hline
+        \( e \)            & \( 0.7 \)             \\ \hline
     \end{tabular}
     \caption{Параметры ГЛ используемые для модельного эксперимента №1.}
     \label{param:01}
 \end{table}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_01/band_profile}
+    \caption{График поперечного сечения, показывающий форму вихря, полученный 
+        для двух взаимодействующих абрикосовских вихрей в сверхпроводнике 
+        полуторного рода. Здесь \( 1 \) -- первая активная зона в 
+        сверхпроводнике (\( \abs{\psi_1}^2 \)-компонента), \( 2 \) -- вторая 
+        (\( \abs{\psi_2}^2 \)-компонента), а \( 3 \) -- распределение 
+        магнитного поля в системе (\( B \)-компонента).}
+    \label{img:band-profile-01}
+\end{figure}
 
 \begin{figure}[h!]
     \center
@@ -302,16 +317,247 @@
     \label{img:map-band-2-01}
 \end{figure}
 
+\clearpage
+
+% --------------------------------------------------------------------------- %
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline 
+        Параметр           & Значение              \\ \hline
+        \( N_x, N_y \)     & \( 1200 \)            \\ \hline
+        \( d \)            & \( 60 \)              \\ \hline
+        \( \alpha_{1,2} \) & \( (-1.0, -0.0625) \) \\ \hline
+        \( \beta_{1,2} \)  & \( (1.0, 0.25) \)     \\ \hline
+        \( \eta \)         & \( 0.3 \)             \\ \hline
+        \( e \)            & \( 0.7 \)             \\ \hline
+    \end{tabular}
+    \caption{Параметры ГЛ используемые для модельного эксперимента №2.}
+    \label{param:02}
+\end{table}
+
 \begin{figure}[h!]
     \center
-    \includegraphics[width=0.7\textwidth]{data_01/band_profile}
+    \includegraphics[width=0.7\textwidth]{data_02/band_profile}
     \caption{График поперечного сечения, показывающий форму вихря, полученный 
         для двух взаимодействующих абрикосовских вихрей в сверхпроводнике 
         полуторного рода. Здесь \( 1 \) -- первая активная зона в 
         сверхпроводнике (\( \abs{\psi_1}^2 \)-компонента), \( 2 \) -- вторая 
         (\( \abs{\psi_2}^2 \)-компонента), а \( 3 \) -- распределение 
         магнитного поля в системе (\( B \)-компонента).}
-    \label{img:band-profile-01}
+    \label{img:band-profile-02}
 \end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_02/3d_B}
+    \caption{Распределение магнитного поля для вихрей абрикосова в 
+        сверхпроводнике 1,5-го рода при параметрах из Таблицы \ref{param:02}.}
+    \label{img:3d-field-B-02}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_02/map_B}
+    \caption{Вид линий уровня Рисунка \ref{img:3d-field-B-02}. 
+        Рассматриваемая область увеличена.}
+    \label{img:map-field-B-02}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_02/3d_F1}
+    \caption{Характерный вид энергии взаимодействия первой зоны в 
+        сверхпроводнике (\( \abs{\psi_1}^2 \)-компонента).}
+    \label{img:3d-band-1-02}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_02/map_F1}
+    \caption{Вид линий уровня Рисунка \ref{img:3d-band-1-02}. 
+        Рассматриваемая область увеличена.}
+    \label{img:map-band-1-02}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_02/3d_F2}
+    \caption{Характерный вид энергии взаимодействия первой зоны в 
+        сверхпроводнике (\( \abs{\psi_2}^2 \)-компонента).}
+    \label{img:3d-band-2-02}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_02/map_F2}
+    \caption{Вид линий уровня Рисунка \ref{img:3d-band-2-02}. 
+        Рассматриваемая область увеличена.}
+    \label{img:map-band-2-02}
+\end{figure}
+
+\clearpage
+
+% --------------------------------------------------------------------------- %
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline 
+        Параметр           & Значение              \\ \hline
+        \( N_x, N_y \)     & \( 1200 \)            \\ \hline
+        \( d \)            & \( 60 \)              \\ \hline
+        \( \alpha_{1,2} \) & \( (-1.0, 0.1) \)     \\ \hline
+        \( \beta_{1,2} \)  & \( (1.0, 0.25) \)     \\ \hline
+        \( \eta \)         & \( 0.3 \)             \\ \hline
+        \( e \)            & \( 0.7 \)             \\ \hline
+    \end{tabular}
+    \caption{Параметры ГЛ используемые для модельного эксперимента №3.}
+    \label{param:03}
+\end{table}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_03/band_profile}
+    \caption{График поперечного сечения, показывающий форму вихря, полученный 
+        для двух взаимодействующих абрикосовских вихрей в сверхпроводнике 
+        полуторного рода. Здесь \( 1 \) -- первая активная зона в 
+        сверхпроводнике (\( \abs{\psi_1}^2 \)-компонента), \( 2 \) -- вторая 
+        (\( \abs{\psi_2}^2 \)-компонента), а \( 3 \) -- распределение 
+        магнитного поля в системе (\( B \)-компонента).}
+    \label{img:band-profile-03}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_03/3d_B}
+    \caption{Распределение магнитного поля для вихрей абрикосова в 
+        сверхпроводнике 1,5-го рода при параметрах из Таблицы \ref{param:03}.}
+    \label{img:3d-field-B-03}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_03/map_B}
+    \caption{Вид линий уровня Рисунка \ref{img:3d-field-B-03}. 
+        Рассматриваемая область увеличена.}
+    \label{img:map-field-B-03}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_03/3d_F1}
+    \caption{Характерный вид энергии взаимодействия первой зоны в 
+        сверхпроводнике (\( \abs{\psi_1}^2 \)-компонента).}
+    \label{img:3d-band-1-03}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_03/map_F1}
+    \caption{Вид линий уровня Рисунка \ref{img:3d-band-1-03}. 
+        Рассматриваемая область увеличена.}
+    \label{img:map-band-1-03}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_03/3d_F2}
+    \caption{Характерный вид энергии взаимодействия первой зоны в 
+        сверхпроводнике (\( \abs{\psi_2}^2 \)-компонента).}
+    \label{img:3d-band-2-03}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_03/map_F2}
+    \caption{Вид линий уровня Рисунка \ref{img:3d-band-2-03}. 
+        Рассматриваемая область увеличена.}
+    \label{img:map-band-2-03}
+\end{figure}
+
+\clearpage
+
+% --------------------------------------------------------------------------- %
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline 
+        Параметр           & Значение              \\ \hline
+        \( N_x, N_y \)     & \( 1200 \)            \\ \hline
+        \( d \)            & \( 60 \)              \\ \hline
+        \( \alpha_{1,2} \) & \( (-1.0, -0.0625) \) \\ \hline
+        \( \beta_{1,2} \)  & \( (1.0, 0.25) \)     \\ \hline
+        \( \eta \)         & \( 1.41 \)            \\ \hline
+        \( e \)            & \( 0.7 \)             \\ \hline
+    \end{tabular}
+    \caption{Параметры ГЛ используемые для модельного эксперимента №4.}
+    \label{param:04}
+\end{table}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_04/band_profile}
+    \caption{График поперечного сечения, показывающий форму вихря, полученный 
+        для двух взаимодействующих абрикосовских вихрей в сверхпроводнике 
+        полуторного рода. Здесь \( 1 \) -- первая активная зона в 
+        сверхпроводнике (\( \abs{\psi_1}^2 \)-компонента), \( 2 \) -- вторая 
+        (\( \abs{\psi_2}^2 \)-компонента), а \( 3 \) -- распределение 
+        магнитного поля в системе (\( B \)-компонента).}
+    \label{img:band-profile-04}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_04/3d_B}
+    \caption{Распределение магнитного поля для вихрей абрикосова в 
+        сверхпроводнике 1,5-го рода при параметрах из Таблицы \ref{param:04}.}
+    \label{img:3d-field-B-04}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_04/map_B}
+    \caption{Вид линий уровня Рисунка \ref{img:3d-field-B-04}. 
+        Рассматриваемая область увеличена.}
+    \label{img:map-field-B-04}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_04/3d_F1}
+    \caption{Характерный вид энергии взаимодействия первой зоны в 
+        сверхпроводнике (\( \abs{\psi_1}^2 \)-компонента).}
+    \label{img:3d-band-1-04}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_04/map_F1}
+    \caption{Вид линий уровня Рисунка \ref{img:3d-band-1-04}. 
+        Рассматриваемая область увеличена.}
+    \label{img:map-band-1-04}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_04/3d_F2}
+    \caption{Характерный вид энергии взаимодействия первой зоны в 
+        сверхпроводнике (\( \abs{\psi_2}^2 \)-компонента).}
+    \label{img:3d-band-2-04}
+\end{figure}
+
+\begin{figure}[h!]
+    \center
+    \includegraphics[width=0.7\textwidth]{data_04/map_F2}
+    \caption{Вид линий уровня Рисунка \ref{img:3d-band-2-04}. 
+        Рассматриваемая область увеличена.}
+    \label{img:map-band-2-04}
+\end{figure}
+
+\clearpage
+% далее выводы по результатам
 
 \newpage
