@@ -115,11 +115,12 @@
         \rho_k s_k s_k^T, 
     \label{eq:c_k}
 \end{equation}
-где \( \rho_k = ((y^{(k)})^T s^{(k)})^{-1} \).
+где \( \rho_k = ((y^{(k)})^T s^{(k)})^{-1} \). Алгоритмическая реализация 
+представлена Алгоритм \ref{alg:1}.
 
 \clearpage
 
-\begin{algorithm}[H]
+\begin{algorithm}[htb]
     \SetAlgoLined
     \KwData{$x_0, \delta, C_0$}
     $k \gets 0$\;
@@ -135,8 +136,9 @@
         }
     }
     \KwResult{$ x_k, f(x_k) $ и $ \nabla f(x_k) $}
-    \caption{Алгоритм Бройдена -- Флетчера -- Гольдфарба -- Шанно 
+    \caption{Алгоритм Бройдена--Флетчера--Гольдфарба--Шанно 
         \cite{skajaa2010limited}}
+    \label{alg:1}
 \end{algorithm}
 
 \section{Метод минимизации энергии}
