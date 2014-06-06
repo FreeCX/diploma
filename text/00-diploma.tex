@@ -27,15 +27,13 @@
 % bibtex cyrillic hack
 \newcommand{\spch}{:~}
 
-% use Courier font for listings
-\renewcommand{\ttdefault}{pcr}
 % use Times New Roman for text
 \renewcommand{\rmdefault}{ftm}
 \lstset{
     language=C++,
     extendedchars=\true,
     inputencoding=utf8,
-    basicstyle=\footnotesize\ttfamily,
+    basicstyle=\footnotesize\usefont{T2A}{fcr}{m}{n},
     keywordstyle=\bfseries,
     commentstyle=\itshape,
     numbers=left,
