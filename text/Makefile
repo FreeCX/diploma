@@ -1,12 +1,9 @@
-COMPILER=pdflatex
+COMPILER=latexmk
 FLAGS=-jobname=diploma
 SOURCE=00-diploma.tex
 
 default:
-	$(COMPILER) $(FLAGS) $(SOURCE)
-	-bibtexu diploma.aux
-	$(COMPILER) $(FLAGS) $(SOURCE)
-	$(COMPILER) $(FLAGS) $(SOURCE)
+	$(COMPILER) -pdf $(FLAGS) $(SOURCE)
 
 clean:
-	rm -f *.{aux,bbl,blg,log,out,toc,gz}
+	$(RM) *.{aux,fdb_latexmk,fls,log,out,pdf,toc}
