@@ -24,51 +24,34 @@ using namespace alglib;
 using namespace std;
 using CppAD::AD;
 
-double aa = 0.0;
 double alpha1 = -1;
 double alpha2 = -0.0069;
 double ax = 0.025;
 double ay = 0.025;
-double bb = 0.0;
 double beta1 = 1;
 double beta2 = 0.0278;
-double cc = 0.0;
 double deltap = 0.000001;
 double e = 0.7;
-double en1, en2;
 double epsilon = 0.001;
 double etta = 0.0111;
-double F = 0.0;
-double F0 = 0.0;
-double F1 = 0.0;
 double f1abs = 0;
 double f1imag = 0;
 double f1real = 0;
-double F2 = 0.0;
 double f2abs = 0;
 double f2imag = 0;
 double f2real = 0;
-double H20 = 0.0;
 double ksi1 = 1 / sqrt( 2 * abs( alpha1 ) );
 double ksi2 = 1 / sqrt( 2 * abs( alpha2 ) );
 double rax = 1 / ax;
 double ray = 1 / ay;
 double rdeltap = 1 / deltap;
-double T0 = 0.0;
-double Theta1 = 0;
 double theta1, theta2, r1, r2;
-double Theta2 = 0;
 double u10 = sqrt( abs( alpha1 / beta1 ) );
 double u20 = sqrt( abs( alpha2 / beta2 ) );
-double W0 = 0.0;
-double y;
 int d = 1;
 int iv1, jv1, iv2, jv2;
-int k = 0;
-int n = 0;
 int Nx = 1200;
 int Ny = 800;
-int repeat = 1;
 std::complex<double> f1 = 0, f2 = 0;
 std::complex<double> I( 0.0, 1.0 ), z1 = 0, z2 = 0;
 vector< AD<double> > Y;
@@ -489,6 +472,7 @@ inline double CalculateNeihbourF(  int i, int j, double  *  x  )
 
 void CalculateGradient( double *vars, double *grad )
 {
+    double F1, F2;
     for ( int i = 0; i < Nx + 1; i++ ) {
         for ( int j = 0; j < Ny + 1; j++ ) {
             // f1real
@@ -649,7 +633,7 @@ inline Type CalculateWPT(  int i, int j, vector<Type> &varsp  )
     return W;
 }
 
-// analyticl calculating kinetic energy associated with the node i,j coord
+// analytic calculating kinetic energy associated with the node i,j coord
 template <class Type>
 inline Type CalculateTPT(  int i, int j, vector<Type> &varsp  )
 {
@@ -1022,7 +1006,7 @@ int main( int argc, char *argv[] )
         { "Ny", T_INT, &Ny },
         { NULL }
     };
-    int k_file = 0;
+    int k_file = 0, n = 0;
     vector<string> names;
     string word;
     ifstream file;
@@ -1115,7 +1099,6 @@ int main( int argc, char *argv[] )
                         f2.real();
                     vars[( Ny + 1 ) * i + j + 3 * ( Nx + 1 ) * ( Ny + 1 )] = 
                         f2.imag();
-                    bb = vars[Ny * 0 + 0 + ( Nx + 1 ) * ( Ny + 1 )];
                 }
                 // initial configuration of Ax
                 vars[(Ny + 1) * i + j + 4 * ( Nx + 1 ) * ( Ny + 1 )] = 
@@ -1137,10 +1120,10 @@ int main( int argc, char *argv[] )
         // end design function for automatic differentiation
 
         printf( ">> Start energy is %+.8f\n", FillEnergyTableSquare( vars ) );
+
         double parameter[20];
         parameter[6] = 0.01;
         int info[20];
-
         // initialize HLBFGS method
         INIT_HLBFGS( parameter, info );
         info[4] = 4000;
@@ -1155,6 +1138,7 @@ int main( int argc, char *argv[] )
         // save results
         char buffer[32];
         sprintf( buffer, "job#%02d_%s", k_file, names[k_file].c_str() );
+
         // put results in 'job#%02d_%s' format directory
 #ifdef WIN32
         mkdir( buffer );
@@ -1166,134 +1150,79 @@ int main( int argc, char *argv[] )
         FILE *f;
         // write result to file
         f = fopen( "dataF1r.dat", "w" );
-        if ( f == NULL ) {
-            f = stdout;
-            fprintf( f, "\n--- dataF1r ---\n\n" );
-        }
         for ( int i = 0; i < Nx + 1; i++ ) {
             for ( int j = 0; j < Ny + 1; j++ ) {
                 fprintf( f, "%+.16f ", vars[(Ny+1) * i+j] );
             }
             fprintf( f, "\n" );
         }
-        if ( f != stdout ) {
-            fclose( f );
-        }
+        fclose( f );
         f = fopen( "dataF1c.dat", "w" );
-        if ( f == NULL ) {
-            f = stdout;
-            fprintf( f, "\n--- dataF1c ---\n\n" );
-        }
         for ( int i = 0; i < Nx + 1; i++ ) {
             for ( int j = 0; j < Ny + 1; j++ ) {
                 fprintf( f, "%+.16f ", vars[(Ny+1) * i+j+(Nx+1) * (Ny+1)] );
             }
             fprintf( f, "\n" );
         }
-        if ( f != stdout ) {
-            fclose( f );
-        }
+        fclose( f );
         f = fopen( "dataF2r.dat", "w" );
-        if ( f == NULL ) {
-            f = stdout;
-            fprintf( f, "\n--- dataF2r ---\n\n" );
-        }
         for ( int i = 0; i < Nx + 1; i++ ) {
             for ( int j = 0; j < Ny + 1; j++) {
                 fprintf( f, "%+.16f ", vars[(Ny+1) * i+j+2 * (Nx+1) * (Ny+1)] );
             }
             fprintf( f, "\n" );
         }
-        if ( f != stdout ) {
-            fclose( f );
-        }
+        fclose( f );
         f = fopen( "dataF2c.dat", "w" );
-        if ( f == NULL ) {
-            f = stdout;
-            fprintf( f, "\n--- dataF2c ---\n\n" );
-        }
         for ( int i = 0; i < Nx + 1; i++ ) {
             for ( int j = 0; j < Ny + 1; j++) {
                 fprintf( f, "%+.16f ", vars[(Ny+1) * i+j+3 * (Nx+1) * (Ny+1)] );
             }
             fprintf( f, "\n" );
         }
-        if ( f != stdout ) {
-            fclose( f );
-        }
+        fclose( f );
         f = fopen( "dataAx.dat", "w" );
-        if ( f == NULL ) {
-            f = stdout;
-            fprintf( f, "\n--- dataAx ---\n\n" );
-        }
         for ( int i = 0; i < Nx + 1; i++ ) {
             for ( int j = 0; j < Ny + 1; j++) {
                 fprintf( f, "%+.16f ", vars[(Ny+1) * i+j+4 * (Nx+1) * (Ny+1)] );
             }
             fprintf( f, "\n" );
         }
-        if ( f != stdout ) {
-            fclose( f );
-        }
-        f = fopen( "dataAy.dat", "w" );
-        if ( f == NULL ) {
-            f = stdout;
-            fprintf( f, "\n--- dataAy ---\n\n" );
-        }       
+        fclose( f );
+        f = fopen( "dataAy.dat", "w" );    
         for ( int i = 0; i < Nx + 1; i++ ) {
             for ( int j = 0; j < Ny + 1; j++ ) {
                 fprintf( f, "%+.16f ", vars[(Ny+1) * i+j+5 * (Nx+1) * (Ny+1)] );
             }
             fprintf( f, "\n" );
         }
-        if ( f != stdout ) {
-            fclose( f );
-        }
+        fclose( f );
         f = fopen( "dataB.dat", "w" );
-        if ( f == NULL ) {
-            f = stdout;
-            fprintf( f, "\n--- dataB ---\n\n" );
-        }
         for ( int i = 0; i < Nx + 1; i++ ) {
             for ( int j = 0; j < Ny + 1; j++ ) {
                 fprintf( f, "%+.16f ", sqrt( 2  *  H2[i][j] ) );
             }
             fprintf( f, "\n" );
         }
-        if ( f != stdout ) {
-            fclose( f );
-        }
+        fclose( f );
         f = fopen( "dataW.dat", "w" );
-        if ( f == NULL ) {
-            f = stdout;
-            fprintf( f, "\n--- dataW ---\n\n" );
-        }
         for ( int i = 0; i < Nx + 1; i++ ) {
             for ( int j = 0; j < Ny + 1; j++ ) {
                 fprintf( f, "%+.16f ", W[i][j] );
             }
             fprintf( f, "\n" );
         }
-        if ( f != stdout ) {
-            fclose( f );
-        }
+        fclose( f );
         f = fopen( "dataT.dat", "w" );
-        if ( f == NULL ) {
-            f = stdout;
-            fprintf( f, "\n--- dataT ---\n\n" );
-        }
         for ( int i = 0; i < Nx + 1; i++ ) {
             for ( int j = 0; j < Ny + 1; j++ ) {
                 fprintf( f, "%+.16f ", T[i][j] );
             }
             fprintf( f, "\n" );
         }
-        if ( f != stdout ) {
-            fclose( f );
-        }
+        fclose( f );
         chdir( ".." );
         k_file++;
-        k = n = 0;
         // free allocating memory
         for ( int i = 0; i < Nx + 1; i++ ) {
             free( df1re[i] );
