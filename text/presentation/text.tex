@@ -1,11 +1,21 @@
-\title{Моделирование структуры абрикосовских вихрей в сверхпроводниках 
-    типа 1,5}
-\author{Голубев Алексей Владимирович}
-\institute{ВолгГТУ}
-\date{}
-
 \begin{frame}
-    \titlepage
+    \begin{center}
+        \small
+        Волгоградский Государственный Технический Университет \\
+        Факультет электроники и вычислительной техники \\
+        Кафедра физики \\
+        \vspace{1.5cm}
+        Выпускная работа на тему: \\
+        \normalsize
+        \textbf{Моделирование структуры абрикосовских вихрей в 
+            сверхпроводниках типа 1,5} \\
+        \vspace{1.5cm}
+        \small
+        Автор работы --- студент Ф-469 Голубев А. В. \\
+        Научный руководитель --- д.ф.--м.н. Завьялов Д. В. \\
+        \vspace{\fill}
+        Волгоград \the\year
+    \end{center}
 \end{frame}
 
 \begin{frame}
@@ -23,9 +33,9 @@
     \begin{itemize}
         \item широкие возможностями применения сверхпроводников в 
             современной микроэлектронике;
-        \item перспективность в исследовании смешанного состояния;
-        \item малая изученность физики данного процесса;
         \item высокотемпературные сверхпроводники;
+        \item малая изученность физики данного процесса;
+        \item перспективность в исследовании смешанного состояния;
     \end{itemize}
 \end{frame}
 
@@ -33,8 +43,7 @@
     \frametitle{Фазовая диаграмма}
     \begin{figure}[h]
         \center
-        \includegraphics[width=0.8\linewidth]{img_01}
-        % \includegraphics[width=1.0\linewidth]{img_01}
+        \includegraphics[width=1.0\linewidth]{img_01}
         \caption{Фазовая диаграмма состояния сверхпроводников 1-го (а) и 
             2-го (б) рода}
     \end{figure}
@@ -44,8 +53,7 @@
     \frametitle{Фазовая диаграмма магнитных фаз}
     \begin{figure}[h]
         \center
-        \includegraphics[width=0.8\linewidth]{1-02}
-        % \includegraphics[width=1.0\linewidth]{1-02}
+        \includegraphics[width=1.0\linewidth]{1-02}
         \caption{Сравнение фазовых диаграмм магнитных фаз чистых 
             сверхпроводников первого, второго и полуторного рода при нулевой 
             температуре.}
@@ -59,7 +67,6 @@
             \frac{1}{2}(D\psi_2)(D\psi_2)^* - \nonumber \\ -
             \nu Re\left( (D\psi_1)(D\psi_2)^* \right) +
             \frac{1}{2}\left(\nabla\times\vec{A}\right)^2 + F_p
-        \nonumber
     \end{gather}
     Здесь \( D = \nabla + ie\vec{A} \) и \( \psi_a = |\psi_a|e^{i\theta_a} \), 
     \( a = 1,2 \).
@@ -67,37 +74,15 @@
 
 \begin{frame}
     \frametitle{Метод моделирование структуры вихрей}
-    \framesubtitle{Алгоритм Бройдена -- Флетчера -- Гольдфарба -- Шанно}
-    \begin{center}
-        \begin{minipage}{2in}
-            \begin{algorithm}[H]
-                \scriptsize
-                \SetAlgoLined
-                \KwData{$x_0, \delta, C_0$}
-                $k \gets 0$\;
-                \While{ истина }{
-                    $ d_0 \gets -C_k \nabla f(x_k) $\;
-                    $ \alpha_k \gets $ Линейный поиск($ x_k, f) $\;
-                    $ x_{k+1} \gets x_k + \alpha_k d_k $\;
-                    Посчитать $ C_{k+1} $ \;
-                    $ k \gets k + 1 $ \;
-                    \If{$ ||\nabla f(x_k) || \leq \delta $}{
-                        остановить\;
-                    }
-                }
-                \KwResult{$ x_k, f(x_k) $ и $ \nabla f(x_k) $}
-            \end{algorithm}
-        \end{minipage}
-    \end{center}
+    \framesubtitle{}
 \end{frame}
 
 \begin{frame}
     \frametitle{Результаты модельного эксперимента}
-    \framesubtitle{Поперечное сечение}
+    \framesubtitle{Поперечное сечение вихрей}
     \begin{figure}[h]
         \center
-        \includegraphics[width=0.6\linewidth]{band_profile}
-        % \includegraphics[width=0.8\linewidth]{band_profile}
+        \includegraphics[width=0.8\linewidth]{band_profile}
     \end{figure}
 \end{frame}
 
@@ -106,11 +91,11 @@
     \framesubtitle{Распределение магнитного поля (\( B \))}
     \begin{figure}[h]
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.0\linewidth]{3d_B}}
+            \center{\includegraphics[width=1.1\linewidth]{3d_B}}
         \end{minipage}
         \hfill
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.0\linewidth]{map_B}}
+            \center{\includegraphics[width=1.1\linewidth]{map_B}}
         \end{minipage}
     \end{figure}
 \end{frame}
@@ -121,11 +106,11 @@
         сверхпроводнике (\( \abs{\psi_1}^2 \)-компонента).}
     \begin{figure}[h]
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.0\linewidth]{3d_F1}}
+            \center{\includegraphics[width=1.1\linewidth]{3d_F1}}
         \end{minipage}
         \hfill
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.0\linewidth]{map_F1}}
+            \center{\includegraphics[width=1.1\linewidth]{map_F1}}
         \end{minipage}
     \end{figure}
 \end{frame}
@@ -136,11 +121,11 @@
         сверхпроводнике (\( \abs{\psi_2}^2 \)-компонента).}
     \begin{figure}[h]
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.0\linewidth]{3d_F2}}
+            \center{\includegraphics[width=1.1\linewidth]{3d_F2}}
         \end{minipage}
         \hfill
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.0\linewidth]{map_F2}}
+            \center{\includegraphics[width=1.1\linewidth]{map_F2}}
         \end{minipage}
     \end{figure}
 \end{frame}

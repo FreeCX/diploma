@@ -1,12 +1,10 @@
-\documentclass[14pt, pdf, hyperref={unicode}, aspectratio=169]{beamer}
-% \documentclass[14pt, pdf, hyperref={unicode}]{beamer}
+\documentclass[12pt, pdf]{beamer}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage[russian]{babel}
 \usepackage{graphicx}
-\usepackage{algorithm2e}
-\usetheme{Pittsburgh}
-
+\setbeamertemplate{caption}[numbered]
+\usetheme[numbers, totalnumbers, minimal, nologo]{Statmod}
 \graphicspath{{../plots/data_01/},{../images/}}
 
 \makeatletter
@@ -22,13 +20,6 @@
 \makeatother
 
 \newcommand{\abs}[1]{\left| #1 \right|}
-
-% Перевод плагина algorithm2e
-\SetKwInput{KwData}{Исходные параметры}
-\SetKwInput{KwResult}{Результат}
-\SetKwIF{If}{ElseIf}{Else}{если}{тогда}{иначе\ если}{иначе}{конец\ условия}
-\SetKwFor{While}{до\ тех\ пор,\ пока}{выполнять}{конец\ цикла}
-\SetAlgorithmName{Алгоритм}{алгоритм}{Список алгоритмов}
 
 \begin{document}
     \input{text}
