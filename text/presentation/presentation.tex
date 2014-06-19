@@ -4,20 +4,17 @@
 \usepackage[russian]{babel}
 \usepackage{graphicx}
 \setbeamertemplate{caption}[numbered]
-\usetheme[numbers, totalnumbers, minimal, nologo]{Statmod}
+\usetheme[numbers, minimal, nonav, nologo]{Statmod}
 \graphicspath{{../plots/data_01/},{../images/}}
 
-\makeatletter
-    \long\def\beamer@@frametitle[#1]#2{%
-        \beamer@ifempty{#2}{}{%
-            \gdef\insertframetitle{
-            \centering{#2\ifnum\beamer@autobreakcount>0\relax{}
-            \space\usebeamertemplate*{frametitle continuation}\fi}}%
-            \gdef\beamer@frametitle{#2}%
-            \gdef\beamer@shortframetitle{#1}%
-        }%
-    }
-\makeatother
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor*{structure}{fg=black,bg=white}
+\setbeamercolor*{palette primary}{use=structure,fg=black,bg=structure.bg}
+\setbeamercolor*{palette secondary}{use=structure,fg=black,bg=structure.bg}
+\setbeamercolor*{palette tertiary}{use=structure,fg=black,bg=structure.bg}
+\setbeamerfont{footline}{series=\normalsize\bfseries}
+
+\setbeamersize{text margin left=5mm, text margin right=5mm}
 
 \newcommand{\abs}[1]{\left| #1 \right|}
 

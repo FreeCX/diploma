@@ -63,26 +63,41 @@
 \begin{frame}
     \frametitle{Двухкомпонентная модель Гинзбурга-Ландау}
     \begin{gather}
-        F = \frac{1}{2}(D\psi_1)(D\psi_1)^* + 
-            \frac{1}{2}(D\psi_2)(D\psi_2)^* - \nonumber \\ -
-            \nu Re\left( (D\psi_1)(D\psi_2)^* \right) +
-            \frac{1}{2}\left(\nabla\times\vec{A}\right)^2 + F_p
+        F = \frac{1}{2}\sum\limits_{a=1,2}\left[ 
+            \left|\left( \nabla + ie\vec{A}\right)\psi_a\right|^2 + 
+            \left( 2\alpha_a + \beta_a |\psi_a|^2 \right)|\psi_i|^2 \right] 
+            + \nonumber \\ + \frac{1}{2}\left( \nabla\times\vec{A} \right)^2 - 
+            \eta|\psi_1||\psi_2|\cos(\theta_2-\theta_1)
     \end{gather}
-    Здесь \( D = \nabla + ie\vec{A} \) и \( \psi_a = |\psi_a|e^{i\theta_a} \), 
-    \( a = 1,2 \).
 \end{frame}
 
 \begin{frame}
-    \frametitle{Метод моделирование структуры вихрей}
-    \framesubtitle{}
+    \frametitle{Метод моделирования структуры вихрей}
+    \begin{gather}
+        \left( \nabla f \right)_{i,i+1} = \frac{f(i+1)-f(i)}{h} \\
+        B_{i,i+1,j,j+1} = \frac{1}{h^2}\oint\limits_{\omega} 
+            \vec{A} \cdot d\vec{r}
+    \end{gather}
+    \begin{figure}[h]
+        \center
+        \includegraphics[width=0.5\linewidth]{scheme}
+        \caption{Схема дискретизации используемая в методе конечных разностей, 
+            (а) градиентов и (б) магнитного потока.}
+    \end{figure}
 \end{frame}
 
 \begin{frame}
     \frametitle{Результаты модельного эксперимента}
     \framesubtitle{Поперечное сечение вихрей}
     \begin{figure}[h]
-        \center
-        \includegraphics[width=0.8\linewidth]{band_profile}
+        \begin{minipage}[h]{0.75\linewidth}
+            \center\includegraphics[width=1.1\linewidth]{band_profile}
+        \end{minipage}
+        \begin{minipage}[h]{0.15\linewidth}
+            \( 1 \) -- \( \abs{\psi_1}^2 \), \\ 
+            \( 2 \) -- \( \abs{\psi_2}^2 \), \\
+            \( 3 \) -- \( B \).
+        \end{minipage}
     \end{figure}
 \end{frame}
 
@@ -91,11 +106,11 @@
     \framesubtitle{Распределение магнитного поля (\( B \))}
     \begin{figure}[h]
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.1\linewidth]{3d_B}}
+            \center\includegraphics[width=1.1\linewidth]{3d_B}
         \end{minipage}
         \hfill
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.1\linewidth]{map_B}}
+            \center\includegraphics[width=1.1\linewidth]{map_B}
         \end{minipage}
     \end{figure}
 \end{frame}
@@ -106,11 +121,11 @@
         сверхпроводнике (\( \abs{\psi_1}^2 \)-компонента).}
     \begin{figure}[h]
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.1\linewidth]{3d_F1}}
+            \center\includegraphics[width=1.1\linewidth]{3d_F1}
         \end{minipage}
         \hfill
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.1\linewidth]{map_F1}}
+            \center\includegraphics[width=1.1\linewidth]{map_F1}
         \end{minipage}
     \end{figure}
 \end{frame}
@@ -121,11 +136,11 @@
         сверхпроводнике (\( \abs{\psi_2}^2 \)-компонента).}
     \begin{figure}[h]
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.1\linewidth]{3d_F2}}
+            \center\includegraphics[width=1.1\linewidth]{3d_F2}
         \end{minipage}
         \hfill
         \begin{minipage}[h]{0.49\linewidth}
-            \center{\includegraphics[width=1.1\linewidth]{map_F2}}
+            \center\includegraphics[width=1.1\linewidth]{map_F2}
         \end{minipage}
     \end{figure}
 \end{frame}
