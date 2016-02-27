@@ -1,0 +1,121 @@
+\documentclass[a4paper, 14pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{indentfirst}
+\usepackage{amssymb, amsthm, amsfonts, amsmath, mathtext, wasysym}
+\usepackage{cite, enumerate, float}
+\usepackage{graphicx}
+\usepackage{multicol, multirow, array}
+\usepackage{times}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage[square, numbers, sort&compress]{natbib}
+\usepackage{tocloft}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage[unicode, colorlinks, linkcolor=black,
+    citecolor=black, urlcolor=black]{hyperref}
+\usepackage{algorithm2e}
+\geometry{left=2.0cm}
+\geometry{right=1.5cm}
+\geometry{top=2.0cm}
+\geometry{bottom=2.0cm}
+\graphicspath{{images/}}
+
+% title style
+\titleformat{\chapter}
+    {\centering\normalsize}
+    {\thechapter}
+    {8pt}{\MakeUppercase}
+\titleformat{\section}
+    {\centering\normalsize}
+    {\thesection}
+    {1em}{}
+\titleformat{\subsection}
+    {\centering\normalsize}
+    {\thesubsection}
+    {1em}{}
+  
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\paragraph}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
+
+\makeatletter
+
+\renewcommand{\@biblabel}[1]{#1} 
+
+% bibliography bibitem item indent
+\renewenvironment{thebibliography}[1]
+    {\chapter*{\bibname}%
+    \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+    \list{\@biblabel{\@arabic\c@enumiv}}%
+        {\settowidth\labelwidth{\@biblabel{#1}}%
+        \leftmargin=0pt
+        \itemindent=50pt
+        \@openbib@code
+        \usecounter{enumiv}%
+        \let\p@enumiv\@empty
+        \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+    \sloppy
+    \clubpenalty4000
+    \@clubpenalty \clubpenalty
+    \widowpenalty4000%
+    \sfcode`\.\@m}
+        {\def\@noitemerr
+        {\@latex@warning{Empty `thebibliography' environment}}%
+    \endlist}
+    
+\makeatother
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1\textwidth}}
+\renewcommand{\arraystretch}{1.2}
+
+\DeclareCaptionLabelFormat{figure}{Рисунок #2}
+\DeclareCaptionLabelFormat{table}{Таблица #2}
+\DeclareCaptionLabelSeparator{sep}{~---~}
+\captionsetup{labelsep=sep, justification=centering, font=small}
+\captionsetup[figure]{labelformat=figure}
+\captionsetup[table]{labelformat=table}
+
+\renewcommand{\cfttoctitlefont}{\normalfont\hspace{0.38\textwidth}}
+\renewcommand{\cftbeforetoctitleskip}{-1em}
+\renewcommand{\cftchapfont}{\normalsize}
+\renewcommand{\cftsecfont}{\hspace{-21pt}}
+\renewcommand{\cftsubsecfont}{\hspace{-53pt}}
+\renewcommand{\cftbeforechapskip}{0em}
+\renewcommand{\cftparskip}{-1mm}
+\renewcommand{\cftdotsep}{1}
+\renewcommand{\cftsecpresnum}{}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecaftersnum}{.}
+\renewcommand{\cftsubsecaftersnum}{.}
+\setcounter{tocdepth}{2}
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\arabic{enumi})}
+\renewcommand{\theenumii}{.\arabic{enumii}}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii})}
+\renewcommand{\theenumiii}{.\arabic{enumiii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii})}
+
+\addto{\captionsrussian}{\renewcommand*{\contentsname}{СОДЕРЖАНИЕ}}
+
+\begin{document}
+    \onehalfspacing
+    % \input{01-title}
+    % \input{02-abstract}
+    \tableofcontents
+    \newpage
+    % \input{03-abbreviations}
+    \input{04-introduction}
+    \input{05-problem}
+    \input{06-methods}
+    \input{07-test}
+    \input{08-conclusion}
+    \input{09-literature}
+    \input{10-appendix}
+\end{document}
