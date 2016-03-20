@@ -7,6 +7,8 @@
 \usepackage[titletoc]{appendix}
 \usepackage{titletoc}
 \usepackage{indentfirst}
+\usepackage{amsmath}
+\usepackage{textcomp}
 % \usepackage{amssymb, amsthm, amsfonts, amsmath, mathtext, wasysym}
 \usepackage{cite, enumerate, float}
 \usepackage{graphicx}
@@ -136,13 +138,22 @@
 \addto{\captionsrussian}{\renewcommand*{\contentsname}{Содержание}}
 
 % студент
-\newcommand\STUDENT{Голубев Алексей Владимирович}
+\newcommand\STUDENTO{Голубев Алексей Владимирович}
+\newcommand\STUDENTT{Голубева Алексея Владимировича}
 % номер приказа
 \newcommand\ORDER{XX}
 % последние две цифры года
 \makeatletter
     \newcommand\YEAR{\expandafter\@gobbletwo\number\numexpr\the\year\relax}
 \makeatother
+% поле с подписью
+\newcommand\UNDER[2]{$\underset{\text{#2}}{\text{#1}}$}
+% стиль подписи
+\newcommand\TINY[1]{\footnotesize#1\normalsize}
+% поле для заполнения определенной длины
+\newcommand\LINE[1]{\underline{\hspace{#1}}}
+% поливина \quad
+\newcommand\hquad{\hspace{0.5em}}
 
 \fancypagestyle{plain}{
     % чистим текущие настройки
