@@ -41,9 +41,13 @@
 \titleformat{\subsection}
     {\normalsize}
     {\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+    {\normalsize}
+    {\thesubsubsection}{1em}{}
 
 % оступ для абзацев текста
 \setlength{\parindent}{15mm}
+% \newcommand{\hindent}{15mm}
 
 % настройка отступов в заголовках
 \titlespacing*{\part}{\parindent}{-30pt}{*2}
@@ -51,6 +55,7 @@
 \titlespacing*{\paragraph}{\parindent}{-30pt}{*2}
 \titlespacing*{\section}{\parindent}{*2}{*2}
 \titlespacing*{\subsection}{\parindent}{*2}{*2}
+\titlespacing*{\subsubsection}{\parindent}{*2}{*2}
 
 \makeatletter
     \renewcommand{\@biblabel}[1]{#1} 
@@ -76,33 +81,6 @@
         \endlist}
 \makeatother
 
-% настройка глав приложение
-% \makeatletter
-%     \renewcommand{\@resets@pp}{\par
-%         \@ppsavesec
-%         \stepcounter{@pps}
-%         \setcounter{section}{0}
-%         \if@chapter@pp
-%             \setcounter{chapter}{0}
-%             \renewcommand\@chapapp{\appendixname}
-%             \gdef\thechapter{\Asbuk{chapter}} % changed
-%         \else
-%             \setcounter{subsection}{0}
-%             \gdef\thechapter{\Asbuk{section}} % changed
-%         \fi
-%         \if@pphyper
-%             \if@chapter@pp
-%                 \renewcommand{\theHchapter}{\theH@pps.\Asbuk{chapter}} % changed
-%             \else
-%                 \renewcommand{\theHsection}{\theH@pps.\Asbuk{section}} % changed
-%             \fi
-%             \def\Hy@chapapp{\appendixname}%
-%         \fi
-%     \restoreapp
-%     \titleformat{\chapter}{\normalfont\centering}{\appendixname~\thechapter}{0pt}{\\\centering}
-% }
-% \makeatother
-
 \DeclareCaptionLabelFormat{figure}{Рисунок #2}
 \DeclareCaptionLabelFormat{table}{Таблица #2}
 \DeclareCaptionLabelSeparator{sep}{~---~}
@@ -127,7 +105,10 @@
 \renewcommand{\cftdotsep}{2}
 \renewcommand{\thepart}{}
 
+% глубина в содержании
 \setcounter{tocdepth}{2}
+% глубина нумерации секций
+\setcounter{secnumdepth}{5}
 
 \renewcommand{\theenumi}{\arabic{enumi}}
 \renewcommand{\labelenumi}{\arabic{enumi})}
@@ -206,4 +187,5 @@
     \input{09-literature}
     % главы приложения
     \input{10-specification}
+    \input{11-other}
 \end{document}

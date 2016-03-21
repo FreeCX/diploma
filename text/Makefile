@@ -5,4 +5,4 @@ SOURCE=00-diploma.tex
 default:
 	$(COMPILER) -pdf $(FLAGS) $(SOURCE)
 clean:
-	$(COMPILER) -C $(FLAGS) $(SOURCE)
+	$(COMPILER) -C
