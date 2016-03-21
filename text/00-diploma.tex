@@ -4,8 +4,9 @@
 \usepackage[T2A]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage[english, russian]{babel}
-\usepackage[titletoc]{appendix}
+\usepackage[title, titletoc]{appendix}
 \usepackage{titletoc}
+\usepackage{tocvsec2}
 \usepackage{indentfirst}
 \usepackage{amsmath}
 \usepackage{textcomp}
@@ -76,31 +77,31 @@
 \makeatother
 
 % настройка глав приложение
-\makeatletter
-    \renewcommand{\@resets@pp}{\par
-        \@ppsavesec
-        \stepcounter{@pps}
-        \setcounter{section}{0}
-        \if@chapter@pp
-            \setcounter{chapter}{0}
-            \renewcommand\@chapapp{\appendixname}
-            \gdef\thechapter{\Asbuk{chapter}} % changed
-        \else
-            \setcounter{subsection}{0}
-            \gdef\thechapter{\Asbuk{section}} % changed
-        \fi
-        \if@pphyper
-            \if@chapter@pp
-                \renewcommand{\theHchapter}{\theH@pps.\Asbuk{chapter}} % changed
-            \else
-                \renewcommand{\theHsection}{\theH@pps.\Asbuk{section}} % changed
-            \fi
-            \def\Hy@chapapp{\appendixname}%
-        \fi
-    \restoreapp
-    \titleformat{\chapter}{\normalfont\centering}{\appendixname~\thechapter}{0pt}{\\\centering}
-}
-\makeatother
+% \makeatletter
+%     \renewcommand{\@resets@pp}{\par
+%         \@ppsavesec
+%         \stepcounter{@pps}
+%         \setcounter{section}{0}
+%         \if@chapter@pp
+%             \setcounter{chapter}{0}
+%             \renewcommand\@chapapp{\appendixname}
+%             \gdef\thechapter{\Asbuk{chapter}} % changed
+%         \else
+%             \setcounter{subsection}{0}
+%             \gdef\thechapter{\Asbuk{section}} % changed
+%         \fi
+%         \if@pphyper
+%             \if@chapter@pp
+%                 \renewcommand{\theHchapter}{\theH@pps.\Asbuk{chapter}} % changed
+%             \else
+%                 \renewcommand{\theHsection}{\theH@pps.\Asbuk{section}} % changed
+%             \fi
+%             \def\Hy@chapapp{\appendixname}%
+%         \fi
+%     \restoreapp
+%     \titleformat{\chapter}{\normalfont\centering}{\appendixname~\thechapter}{0pt}{\\\centering}
+% }
+% \makeatother
 
 \DeclareCaptionLabelFormat{figure}{Рисунок #2}
 \DeclareCaptionLabelFormat{table}{Таблица #2}
@@ -135,13 +136,17 @@
 \renewcommand{\theenumiii}{.\arabic{enumiii}}
 \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii})}
 
-\addto{\captionsrussian}{\renewcommand*{\contentsname}{Содержание}}
+\addto{\captionsrussian}{\renewcommand*{\contentsname}{\centeringСодержание\vspace{1em}}}
 
 % студент
 \newcommand\STUDENTO{Голубев Алексей Владимирович}
 \newcommand\STUDENTT{Голубева Алексея Владимировича}
 % номер приказа
 \newcommand\ORDER{XX}
+% номер для ТЗ
+\newcommand\SPECIFICATION{XXX}
+% количество листов в ТЗ
+\newcommand\SPAGES{XX}
 % последние две цифры года
 \makeatletter
     \newcommand\YEAR{\expandafter\@gobbletwo\number\numexpr\the\year\relax}
@@ -154,6 +159,15 @@
 \newcommand\LINE[1]{\underline{\hspace{#1}}}
 % поливина \quad
 \newcommand\hquad{\hspace{0.5em}}
+\newcommand\APPENDIX[2]{%
+    \chapter*{}
+    \addcontentsline{toc}{chapter}{#1\quad#2}
+    \vspace{8em}
+    \begin{center}
+        #1\\#2
+    \end{center}
+    \newpage
+}
 
 \fancypagestyle{plain}{
     % чистим текущие настройки
@@ -181,12 +195,15 @@
     % начинаем нумерацию отсюда
     \setcounter{page}{4}\setcounter{page}{4}
     \input{02-abstract}
-    \tableofcontents
+    % содержание для ПЗ
+    \startcontents
+    \printcontents{ }{1}{\contentsname}
     \input{04-introduction}
     \input{05-problem}
     \input{06-methods}
     \input{07-test}
     \input{08-conclusion}
     \input{09-literature}
-    \input{10-appendix}
+    % главы приложения
+    \input{10-specification}
 \end{document}
