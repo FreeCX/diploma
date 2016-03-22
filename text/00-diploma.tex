@@ -1,6 +1,7 @@
 \documentclass[a4paper, 14pt]{extreport}
 \usepackage[left=3.0cm, right=1.0cm, top=1.5cm, bottom=2.0cm]{geometry}
-% \usepackage[unicode, colorlinks, linkcolor=black, citecolor=black, urlcolor=black]{hyperref}
+% \usepackage[unicode, colorlinks, linkcolor=black,
+%     citecolor=black, urlcolor=black, hypertexnames=true]{hyperref}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage[english, russian]{babel}
@@ -22,7 +23,7 @@
 \usepackage{caption}
 % \usepackage{listings}
 \usepackage{fancyhdr}
-% \usepackage{algorithm2e}
+\usepackage{algorithm2e}
 \graphicspath{{images/}}
 
 % Times New Roman
@@ -141,7 +142,8 @@
 % поливина \quad
 \newcommand\hquad{\hspace{0.5em}}
 \newcommand\APPENDIX[2]{%
-    \chapter*{}
+    % должен быть только пробел, иначе пиняйте на себя!
+    \chapter*{ }
     \addcontentsline{toc}{chapter}{#1\quad#2}
     \vspace{8em}
     \begin{center}
@@ -149,6 +151,7 @@
     \end{center}
     \newpage
 }
+\newcommand\url[1]{\text{#1}}
 
 \fancypagestyle{plain}{
     % чистим текущие настройки
