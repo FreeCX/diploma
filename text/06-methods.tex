@@ -58,7 +58,7 @@
 \end{enumerate}
 
 \subsection{Результат работы}
-% Пример работы алгоритма приведен на \ref{img:greedy-01}.
+Пример работы алгоритма приведен на \ref{img:greedy-01}.
 \begin{enumerate}
     \item 1. Выбираем ребро с потребностью перевозки 300.
     \item 2. Выбираем кластер с количеством точек 500.
@@ -67,14 +67,14 @@
     \item 5. Третий шаг: выбираем ребро 100.
 \end{enumerate}
 
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=0.47\textwidth]{greedy-01}
-%     \caption{Пример реализации алгоритма a – исходный граф;
-%         b – первый построенный маршрут (вершина начала пути выделена красным);
-%         c – второй построенный маршрут (вершина начала пути выделена синим)}
-%    \label{img:greedy-01}
-% \end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.47\textwidth]{greedy-01}
+    \caption{Пример реализации алгоритма a – исходный граф;
+        b – первый построенный маршрут (вершина начала пути выделена красным);
+        c – второй построенный маршрут (вершина начала пути выделена синим)}
+   \label{img:greedy-01}
+\end{figure}
 % -----
 % нарисовать/найти pdf-ку для жадного алгоритма
 % -----
@@ -119,7 +119,7 @@
 \end{enumerate}
 
 \subsection{Схематическое представление}
-% Псевдокод алгоритма представлен следующей схемой \ref{alg:min-length}.
+Псевдокод алгоритма представлен следующей схемой \ref{alg:min-length}.
 \begin{algorithm}[ht]
     \caption{Алгоритм построения маршрутной сети}
     \KwData{\( N_r, C_t, C_nt \)}
@@ -150,16 +150,85 @@
     \label{alg:min-length}
 \end{algorithm}
 
+\subsection{Explanation}
+Let consider an explanation of the proposed algorithm by simple example. Given terminal nodes indicated as 
+\( A, A', B, B' \) (\( C_t \)) and nonterminal nodes indicated as \( C, D, E, F \) (\( C_{nt} \). Assume 
+the number of routes is \( n_r = 2 \). So the results are two routes covers all terminal and nonterminal 
+nodes.
+
+The first step is to define direct routes which include only terminal nodes. We agreed to add into initial 
+route opposite nodes which are located opposite one another. So the route list contains two routes 
+\( R_i = [AA', BB'] \). Figure \ref{fig:route_first} shows the initial direct routes.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.47\textwidth]{route01}
+    \caption{Initial routes network including \( n_r \) direct routes with terminal nodes.}
+    \label{fig:route_first}
+\end{figure}
+
+Next, we choose the next route from the list \( R_i \) and divide the route in half. As we have two nodes 
+in the route, there is the only one route \( PN = [AA'] \).
+
+Next we compose a new set of routes by adding the new node as the midpoint in existed routes from \( PN \). 
+In this case, we have \( ACA', ADA', AEA', AFA' \). 
+
+Getting these four new routes we calculate the length each of them and selects the route with minimal 
+length (in our case of \( ACA' \)). Add \( ACA' \) in the routes list \( RC = [ACA'] \).
+
+Next, we compose all variants of routes from lists \( RC \) and \( PN \). In this case we have only one 
+route \( ACA' \), so we add it to the list \( R^{\star}_{i} \). Node \( C \) is removed from the list 
+\( C_nt \). The same actions for the second route from initial list and get new route \( BEB’ \). 
+Figure \ref{fig:route_second} represents the routes network after first iteration. 
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.47\textwidth]{route02}
+    \caption{Routes network after the first iteration.}
+    \label{fig:route_second}
+\end{figure}
+
+Starting the second iteration we have a list of routes \( R_i = [ACA', BEB'] \). Using \( ACA' \) we have 
+two pairs \( PN=[AC, CA'] \). 
+
+Sequentially adding every non-terminal node and have \( ADC, AFC, CDA', CFA' \). The shortest route is 
+\( CDA' \). 
+
+Compose different variants from \( CDA' \) and \( AC \), \( CA' \) and get \( ACDA' \). Add new route 
+into \( R^{\star}_i \) and remove \( D \) from \( C_nt \).
+
+Similarly, for the second route from \( R_i \) we get \( BEFB' \).
+
+As \( C_nt \) contain no more nodes (empty set) the algorithm is terminated. 
+
+Figure \ref{fig:route_third} represents the final result.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.47\textwidth]{route03}
+    \caption{Final routes network.}
+    \label{fig:route_third}
+\end{figure}
+
+\subsection{Using of convex hull algorithm}
+We used the simple idea to find terminal nodes in initial direct routes (step 1). Terminal nodes are found 
+based on  the idea of convex hull algorithm. 
+
+For all given nodes, the convex hull is created. It helps to draw a circle circumscribed about the convex 
+hull. Since we have a number of routes as an initial parameter, we define \( 2\cdot N_r \) equally-spaced 
+nodes on the circle. Opposite pair of nodes is a quasi-origin/destination nodes in the routes. To define 
+the real origin/destination, we found the nearest node to quasi-nodes.
+
 \subsection{Результаты работы}
 Алгоритм был апробирован на различных тестовых данных для различных значений числа маршрутов. 
-% Результат работы алгоритма представлен на \ref{img:min-length-01}.
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=0.47\textwidth]{minimal-01}
-%     \caption{Визуализация результата работы алгоритма формирования начальной сети маршрутов, 
-%         использующий принцип <<минимального>> увеличения длины маршрута при включении нового пункта.}
-%    \label{img:min-length-01}
-% \end{figure}
+Результат работы алгоритма представлен на \ref{img:min-length-01}.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.47\textwidth]{minimal-01}
+    \caption{Визуализация результата работы алгоритма формирования начальной сети маршрутов, 
+        использующий принцип <<минимального>> увеличения длины маршрута при включении нового пункта.}
+   \label{img:min-length-01}
+\end{figure}
 
 % \subsection{Подробное описание}
 

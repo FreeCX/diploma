@@ -1,19 +1,149 @@
 % написать черновой варинат по теории 
 \chapter{Введение в проблему синтеза маршрутов}
+% ---
+Следует отметить, что построение систем поддержки принятия решений рассматривается в контексте систем 
+сбора, хранения и обработки данных, реализующих алгоритмы генерации информации в соответствии с различными 
+уровнями представления \cite{bib:4}. В рамках данной концепции человек -- лицо принимающий решение -- 
+должен быть исключен из контура оперативного управления и перемещен на уровень супервизорного управления 
+\cite{bib:5}.
+
+На основе анализа программных продуктов, специализирующихся на задачах транспортного моделирования 
+(PTV Visum \cite{bib:6}, INRO Emme \cite{bib:7}, Citilabs Cube Cloud \cite{bib:8} и др.), были выявлены 
+основные функции, которые в основном ориентированы на оценку качества действующей или проектируемой 
+маршрутной сети.
+
+PTV Visum (компания PTV Group): предлагает инструменты для проведения комплексного анализа действующих 
+сетей, позволяет оценивать технико-экономические характеристики проектируемой сети маршрутов. На основе 
+анализа матриц корреспонденций между районами, реализована возможность прогнозирования транспортного спроса, 
+что помогает оценить количество необходимого подвижного состава и составить расписание его работы. 
+Emme (компания INRO Software) и Cube Cloud (компания Citilabs): SaaS-программные продукты со схожей 
+функциональностью.
+
+Таким образом, если рассматривать задачу поддержки принятия решений по совершенствованию маршрутов 
+общественного транспорта с точки зрения (а) анализа существующих маршрутов на предмет удовлетворения 
+спроса и (б) модификации существующих (через предложение новых вариантов маршрутов) с целью удовлетворения 
+спроса жителей (уменьшение среднего времени пешего подхода до остановки и уменьшение времени поездки), то 
+рассмотренные системы не решают сформулированные задачи и имеют следующие недостатки: (а) не учитывают 
+предпочтения жителей по перемещениям в современной городской среде; (б) не адаптированы к работе с 
+большими данными.
+
+% ---
+Cities are growing, almost all of them have the complex transport infrastructure. Management of urban 
+infrastructure or urban planning is a set of complicated procedures as well, where a certain solution 
+might have a strong impact or do not satisfy all inhabitants. Urban planning covers transportation, 
+communications, and distribution networks design and many others towards to improving people’s life. 
+A new challenge for fast-growing cities is in making public transportation system more reliable to 
+citizens. With the ideal public transportation network certain person spends as little time as possible 
+for comfort travelling like he or she has a personal carrier. 
+
+Often current transport system development procedures do not take into consideration real preference of 
+the most of the inhabitants. It leads to fundamental issues: public transport becomes not so convenient 
+to use, people prefer their personal cars and spend much time in traffic. All these negative effects are 
+the reasons for the dissatisfaction of cities residents. 
+
+Nowadays, new ubiquitous data collection and processing technologies which getting cheaper and cheaper 
+bring new opportunities for planners. At least, the most of the people who live in cities have mobile 
+phones and smartphones. Cell operators are able to track people calls and received a huge amount of data 
+about users travelling. Based on the assumption that a certain person has their own ‘transfer’ patterns 
+(the most using origin-destination points) which can be considered as personal requirements for 
+transportation systems. Having this data we able to (i) evaluate the efficiency of the current 
+transportation network and (ii) suggest modification based on citizen’s preferences. 
+
+To solve this problem it is necessary to perform the following procedures: (i) collecting of data, 
+(ii) data reduction, (iii) creating a set of (sub)optimal routes and (iv) pick up the appropriate network 
+according to the quality criteria. Data collection requires techniques for data receiving and 
+preprocessing for further efficient storing. It is not necessarily real-time data processing, data 
+snapshots or dumps at the certain moment of time have been used. The crucial points of the data gathering 
+is data quality assurance, such as gap detection. Since we have transfer data of every single persons, 
+we are able to evaluate the most optimal stops as nodes in public transportation routes. Suppose we get 
+information about 10\% of inhabitants of a city with 3.5 mln population. In this case, the correspondence 
+matrix has \( 350 000^2 \) elements. Reduction of original nodes count allows to detect the centers of 
+nodes clusters and to understand where stops could be located. 
+
+The next step is to connect clusters centers and get the public transportation network with (sub) 
+optimal routes. This is a very complicated multi-objective problem with a set of constraints. This 
+problem lays at an intersection of the shortest path problem and vehicle routing problem with the 
+parameter of passenger traffic flow. The shortest path problem is the well known problem and there 
+are many efficient and fast program implementations e.g. OpenStreetMap. However, there are several 
+specifics of the problem and basic algorithms do not applicable as is. In contrast with the shortest 
+path problem with the timewise cost function, the considered cost function is more complicated, as it 
+includes walk distance (time), travel time, the number of changes. All these variables are averaged by 
+a number of residents. Also the important difference, the final route could not be arbitrary, as every 
+route must contain nodes (stops) which represent centers of clusters defined in the previous step. 
+
+Getting the optimal public network with the one step is a very difficult and requires intensive human 
+intervention. As the result, evolution-based algorithms can be applied to avoid additional costs at 
+the initial stage. There are a number of activities associated with the proposed approach: 
+(i) creating the initial routes network, (ii) change the initial network by applying evolutionary 
+operation such as mutation and crossover; (iii) evaluate the current networks and by the cost function. 
+
 % ----------------------------------------------
 % обзор литературы
 % ----------------------------------------------
 \section{Анализ предметной области}
+% описание предметной области
+
 \section{Состояние современных исследований}
-% ----------------------------------------------
-\section{Требования к методам}
-\section{Заключение}
+Public transportation planning and developing public transport network is well studied domain. 
+According to ~\cite{ceder2007} the planning methodology includes the sequence of actions: 
+(i) public transportation network design; (ii) setting timetables; (iii) scheduling vehicles 
+to trips, (iv) and assignment of drivers and other maintenance work. 
+
+Also we observe some theoretical results in path design and route planning. Thomas L. Rodeheffer 
+suggested the Symmetric Shortest-Path Table Routing Conjecture. In the work 
+\cite{rodeheffer2013symmetric} he describes a symmetric shortest-path table routing, and presented 
+counterexamples to the hypothesis: every possible symmetric shortest-path table routing can be 
+selected in this way by some edge weight salting.
+
+Daniel Delling et al suggested round-based public transit routing approach. In the paper 
+\cite{delling2014round} authors explore the problem of computing all Pareto-optimal journeys in a 
+dynamic public transit network and introducing round-based public transit router algorithm (named RAPTOR).
+
+Another work \cite{delling2015customizable} explains customizable route planning in road networks. In 
+this paper, authors propose routing engine for computing driving directions in large-scale road networks. 
+Also Daniel Delling et al, in the paper \cite{delling2015public} suggested public transit labeling as the 
+solution of the journey planning problem in public transit networks. 
+
+Ittai Abraham et al, in the paper \cite{abraham2013alternative} suggested alternative routes in Road 
+Networks. In this paper, authors explore the problem of finding good alternative routes in road networks. 
+They search for routes which (i) are substantially differ from the shortest path, (ii) have small stretch, 
+and (iii) are locally optimal. 
+
+Ling-Yin Wei et al, in the work \cite{wei2012constructing} suggested RICK algorithm for constructing 
+popular routes from uncertain trajectories using information about sequence of locations and time 
+intervals.
+
+Tim Dwyer and Lev Nachmanson, in the work \cite{dwyer2009fast} suggested fast edge-routing for large 
+graphs. In this paper two methods for achieving faster edge routing using approximate shortest-path 
+techniques are suggested and discussed.
 
 % -------- разместить в главе 05-problem -------
 Формально данная задача связана с поиском оптимального пути на графе. Были проанализированы различные и 
 широко используемые алгоритмы построения пути: \( A^\star \), \( IDA^\star \), поиск в ширину 
 (Breadth-First-Search), поиск <<лучший-первый>> (Best-First-Search), алгоритм Дейкстры, двунаправленный 
-\( A^\star \), Jump Point Search, Orthogonal Jump Point Search, двухэтапные алгоритмы (ALT, Reach), а так 
-же генетические алгоритмы случайного поиска [18]. 
-% --- больше ссылко на источники (алгоритмы) ---
+\( A^\star \), Jump Point Search, Orthogonal Jump Point Search, двухэтапные алгоритмы (ALT, Reach), а 
+так же генетические алгоритмы случайного поиска [18]. 
+% --- больше ссылок на источники (алгоритмы) ---
 % ----------------------------------------------
+
+% --- duplicate (see header) ---
+Besides on theoretical results, software implementations for decision support in urban transportation 
+planning have been observed. PTV Visum~\cite{bib:6} is software for evaluation existed (defined by 
+responsible person) public transport network based on transportation matrix. Another software called 
+Emme, proposed by ``INRO Software''~\cite{bib:7} and SaaS solution by Citilabs named 
+Cube Cloud~\cite{bib:8}.
+% --- duplicate (see header) ---
+
+The Transportation Analysis and Simulation System (TRANSIMS) developed by \cite{transims} is a set of 
+tools for analysis of regional transportation systems. TRANSIMS is an open source project which is 
+available for public usage under NASA Open Source Agreement Version 1.3.
+ 
+Also, in urban development traffic modelling software is used, like Aimsun that allows to model fusing 
+travel demand and simulate networks of difference compexity \cite{aimsun}.
+
+% more info
+\dots
+
+% ----------------------------------------------
+\section{Требования к методам}
+\section{Заключение}
