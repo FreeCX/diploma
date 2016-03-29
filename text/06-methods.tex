@@ -81,6 +81,7 @@
 % \subsection{Подробное описание}
 
 \section{Алгоритм минимального увеличения длины}
+\label{sec:second_alg}
 % ---
 \subsection{Общее описание}
 
@@ -119,7 +120,7 @@
 
 \subsection{Схематическое представление}
 Псевдокод алгоритма представлен следующей схемой \ref{alg:min-length}.
-\begin{algorithm}[ht]
+\begin{algorithm}[ht!]
     \caption{Алгоритм построения маршрутной сети}
     \KwData{\( N_r, C_t, C_nt \)}
     \KwResult{\( RN \)}
@@ -148,6 +149,7 @@
     }
     \label{alg:min-length}
 \end{algorithm}
+\pagebreak
 
 \subsection{Explanation}
 Let consider an explanation of the proposed algorithm by simple example. Given terminal nodes indicated as 
@@ -161,9 +163,26 @@ route opposite nodes which are located opposite one another. So the route list c
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.47\textwidth]{route01}
-    \caption{Initial routes network including \( n_r \) direct routes with terminal nodes.}
-    \label{fig:route_first}
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{route01}
+        \caption{Initial routes network including \( n_r \) direct routes with terminal nodes.}
+        \label{fig:route_first}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{route02}
+        \caption{Routes network after the first iteration.}
+        \label{fig:route_second}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{route03}
+        \caption{Final routes network.}
+        \label{fig:route_third}
+    \end{subfigure}
+    \caption{Схематичное представление работы алгоритма}
+    \label{fig:route}
 \end{figure}
 
 Next, we choose the next route from the list \( R_i \) and divide the route in half. As we have two nodes 
@@ -180,13 +199,6 @@ route \( ACA' \), so we add it to the list \( R^{\star}_{i} \). Node \( C \) is 
 \( C_nt \). The same actions for the second route from initial list and get new route \( BEB’ \). 
 Figure \ref{fig:route_second} represents the routes network after first iteration. 
 
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.47\textwidth]{route02}
-    \caption{Routes network after the first iteration.}
-    \label{fig:route_second}
-\end{figure}
-
 Starting the second iteration we have a list of routes \( R_i = [ACA', BEB'] \). Using \( ACA' \) we have 
 two pairs \( PN=[AC, CA'] \). 
 
@@ -201,13 +213,6 @@ Similarly, for the second route from \( R_i \) we get \( BEFB' \).
 As \( C_nt \) contain no more nodes (empty set) the algorithm is terminated. 
 
 Figure \ref{fig:route_third} represents the final result.
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.47\textwidth]{route03}
-    \caption{Final routes network.}
-    \label{fig:route_third}
-\end{figure}
 
 \subsection{Using of convex hull algorithm}
 We used the simple idea to find terminal nodes in initial direct routes (step 1). Terminal nodes are found 
