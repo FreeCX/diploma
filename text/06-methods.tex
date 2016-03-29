@@ -69,15 +69,14 @@
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.47\textwidth]{greedy-01}
-    \caption{Пример реализации алгоритма a – исходный граф;
-        b – первый построенный маршрут (вершина начала пути выделена красным);
-        c – второй построенный маршрут (вершина начала пути выделена синим)}
+    \includegraphics[width=0.8\textwidth]{greedy-01}
+    \caption{Пример реализации алгоритма\\
+        a -- исходный граф;\\
+        b -- первый построенный маршрут (вершина начала пути выделена красным);\\
+        c -- второй построенный маршрут (вершина начала пути выделена синим).
+    }
    \label{img:greedy-01}
 \end{figure}
-% -----
-% нарисовать/найти pdf-ку для жадного алгоритма
-% -----
 
 % \subsection{Подробное описание}
 
@@ -224,9 +223,21 @@ the real origin/destination, we found the nearest node to quasi-nodes.
 Результат работы алгоритма представлен на \ref{img:min-length-01}.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.47\textwidth]{minimal-01}
+    \begin{subfigure}{0.47\textwidth}
+        \includegraphics[width=\textwidth]{minimal-01}
+        \caption{Построением маршрута по графу}
+        \label{fig:graph}
+    \end{subfigure}
+    \begin{subfigure}{0.47\textwidth}
+        \includegraphics[width=\textwidth]{minimal-02}
+        \caption{Построением маршрута по дорогам}
+        \label{fig:osrm}
+    \end{subfigure}
     \caption{Визуализация результата работы алгоритма формирования начальной сети маршрутов, 
-        использующий принцип <<минимального>> увеличения длины маршрута при включении нового пункта.}
+        использующий принцип <<минимального>> увеличения длины маршрута при включении нового пункта%:\\
+        % a -- с построением маршрута по графу\\
+        % b -- с построением маршрута по дорогам
+    }
    \label{img:min-length-01}
 \end{figure}
 
