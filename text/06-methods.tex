@@ -151,77 +151,80 @@
 \end{algorithm}
 \pagebreak
 
-\subsection{Explanation}
-Let consider an explanation of the proposed algorithm by simple example. Given terminal nodes indicated as 
-\( A, A', B, B' \) (\( C_t \)) and nonterminal nodes indicated as \( C, D, E, F \) (\( C_{nt} \). Assume 
-the number of routes is \( n_r = 2 \). So the results are two routes covers all terminal and nonterminal 
-nodes.
+\subsection{Объяснение работы}
+Поясним работу данного алгоритма на простом примере. Имеем некоторый набор терминальных кластеров 
+\( A, A', B, B' \) (\( C_t \)) и нетерминальных \( C, D, E, F \) (\( C_{nt} \). Количество маршрутов для 
+построения \( n_r = 2 \). Необходимо построить два маршрута на основе входных данных.
 
-The first step is to define direct routes which include only terminal nodes. We agreed to add into initial 
-route opposite nodes which are located opposite one another. So the route list contains two routes 
-\( R_i = [AA', BB'] \). Figure \ref{fig:route_first} shows the initial direct routes.
+Первым шагом является определение прямых маршрутов, которые включают только терминальные узлы. Условимся, 
+что для первоначального маршрута и используются противоположные узлы, т.е. расположенные напротив друг друга. 
+В данном случае получаем список содержащий два узла \( R_i = [AA', BB'] \). Рисунок \ref{fig:route_first} 
+иллюстрирует данное начальное распределение маршрутов.
 
 \begin{figure}[ht!]
     \centering
     \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\textwidth]{route01}
-        \caption{Initial routes network including \( n_r \) direct routes with terminal nodes.}
+        \caption{Первоначальная маршрутная сеть включающая \( n_r \) прямых маршрутов с терминальными узлами.}
         \label{fig:route_first}
     \end{subfigure}
     \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\textwidth]{route02}
-        \caption{Routes network after the first iteration.}
+        \caption{Маршрутная сеть после первой итерации алгоритма.}
         \label{fig:route_second}
     \end{subfigure}
     \begin{subfigure}{0.3\textwidth}
         \centering
         \includegraphics[width=\textwidth]{route03}
-        \caption{Final routes network.}
+        \caption{Окончательная версия маршрутной сети.}
         \label{fig:route_third}
     \end{subfigure}
     \caption{Схематичное представление работы алгоритма}
     \label{fig:route}
 \end{figure}
 
-Next, we choose the next route from the list \( R_i \) and divide the route in half. As we have two nodes 
-in the route, there is the only one route \( PN = [AA'] \).
+Далее, выбираем из первый элемент из списка \( R_i \) и разбиваем его на пары. На данном шаге, так как 
+в маршруте только два узла, имеем только одну пару \( PN = [AA'] \).
 
-Next we compose a new set of routes by adding the new node as the midpoint in existed routes from \( PN \). 
-In this case, we have \( ACA', ADA', AEA', AFA' \). 
+Далее, конструируем набор маршрутов добавлением нового элемента в середину пары в существующие маршруты 
+из \( PN \). В данном случае имеем следующий набор \( ACA', ADA', AEA', AFA' \).
 
-Getting these four new routes we calculate the length each of them and selects the route with minimal 
-length (in our case of \( ACA' \)). Add \( ACA' \) in the routes list \( RC = [ACA'] \).
+Для полученных четырёх маршрутов рассчитаем длину для каждого и выбираем с наименьшим значением 
+(в нашем случае это \( ACA' \)). Добавляем \( ACA' \) в список маршрутов \( RC = [ACA'] \).
 
-Next, we compose all variants of routes from lists \( RC \) and \( PN \). In this case we have only one 
-route \( ACA' \), so we add it to the list \( R^{\star}_{i} \). Node \( C \) is removed from the list 
-\( C_nt \). The same actions for the second route from initial list and get new route \( BEB’ \). 
-Figure \ref{fig:route_second} represents the routes network after first iteration. 
+Далее, составляем все варианты новых маршрутов из \( RC \) и \( PN \). В данном случае получаем только 
+один \( ACA' \) и добавляем его в список \( R^{\star}_{i} \). Узел \( С \) удаляем из списка \( C_nt \).
+Проделываем аналогичные действия и для второго маршрута -- получаем новый маршрут \( BEB’ \).
+Рисунок \ref{fig:route_second} отражает маршрутную сеть после первой итерации алгоритма.
 
-Starting the second iteration we have a list of routes \( R_i = [ACA', BEB'] \). Using \( ACA' \) we have 
-two pairs \( PN=[AC, CA'] \). 
+На второй итерации цикла имеем список маршрутов \( R_i = [ACA', BEB'] \). Используя \( ACA' \) можно 
+сконструировать две пары \( PN=[AC, CA'] \).
 
-Sequentially adding every non-terminal node and have \( ADC, AFC, CDA', CFA' \). The shortest route is 
-\( CDA' \). 
+Последовательно добавляя каждый нетерминальный кластер имеем следующий список \( ADC, AFC, CDA', CFA' \). 
+Допустим, что минимальным из них является \( CDA' \).
 
-Compose different variants from \( CDA' \) and \( AC \), \( CA' \) and get \( ACDA' \). Add new route 
-into \( R^{\star}_i \) and remove \( D \) from \( C_nt \).
+Составляем различные варианты из \( CDA' \) и \( AC \), \( CA' \) получаем новый \( ACDA' \). Добавляем 
+полученный маршрут в \( R^{\star}_i \) и удаляем узел \( D \) из \( C_nt \).
 
-Similarly, for the second route from \( R_i \) we get \( BEFB' \).
+Аналогично для второго маршрута из \( R_i \) получаем \( BEFB' \).
 
-As \( C_nt \) contain no more nodes (empty set) the algorithm is terminated. 
+Так как \( C_nt \) не содержит больше узлов (пустой список), то алгоритм заканчивает свою работу.
 
-Figure \ref{fig:route_third} represents the final result.
+Рисунок \ref{fig:route_third} отражает окончательный этап алгоритма.
 
-\subsection{Using of convex hull algorithm}
-We used the simple idea to find terminal nodes in initial direct routes (step 1). Terminal nodes are found 
-based on  the idea of convex hull algorithm. 
+\subsection{Использование алгоритма выпуклой оболочки}
+Для поиска терминальных кластеров, для начальной сети прямых маршрутов (шаг 1), используется простая идея 
+основанная на идее алгоритма выпуклой оболочки.
 
-For all given nodes, the convex hull is created. It helps to draw a circle circumscribed about the convex 
-hull. Since we have a number of routes as an initial parameter, we define \( 2\cdot N_r \) equally-spaced 
-nodes on the circle. Opposite pair of nodes is a quasi-origin/destination nodes in the routes. To define 
-the real origin/destination, we found the nearest node to quasi-nodes.
+Для всех заданных узлов создаётся выпуклая оболочка. Это помогает нарисовать круг описанный вокруг данной
+оболочки. Так как у нас есть ряд маршрутов в качестве входного параметра, то определяем \( 2\cdot N_r \) 
+равномерно расположенных узлов на построенной окружности. Узлы расположенные напротив друг друга являются 
+квази-узлами отправления/назначения для маршрутной сети. Для определения реального узла отправления/назначения 
+выбираем вокруг квази-узла некоторый \( \eps \) радиус и находим все принадлежащее узлы к данной окрестности.
+Так как список может попасть больше чем один узел, то необходимо произвести сортировку данных узлов по 
+количеству людей находящимся в нём и выбирать с наибольшим количеством.
 
 \subsection{Результаты работы}
 Алгоритм был апробирован на различных тестовых данных для различных значений числа маршрутов. 
