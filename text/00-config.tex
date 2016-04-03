@@ -23,7 +23,7 @@
 \usepackage{tocloft}
 \usepackage{caption}
 % \usepackage{listings}
-\usepackage{fancyhdr}
+\usepackage{fancybox, fancyhdr}
 \usepackage{algorithm2e}
 \graphicspath{{../images/}}
 
@@ -159,7 +159,7 @@
     % чистим текущие настройки
     \fancyhf{}
     % отступ перед верхним колонтитулом
-    \addtolength{\headheight}{10mm}
+    \renewcommand{\headheight}{10mm}
     % остпуп после верхнего колонтитула
     \headsep=8pt
     % верхний колонтитул (по центру)
