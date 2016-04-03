@@ -48,54 +48,62 @@ Emme (компания INRO Software) и Cube Cloud (компания Citilabs):
 либо загрузить готовую маршрутную сеть.
 
 % ---
-Cities are growing, almost all of them have the complex transport infrastructure. Management of urban 
-infrastructure or urban planning is a set of complicated procedures as well, where a certain solution 
-might have a strong impact or do not satisfy all inhabitants. Urban planning covers transportation, 
-communications, and distribution networks design and many others towards to improving people’s life. 
-A new challenge for fast-growing cities is in making public transportation system more reliable to 
-citizens. With the ideal public transportation network certain person spends as little time as possible 
-for comfort travelling like he or she has a personal carrier. 
+Развитие городов сопряжено с модернизацией существующей сети общественного транспорта. Управление городской 
+инфраструктурой или городское планирование представляет собой набор сложных процедур, где определенное 
+решение может оказать сильное влияние или не удовлетворить всех жителей. Градостроительство охватывает 
+транспорт, связь, распределение и проектирование сетей и многие другие для улучшения жизни людей. Новый 
+вызов для быстрорастущих городов в создании более надёжной системы общественного транспорта для жителей. 
+В идеале использование общественного транспорта должно уменьшить затрачиваемое время на передвижение, как 
+если бы каждый отдельный человек использовал свой личный транспорт.
 
-Often current transport system development procedures do not take into consideration real preference of 
-the most of the inhabitants. It leads to fundamental issues: public transport becomes not so convenient 
-to use, people prefer their personal cars and spend much time in traffic. All these negative effects are 
-the reasons for the dissatisfaction of cities residents. 
+Часто текущие системы планирования транспортной сети не принимают во внимание реальные предпочтения 
+большинства жителей. Это приводит к фундаментальным проблемам: общественным транспортом становится неудобно 
+пользоваться, народ всё чаще начинает использовать личные автомобили, что приводит к потере личного времени 
+на стоянии в пробках. Все эти негативные воздействия являются причиной недовольства жителей города.
 
-Nowadays, new ubiquitous data collection and processing technologies which getting cheaper and cheaper 
-bring new opportunities for planners. At least, the most of the people who live in cities have mobile 
-phones and smartphones. Cell operators are able to track people calls and received a huge amount of data 
-about users travelling. Based on the assumption that a certain person has their own ‘transfer’ patterns 
-(the most using origin-destination points) which can be considered as personal requirements for 
-transportation systems. Having this data we able to (i) evaluate the efficiency of the current 
-transportation network and (ii) suggest modification based on citizen’s preferences. 
+В настоящее время повсеместный сбор данных и их технологии их обработки, которые становятся всё дешевле и 
+дешевле, открывают новые возможности для проектировщиков. По крайней мере, большинство людей, которые 
+живут в городах, имеют мобильные телефоны и смартфоны. Мобильные операторы могут отслеживать звонки людей 
+и получать огромное количество данных о их перемещении. Исходя из предположения, что определенный человек 
+имеет свои собственные <<шаблоны перемещения>> (часто используемые точки отправления-назначения), которые 
+можно рассматривать в качестве личных транспортных предпочтениях по перемещению. Имея эти данные можно (i) 
+оценить эффективность текущей транспортной сети и (ii) предложить модификацию на основе предпочтения 
+граждан.
 
-To solve this problem it is necessary to perform the following procedures: (i) collecting of data, 
-(ii) data reduction, (iii) creating a set of (sub)optimal routes and (iv) pick up the appropriate network 
-according to the quality criteria. Data collection requires techniques for data receiving and 
-preprocessing for further efficient storing. It is not necessarily real-time data processing, data 
-snapshots or dumps at the certain moment of time have been used. The crucial points of the data gathering 
-is data quality assurance, such as gap detection. Since we have transfer data of every single persons, 
-we are able to evaluate the most optimal stops as nodes in public transportation routes. Suppose we get 
-information about 10\% of inhabitants of a city with 3.5 mln population. In this case, the correspondence 
-matrix has \( 350 000^2 \) elements. Reduction of original nodes count allows to detect the centers of 
-nodes clusters and to understand where stops could be located. 
+Для решения данных проблем необходимо выполнить следующие процедуры: (i) сбор данных, (ii) обработка данных, 
+(iii) создание набора суб-/оптимальных маршрутов и (iv) выбор сети в соответствии с критериями качества.
+Сбор данных требует методов для получения и предварительной обработки для дальнейшего эффективного хранения.
+Это не обязательно сбор данных в режиме реального времени, создание моментальных <<снимков>> данных или 
+дамп данных в определенный момент, для использования данных в дальнейшем. Основным моментом для сбора 
+данных является обеспечение их качества, такое как определение разрыва (The crucial points of the data 
+gathering is data quality assurance, such as gap detection.). Поскольку получение данных происходит от 
+каждого отдельного человека, то имеем возможность оценить наиболее оптимальные места в качестве узловых 
+маршрутов общественного транспорта. Допустим, мы получаем информацию о 10\% жителей город с 3.5 млн. 
+населения. В этом случае матрица корреспонденции составляет \( 350 000^2 \) элементов. Уменьшение количества 
+оригинальных узлов графа позволяет выявить центры кластеров и узлов, для того, чтобы понять, где можно 
+разместить остановочный пункт общественного транспорта.
 
-The next step is to connect clusters centers and get the public transportation network with (sub) 
-optimal routes. This is a very complicated multi-objective problem with a set of constraints. This 
-problem lays at an intersection of the shortest path problem and vehicle routing problem with the 
-parameter of passenger traffic flow. The shortest path problem is the well known problem and there 
-are many efficient and fast program implementations e.g. OpenStreetMap. However, there are several 
-specifics of the problem and basic algorithms do not applicable as is. In contrast with the shortest 
-path problem with the timewise cost function, the considered cost function is more complicated, as it 
-includes walk distance (time), travel time, the number of changes. All these variables are averaged by 
-a number of residents. Also the important difference, the final route could not be arbitrary, as every 
-route must contain nodes (stops) which represent centers of clusters defined in the previous step. 
+Следующим шагом является объединение центров кластеров для создания суб- оптимальных маршрутов сети 
+общественного транспорта. Это очень сложная многокритериальная задача с множеством ограничений. Эта проблема 
+лежит на пересечении проблемы поиска кратчайшего пути и задачи выбора маршрута транспортного средства с 
+входным параметром пассажиропотока. Задача о поиске кратчайшего пути является наиболее известной, для которой 
+есть много эффективных и быстрых программных реализаций, например Open Source Routing Machine (OSRM). Однако, 
+% можно добавить ссылку на OSRM
+есть несколько особенностей в данной задач, такие что базовые алгоритмы не могут быть применены в текущем 
+виде. В отличии от задачи о поиске кратчайшего пути с функцией затрат, рассматривается более сложная функция 
+стоимости, которая включает время пешего хода, время проведённое в пути и другие количественные изменения. 
+Все эти переменные являются усреднёнными по числу жителей. Кроме того, важным различием между этими 
+алгоритмами является, что конечная точка в маршруте не может быть произвольной, так как каждый маршрут должен 
+содержать узлы (остановки), которые представляют собой центры кластеров, определенных на предыдущем шаге.
 
-Getting the optimal public network with the one step is a very difficult and requires intensive human 
-intervention. As the result, evolution-based algorithms can be applied to avoid additional costs at 
-the initial stage. There are a number of activities associated with the proposed approach: 
-(i) creating the initial routes network, (ii) change the initial network by applying evolutionary 
-operation such as mutation and crossover; (iii) evaluate the current networks and by the cost function. 
+Получение оптимальной сети общественного транспорта за один шаг является очень сложным и требует активного 
+вмешательства человека. Как результат могут быть применены эволюционные алгоритмы, чтобы избежать дополнительных 
+затрат на начальном этапе построения. Есть целый ряд мероприятий, связанных с предлагаемым подходом: (i) 
+создать сети начальных маршрутов, (ii) изменить исходную сеть, применив операцию эволюционного алгоритма, 
+такие как мутации и скрещивания; (iii) оценить существующие сети и функции затрат.
+
+% не закончено описание
+\ldots
 
 % ----------------------------------------------
 % обзор литературы
@@ -171,19 +179,19 @@ travel demand and simulate networks of difference complexity \cite{aimsun}.
 % other information
 % ----------------------------------------------
 В книге Алгоритмы решения экстремальных задач\cite{bib:56} подробно излагается теория и численные методы 
-для решения важных задач: от задач линейного программрования до ряда дискретных задач. Также сюда входят 
+для решения важных задач: от задач линейного программирования до ряда дискретных задач. Также сюда входят 
 и транспортные задачи, которой посвящены главы с третьей по четвёртую, а также пятая глава, где 
 рассматриваются многоэкстремальные задачи на графах. Изложение численных методов сопровождается разбором 
 алгоритмов, а также у обращение внимания на эффективную организацию вычислительного процесса. Хотя книга 
 и вышла в 77 году она не потеряла своей актуальности.
 
 В статье Алгоритмы построения маршрута на карте по параметрам\cite{bib:46} предоставляется обоснование 
-о необходимости создания алгоритмов построения маршрута по параметрам, для того чтобы он соотвествовал 
+о необходимости создания алгоритмов построения маршрута по параметрам, для того чтобы он соответствовал 
 необходимым предпочтениям жителей, а также о пользе использования генетических алгоритмах в задаче 
 построения маршрутов.
 
 В диссертационной работе <<Методы локального поиска для дискретных задач размещения>>\cite{bib:45} 
-рассматриваються математические модели размещения, а конкретно дискретные оптимизационные задачи. Данная 
+рассматриваются математические модели размещения, а конкретно дискретные оптимизационные задачи. Данная 
 работа носит в основном теоретический характер и является отличным источником информации о эвристических 
 методах и их теоретической базе.
 
@@ -226,11 +234,11 @@ travel demand and simulate networks of difference complexity \cite{aimsun}.
 
 В книге \cite{bib:23} излагается материал от теории экономического равновесия до математический модели 
 транспортных потоков, которые могут пригодиться при создании/модернизации транспортной системы. Представлено 
-на рассмотрение большое количество моделей от макроспопических, например как модель Танака, до микроспопических, 
-таких как модели клеточных автоматов. Также в книге представлен новый теоретический базиз для развития 
-интелектуальных транспортных технологий.
+на рассмотрение большое количество моделей от макроскопических, например как модель Танака, до микроскопических, 
+таких как модели клеточных автоматов. Также в книге представлен новый теоретический базис для развития 
+интеллектуальных транспортных технологий.
 
-В статье <<О возможной динамике в модели расчета матрицы корреспонденций (А.Дж. Вильсона)>>\cite{bib:24} 
+В статье <<О возможной динамике в модели расчета матрицы корреспонденций (А.~Дж.~Вильсона)>>\cite{bib:24} 
 проводится исследование динамики макросистем основанной на эргодической марковской цепи. Основу работы 
 составляет исследование равновесия данной макросистемы.
 
