@@ -1,2 +1,28 @@
 \resumecontents
 \APPENDIX{Приложение Б}{Исходный код}
+
+\noindentМодуль по построению маршрута на основе генетических алгоритмов:
+\lstinputlisting{../source/main_algorithm.py}
+
+\pagebreak
+
+\noindentМодуль со вспомогательными функциями:
+\lstinputlisting{../source/auxiliary.py}
+
+\noindentМодуль по загрузке данных из файлов:
+\lstinputlisting{../source/data_loader.py}
+
+\pagebreak
+
+\noindentМодуль реализующий <<жадный>> алгоритм \ref{sec:greedy-alg}
+\lstinputlisting{../source/greedy_algorithm.py}
+
+\pagebreak
+
+\noindentМодуль по построению маршрутов на основе нескольких алгоритмов:
+\begin{enumerate}
+    \item выпуклая оболочка по алгоритму Грэхема
+    \item поиск терминальных кластеров по принадлежности точки к окружности
+    \item построение маршрутов по алгоритму из пункта \ref{sec:second_alg}
+\end{enumerate}
+\lstinputlisting{../source/short_path.py}

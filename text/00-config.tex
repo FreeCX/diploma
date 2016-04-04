@@ -22,7 +22,7 @@
 \usepackage[square, numbers, sort&compress]{natbib}
 \usepackage{tocloft}
 \usepackage{caption}
-% \usepackage{listings}
+\usepackage{listings}
 \usepackage{fancybox, fancyhdr}
 \usepackage{algorithm2e}
 \graphicspath{{../images/}}
@@ -173,3 +173,5 @@
 % удаляем секцию из содержания
 \newcommand{\nocontentsline}[3]{}
 \newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+
+\lstset{language=Python, basicstyle=\footnotesize, breaklines=true}
