@@ -1,0 +1,105 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[a4paper, includehead, includefoot, mag=1000,
+            left=3cm, right=2cm, top=1cm, bottom=2cm]{geometry}
+\usepackage{doc, ifpdf, indentfirst, ltxtable, color}
+\definecolor{black}{rgb}{0,0,0}
+\usepackage[pdftex, hyperindex, unicode]{hyperref}
+\usepackage{cmap}
+\usepackage{titlesec}
+
+\hypersetup{
+  pdftitle           = {Методы построения маршрутов общественного транспорта на основе предочтения жителей},
+  pdfauthor          = {Алексей Голубев},
+  pdfsubject         = {disser},
+  pdfstartview       = {FitH},
+  pdfborder          = {0 0 0},
+  bookmarksopen      = true,
+  bookmarksnumbered  = true,
+  bookmarksopenlevel = 2,
+  colorlinks = true,     linkcolor  = black,
+  citecolor  = black, filecolor  = black,
+  menucolor  = black, urlcolor   = black
+}
+
+\IfFileExists{pscyr.sty}{%
+  \usepackage{pscyr}
+  \renewcommand\ttdefault{cmtt}
+  \renewcommand\rmdefault{ftm}
+}{
+  \IfFileExists{cyrtimes.sty}{%
+    \renewcommand\ttdefault{cmtt}
+    \renewcommand\rmdefault{ftm}
+  }{}
+}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english, russian]{babel}
+
+\MakeShortVerb{\|}
+
+\def\file#1{\texttt{#1}}
+\def\pkg#1{\textsf{#1}}
+\def\cmd#1{\texttt{#1}}
+
+\def\deflabel#1{\ttfamily #1\hfill}
+\newenvironment{deflist}[1]{%
+  \begin{list}{}{%
+  \settowidth\labelwidth{\ttfamily #1}%
+  \setlength\leftmargin\labelwidth
+  \addtolength\leftmargin\labelsep
+  \let\makelabel\deflabel}
+}{\end{list}}
+
+\makeatletter
+    \renewcommand{\@biblabel}[1]{#1} 
+    % bibliography bibitem item indent
+    \renewenvironment{thebibliography}[1]
+        {\section{\bibname}%
+        \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+        \list{\@biblabel{\@arabic\c@enumiv}}%
+            {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin=0pt
+            \itemindent=50pt
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+        \sloppy
+        \clubpenalty4000
+        \@clubpenalty \clubpenalty
+        \widowpenalty4000%
+        \sfcode`\.\@m}
+            {\def\@noitemerr
+            {\@latex@warning{Empty `thebibliography' environment}}%
+        \endlist}
+\makeatother
+
+\titleformat{\section}
+    {\centering\normalsize\bfseries}
+    {}{1em}{}
+\titlespacing*{\section}{\parindent}{*2}{*2}
+
+\begin{document}
+    \sloppy
+    \title{Методы построения маршрутов общественного транспорта на основе предпочтения жителей}
+    \author{Алексей Голубев\\[6pt]\normalsize E-mail:
+    \href{mailto:ax.golubev@gmail.com}{\texttt{ax.golubev@gmail.com}}}
+    \maketitle
+    \begin{abstract}\noindent
+        Развитие городов сопряжено с модернизацией существующей сети общественного транспорта. Современные 
+        коммуникационные технологии позволяют собирать данные о перемещениях людей в городской среде, на 
+        основе которых можно сделать выводы о предпочтениях людей по перемещению внутри городской среды. 
+        Фактически, подобные предпочтения можно рассматривать как требования к структуре сети общественного 
+        транспорта. Имея данные о ежедневных передвижениях людей, мы можем понять реальные предпочтения и 
+        потребности людей в системе городского транспорта. Следовательно, может быть предложена модификация 
+        транспортной сети или даже набор возможных альтернатив. Эта модификация отражает реальные потребности 
+        людей и сокращает время передвижения и повышает общий уровень удовлетворенности. Однако для решением 
+        задача анализа геопространственных данных необходимо получить набор субоптимальных маршрутов для 
+        выбора. Получение оптимальных маршрутов сети является повторяющейся процедурой, которая требует 
+        вмешательство эксперта. В данной работе предлагаются методы, позволяющий на основе данных о 
+        предпочтениях пользователей формировать схему маршрутов общественного транспорта.
+    \end{abstract}
+    \newpage
+    \input{01-text}
+\end{document} 
