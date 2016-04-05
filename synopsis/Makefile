@@ -1,6 +1,6 @@
 COMPILER=latexmk
-FLAGS=-jobname=master-work
-SOURCE=00-diploma.tex
+FLAGS=-jobname=00-synopsis
+SOURCE=00-synopsis.tex
 
 default:
 	$(COMPILER) -pdf $(FLAGS) $(SOURCE)
