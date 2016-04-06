@@ -1,55 +1,14 @@
-\documentclass[a4paper, 12pt]{article}
-\usepackage[a4paper, includehead, includefoot, mag=1000,
-            left=3cm, right=2cm, top=1cm, bottom=2cm]{geometry}
-\usepackage{doc, ifpdf, indentfirst, ltxtable, color}
-\definecolor{black}{rgb}{0,0,0}
-\usepackage[pdftex, hyperindex, unicode]{hyperref}
-\usepackage{cmap}
-\usepackage{titlesec}
-
-\hypersetup{
-  pdftitle           = {Методы построения маршрутов общественного транспорта на основе предочтения жителей},
-  pdfauthor          = {Алексей Голубев},
-  pdfsubject         = {disser},
-  pdfstartview       = {FitH},
-  pdfborder          = {0 0 0},
-  bookmarksopen      = true,
-  bookmarksnumbered  = true,
-  bookmarksopenlevel = 2,
-  colorlinks = true,     linkcolor  = black,
-  citecolor  = black, filecolor  = black,
-  menucolor  = black, urlcolor   = black
-}
-
-\IfFileExists{pscyr.sty}{%
-  \usepackage{pscyr}
-  \renewcommand\ttdefault{cmtt}
-  \renewcommand\rmdefault{ftm}
-}{
-  \IfFileExists{cyrtimes.sty}{%
-    \renewcommand\ttdefault{cmtt}
-    \renewcommand\rmdefault{ftm}
-  }{}
-}
-
+\documentclass[a4paper, 14pt]{extreport}
+\usepackage[left=2.0cm, right=2.0cm, top=2.0cm, bottom=2.0cm]{geometry}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage[english, russian]{babel}
+\usepackage[title, titletoc]{appendix}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{indentfirst}
 
-\MakeShortVerb{\|}
-
-\def\file#1{\texttt{#1}}
-\def\pkg#1{\textsf{#1}}
-\def\cmd#1{\texttt{#1}}
-
-\def\deflabel#1{\ttfamily #1\hfill}
-\newenvironment{deflist}[1]{%
-  \begin{list}{}{%
-  \settowidth\labelwidth{\ttfamily #1}%
-  \setlength\leftmargin\labelwidth
-  \addtolength\leftmargin\labelsep
-  \let\makelabel\deflabel}
-}{\end{list}}
+\renewcommand{\rmdefault}{ftm}
 
 \makeatletter
     \renewcommand{\@biblabel}[1]{#1} 
@@ -80,26 +39,26 @@
     {}{1em}{}
 \titlespacing*{\section}{\parindent}{*2}{*2}
 
+\setlength{\parindent}{10mm}
+
 \begin{document}
-    \sloppy
-    \title{Методы построения маршрутов общественного транспорта на основе предпочтения жителей}
-    \author{Алексей Голубев\\[6pt]\normalsize E-mail:
-    \href{mailto:ax.golubev@gmail.com}{\texttt{ax.golubev@gmail.com}}}
-    \maketitle
-    \begin{abstract}\noindent
-        Развитие городов сопряжено с модернизацией существующей сети общественного транспорта. Современные 
-        коммуникационные технологии позволяют собирать данные о перемещениях людей в городской среде, на 
-        основе которых можно сделать выводы о предпочтениях людей по перемещению внутри городской среды. 
-        Фактически, подобные предпочтения можно рассматривать как требования к структуре сети общественного 
-        транспорта. Имея данные о ежедневных передвижениях людей, мы можем понять реальные предпочтения и 
-        потребности людей в системе городского транспорта. Следовательно, может быть предложена модификация 
-        транспортной сети или даже набор возможных альтернатив. Эта модификация отражает реальные потребности 
-        людей и сокращает время передвижения и повышает общий уровень удовлетворенности. Однако для решением 
-        задача анализа геопространственных данных необходимо получить набор субоптимальных маршрутов для 
-        выбора. Получение оптимальных маршрутов сети является повторяющейся процедурой, которая требует 
-        вмешательство эксперта. В данной работе предлагаются методы, позволяющий на основе данных о 
-        предпочтениях пользователей формировать схему маршрутов общественного транспорта.
-    \end{abstract}
+    \begin{titlepage}
+        \hspace{20em}На правах рукописи\\
+        \begin{center}
+            \vspace{8em}Голубев Алексей Владимирович\\
+            \large\vspace{6em}\MakeUppercase{Методы построения маршрутов общественного 
+                транспорта на основе предпочтения жителей}\normalsize\\
+            % \vspace{8em}Специальность XX.XX.XX --\\
+            % <<Название специальности>>\\
+            \vspace{10em}
+            \large\vspace{4em}Автореферат\normalsize\\
+        \end{center}
+        \vfill
+        \begin{center}
+            Волгоград -- \the\year\ г.
+        \end{center}
+    \end{titlepage}
     \newpage
+    \onehalfspacing
     \input{01-text}
 \end{document} 
