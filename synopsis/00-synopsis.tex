@@ -16,15 +16,17 @@
     \renewenvironment{thebibliography}[1]
         {\section{\bibname}%
         \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
-        \list{\@biblabel{\@arabic\c@enumiv}}%
+        \list{\@biblabel{\@arabic\c@enumiv.}}%
             {\settowidth\labelwidth{\@biblabel{#1}}%
-            \leftmargin=0pt
-            \itemindent=50pt
+            \leftmargin=1.2em
+            \itemindent=0pt
             \@openbib@code
             \usecounter{enumiv}%
             \let\p@enumiv\@empty
             \renewcommand\theenumiv{\@arabic\c@enumiv}}%
         \sloppy
+        \setlength{\parskip}{0pt}
+        \setlength{\itemsep}{0pt}
         \clubpenalty4000
         \@clubpenalty \clubpenalty
         \widowpenalty4000%
@@ -35,9 +37,9 @@
 \makeatother
 
 \titleformat{\section}
-    {\centering\normalsize\bfseries}
+    {\MakeUppercase}
     {}{1em}{}
-\titlespacing*{\section}{\parindent}{*2}{*2}
+\titlespacing*{\section}{-1em}{*2}{*2}
 
 \setlength{\parindent}{10mm}
 
@@ -46,19 +48,33 @@
         \hspace{20em}На правах рукописи\\
         \begin{center}
             \vspace{8em}Голубев Алексей Владимирович\\
-            \large\vspace{6em}\MakeUppercase{Методы построения маршрутов общественного 
-                транспорта на основе предпочтения жителей}\normalsize\\
-            % \vspace{8em}Специальность XX.XX.XX --\\
-            % <<Название специальности>>\\
-            \vspace{10em}
-            \large\vspace{4em}Автореферат\normalsize\\
+            \large\vspace{2em}\textbf{\MakeUppercase{Методы построения маршрутов общественного 
+                транспорта на основе предпочтения жителей}}\normalsize\\
+            \vspace{8em}09.04.01 -- Информатика и вычислительная техника\\
+            \vspace{8em}Автореферат\\магистерской диссертации
         \end{center}
         \vfill
         \begin{center}
             Волгоград -- \the\year\ г.
         \end{center}
+        \newpage
+        \thispagestyle{empty}
+        Работа выполнена на кафедре <<Системы автоматизированного проектирования и поискового 
+        конструирования>> в государственном образовательном учреждении высшего профессионального 
+        образования <<Волгоградский государственный технический университет>>\\
+        \vspace{3em}\begin{flushleft}
+            Научный руководитель:\\
+            \hspace{4cm}доктор технических наук,\\
+            \hspace{4cm}и.о.зав.каф. Щербаков Максим Владимирович\\
+        \end{flushleft}
+        \vspace{1em}\begin{flushleft}
+            Научный консультант:\\
+            \hspace{4cm}доктор технических наук,\\
+            \hspace{4cm}и.о.зав.каф. Щербаков Максим Владимирович\\
+        \end{flushleft}
     \end{titlepage}
     \newpage
     \onehalfspacing
+    \setcounter{page}{3}
     \input{01-text}
 \end{document} 
