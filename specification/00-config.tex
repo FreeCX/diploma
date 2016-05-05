@@ -1,0 +1,174 @@
+\documentclass[a4paper, 14pt]{extreport}
+\usepackage[left=3.0cm, right=1.0cm, top=1.5cm, bottom=2.0cm]{geometry}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage[title, titletoc]{appendix}
+\usepackage{titletoc}
+\usepackage{tocvsec2}
+\usepackage{indentfirst}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{cite, enumerate, float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage[square, numbers, sort&compress]{natbib}
+\usepackage{tocloft}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{fancybox, fancyhdr}
+\usepackage{algorithm2e}
+\graphicspath{{../images/}}
+
+% Times New Roman
+\renewcommand{\rmdefault}{ftm}
+
+% стили заголовков
+\titleclass{\part}{top}
+\titleformat{\part}
+    {\centering\normalsize}
+    {}{0pt}{}
+\titleformat{\chapter}
+    {\normalsize}
+    {\thechapter}{1em}{}
+\titleformat{\section}
+    {\normalsize}
+    {\thesection}{1em}{}
+\titleformat{\subsection}
+    {\normalsize}
+    {\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+    {\normalsize}
+    {\thesubsubsection}{1em}{}
+
+% оступ для абзацев текста
+\setlength{\parindent}{15mm}
+% \newcommand{\hindent}{15mm}
+
+% настройка отступов в заголовках
+\titlespacing*{\part}{\parindent}{-30pt}{*2}
+\titlespacing*{\chapter}{\parindent}{-30pt}{*2}
+\titlespacing*{\paragraph}{\parindent}{-30pt}{*2}
+\titlespacing*{\section}{\parindent}{*2}{*2}
+\titlespacing*{\subsection}{\parindent}{*2}{*2}
+\titlespacing*{\subsubsection}{\parindent}{*2}{*2}
+
+\makeatletter
+    \renewcommand{\@biblabel}[1]{#1} 
+    % bibliography bibitem item indent
+    \renewenvironment{thebibliography}[1]
+        {\chapter*{\bibname}%
+        \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+        \list{\@biblabel{\@arabic\c@enumiv}}%
+            {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin=0pt
+            \itemindent=50pt
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+        \sloppy
+        \clubpenalty4000
+        \@clubpenalty \clubpenalty
+        \widowpenalty4000%
+        \sfcode`\.\@m}
+            {\def\@noitemerr
+            {\@latex@warning{Empty `thebibliography' environment}}%
+        \endlist}
+\makeatother
+
+\DeclareCaptionLabelFormat{figure}{Рисунок #2}
+\DeclareCaptionLabelFormat{table}{Таблица #2}
+\DeclareCaptionLabelSeparator{sep}{~---~}
+\captionsetup{labelsep=sep, justification=centering, font=small}
+\captionsetup[figure]{labelformat=figure}
+\captionsetup[table]{labelformat=table}
+
+\renewcommand{\cfttoctitlefont}{\normalfont\hspace{0.38\textwidth}}
+\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftbeforepartskip}{0em}
+\renewcommand{\cftbeforechapskip}{0em}
+\renewcommand{\cftpartfont}{\normalsize}
+\renewcommand{\cftchapfont}{\hspace{15pt}\normalsize}
+\renewcommand{\cftsecfont}{\hspace{-6pt}}
+\renewcommand{\cftsubsecfont}{\hspace{-38pt}}
+\renewcommand{\cftchappagefont}{\normalfont}
+\renewcommand{\cftpartpagefont}{\normalfont}
+\renewcommand{\cftbeforetoctitleskip}{-1em}
+\renewcommand{\cftpartaftersnumb}{}
+\renewcommand{\cftparskip}{-1mm}
+\renewcommand{\cftdotsep}{2}
+\renewcommand{\thepart}{}
+
+% глубина в содержании
+\setcounter{tocdepth}{2}
+% глубина нумерации секций
+\setcounter{secnumdepth}{5}
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\arabic{enumi})}
+\renewcommand{\theenumii}{.\arabic{enumii}}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii})}
+\renewcommand{\theenumiii}{.\arabic{enumiii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii})}
+
+\addto{\captionsrussian}{\renewcommand*{\contentsname}{\centeringСодержание\vspace{1em}}}
+
+% студент
+\newcommand\STUDENTO{Голубев Алексей Владимирович}
+\newcommand\STUDENTT{Голубева Алексея Владимировича}
+% номер приказа
+\newcommand\ORDER{XX}
+% номер для ТЗ
+\newcommand\SPECIFICATION{XXX}
+% количество листов в ТЗ
+\newcommand\SPAGES{XX}
+% последние две цифры года
+\makeatletter
+    \newcommand\YEAR{\expandafter\@gobbletwo\number\numexpr\the\year\relax}
+\makeatother
+% поле с подписью
+\newcommand\UNDER[2]{$\underset{\text{#2}}{\text{#1}}$}
+% стиль подписи
+\newcommand\TINY[1]{\footnotesize#1\normalsize}
+% поле для заполнения определенной длины
+\newcommand\LINE[1]{\underline{\hspace{#1}}}
+% поливина \quad
+\newcommand\hquad{\hspace{0.5em}}
+\newcommand\APPENDIX[2]{%
+    % должен быть только пробел, иначе пиняйте на себя!
+    \chapter*{ }
+    \addcontentsline{toc}{chapter}{#1\quad#2}
+    \vspace{8em}
+    \begin{center}
+        #1\\#2
+    \end{center}
+    \newpage
+}
+\newcommand\url[1]{\text{#1}}
+
+\fancypagestyle{plain}{
+    % чистим текущие настройки
+    \fancyhf{}
+    % отступ перед верхним колонтитулом
+    \renewcommand{\headheight}{10mm}
+    % остпуп после верхнего колонтитула
+    \headsep=8pt
+    % верхний колонтитул (по центру)
+    \fancyhead[C]{МД--40 461 806--10.27--\ORDER--\YEAR.81}
+    % нумерация страницы
+    \fancyfoot[C]{\thepage}
+    % убираем разделительную линию
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+% удаляем секцию из содержания
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+
+\lstset{language=Python, basicstyle=\footnotesize, breaklines=true}
