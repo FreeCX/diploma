@@ -5,21 +5,15 @@
 \usepackage[english, russian]{babel}
 \usepackage[title, titletoc]{appendix}
 \usepackage{titletoc}
-\usepackage{tocvsec2}
 \usepackage{indentfirst}
 \usepackage{amsmath}
 \usepackage{textcomp}
-\usepackage{cite, enumerate, float}
 \usepackage{graphicx}
-\usepackage{subcaption}
-\usepackage{multirow}
-\usepackage{times}
 \usepackage{setspace}
 \usepackage{titlesec}
 \usepackage[square, numbers, sort&compress]{natbib}
 \usepackage{tocloft}
 \usepackage{caption}
-\usepackage{listings}
 \usepackage{fancybox, fancyhdr}
 \usepackage{algorithm2e}
 \graphicspath{{../images/}}
@@ -50,9 +44,9 @@
 % \newcommand{\hindent}{15mm}
 
 % настройка отступов в заголовках
-\titlespacing*{\part}{\parindent}{-30pt}{*2}
-\titlespacing*{\chapter}{\parindent}{-30pt}{*2}
-\titlespacing*{\paragraph}{\parindent}{-30pt}{*2}
+\titlespacing*{\part}{\parindent}{-10pt}{*2}
+\titlespacing*{\chapter}{\parindent}{-10pt}{*2}
+\titlespacing*{\paragraph}{\parindent}{0pt}{*2}
 \titlespacing*{\section}{\parindent}{*2}{*2}
 \titlespacing*{\subsection}{\parindent}{*2}{*2}
 \titlespacing*{\subsubsection}{\parindent}{*2}{*2}
@@ -138,19 +132,6 @@
 \newcommand\TINY[1]{\footnotesize#1\normalsize}
 % поле для заполнения определенной длины
 \newcommand\LINE[1]{\underline{\hspace{#1}}}
-% поливина \quad
-\newcommand\hquad{\hspace{0.5em}}
-\newcommand\APPENDIX[2]{%
-    % должен быть только пробел, иначе пиняйте на себя!
-    \chapter*{ }
-    \addcontentsline{toc}{chapter}{#1\quad#2}
-    \vspace{8em}
-    \begin{center}
-        #1\\#2
-    \end{center}
-    \newpage
-}
-\newcommand\url[1]{\text{#1}}
 
 \fancypagestyle{plain}{
     % чистим текущие настройки
@@ -171,4 +152,13 @@
 \newcommand{\nocontentsline}[3]{}
 \newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
 
-\lstset{language=Python, basicstyle=\footnotesize, breaklines=true}
+\newenvironment{changemargin}[2]{%
+\begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#1}%
+    \setlength{\rightmargin}{#2}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+}%
+\item[]}{\end{list}}
