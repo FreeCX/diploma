@@ -4,18 +4,13 @@
 \usepackage[utf8x]{inputenc}
 \usepackage[english, russian]{babel}
 \usepackage[title, titletoc]{appendix}
-\usepackage{titletoc}
-\usepackage{indentfirst}
-\usepackage{amsmath}
-\usepackage{textcomp}
+\usepackage{titletoc, titlesec, tocloft, lastpage}
+\usepackage{indentfirst, setspace, caption}
+\usepackage{amsmath, textcomp, algorithm2e}
 \usepackage{graphicx}
-\usepackage{setspace}
-\usepackage{titlesec}
 \usepackage[square, numbers, sort&compress]{natbib}
-\usepackage{tocloft}
-\usepackage{caption}
+\usepackage[shortlabels]{enumitem}
 \usepackage{fancybox, fancyhdr}
-\usepackage{algorithm2e}
 \graphicspath{{../images/}}
 
 % Times New Roman
@@ -23,6 +18,7 @@
 
 % стили заголовков
 \titleclass{\part}{top}
+\titleclass{\chapter}{straight}
 \titleformat{\part}
     {\centering\normalsize}
     {}{0pt}{}
@@ -45,7 +41,7 @@
 
 % настройка отступов в заголовках
 \titlespacing*{\part}{\parindent}{-10pt}{*2}
-\titlespacing*{\chapter}{\parindent}{-10pt}{*2}
+\titlespacing*{\chapter}{\parindent}{1em}{*2}
 \titlespacing*{\paragraph}{\parindent}{0pt}{*2}
 \titlespacing*{\section}{\parindent}{*2}{*2}
 \titlespacing*{\subsection}{\parindent}{*2}{*2}
@@ -120,8 +116,6 @@
 \newcommand\ORDER{XX}
 % номер для ТЗ
 \newcommand\SPECIFICATION{XXX}
-% количество листов в ТЗ
-\newcommand\SPAGES{XX}
 % последние две цифры года
 \makeatletter
     \newcommand\YEAR{\expandafter\@gobbletwo\number\numexpr\the\year\relax}
@@ -162,3 +156,6 @@
     \setlength{\parsep}{\parskip}%
 }%
 \item[]}{\end{list}}
+
+% табуляция для списков
+\setlist[enumerate,1]{leftmargin=22mm}
