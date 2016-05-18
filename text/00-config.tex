@@ -4,24 +4,18 @@
 \usepackage[utf8x]{inputenc}
 \usepackage[english, russian]{babel}
 \usepackage[title, titletoc]{appendix}
-\usepackage{titletoc}
-\usepackage{tocvsec2}
-\usepackage{indentfirst}
-\usepackage{amsmath}
-\usepackage{textcomp}
+\usepackage{titletoc, tocvsec2, tocloft, titlesec}
+\usepackage{amsmath, textcomp}
 \usepackage{cite, enumerate, float}
 \usepackage{graphicx}
-\usepackage{subcaption}
+\usepackage{subcaption, setspace, indentfirst, caption}
 \usepackage{multirow}
 \usepackage{times}
-\usepackage{setspace}
-\usepackage{titlesec}
 \usepackage[square, numbers, sort&compress]{natbib}
-\usepackage{tocloft}
-\usepackage{caption}
 \usepackage{listings}
 \usepackage{fancybox, fancyhdr}
 \usepackage{algorithm2e}
+\usepackage{hyperref}
 \graphicspath{{../images/}}
 
 % Times New Roman
@@ -150,7 +144,8 @@
     \end{center}
     \newpage
 }
-\newcommand\url[1]{\text{#1}}
+% old dirty hack :)
+% \newcommand\url[1]{\text{#1}}
 
 \fancypagestyle{plain}{
     % чистим текущие настройки
@@ -172,3 +167,13 @@
 \newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
 
 \lstset{language=Python, basicstyle=\footnotesize, breaklines=true}
+
+% меняем стандартный стиль bullet на ---
+\def\labelitemi{---}
+
+% Русификация плагина algorithm2e
+\SetKwInput{KwData}{Исходные параметры}
+\SetKwInput{KwResult}{Результат}
+\SetKwIF{If}{ElseIf}{Else}{если}{тогда}{иначе\ если}{иначе}{конец\ условия}
+\SetKwFor{While}{до\ тех\ пор,\ пока}{выполнять}{конец\ цикла}
+\SetAlgorithmName{Алгоритм}{алгоритм}{Список алгоритмов}
