@@ -16,6 +16,8 @@
 \usepackage{fancybox, fancyhdr}
 \usepackage{algorithm2e}
 \usepackage{hyperref}
+\usepackage{ctable} % for \specialrule command
+\usepackage{color}
 \graphicspath{{../images/}}
 
 % Times New Roman
@@ -144,8 +146,6 @@
     \end{center}
     \newpage
 }
-% old dirty hack :)
-% \newcommand\url[1]{\text{#1}}
 
 \fancypagestyle{plain}{
     % чистим текущие настройки
@@ -166,7 +166,22 @@
 \newcommand{\nocontentsline}[3]{}
 \newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
 
-\lstset{language=Python, basicstyle=\footnotesize, breaklines=true}
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
+
+\lstset{%
+    language=Python,
+    basicstyle=\footnotesize,
+    keywordstyle=\ttb,
+    commentstyle=\ttm,
+    otherkeywords={self},
+    emphstyle=\textit\ttm,
+    stringstyle=\color{darkgray},
+    numbers=left,
+    numbersep=5pt,
+    numberstyle=\tiny,
+    breaklines=true,
+}
 
 % меняем стандартный стиль bullet на ---
 \def\labelitemi{---}

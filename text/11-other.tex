@@ -1,32 +1,51 @@
 %% change page number %%
-% \setcounter{page}{70}
-\APPENDIX{Приложение Б}{Исходный код}
+% specification page count
+\addtocounter{page}{11}
+\APPENDIX{Приложение Б}{Результаты экспериментов}
+Результаты работы алгоритма \ref{sec:second_alg} по построению маршрутов доступны по следующей ссылке
+\url{https://vstu-cad-stuff.github.io/routing/geojson/}.
 
-\noindentСсылка на исходный код \url{https://github.com/vstu-cad-stuff/routing/tree/master}.\\
-Ссылка на демонстрационные примеры \url{https://vstu-cad-stuff.github.io/routing/}.
+Результаты работы алгоритма из раздела \ref{sec:greedy-alg} доступны по следующей ссылке
+\url{https://vstu-cad-stuff.github.io/routing/routing/}.
 
-\noindentМодуль по построению маршрута на основе генетических алгоритмов:
+Результаты работы алгоритма из раздела \ref{sec:third-alg} доступны по следующей ссылке
+\url{https://vstu-cad-stuff.github.io/routing/network/}.
+
+\APPENDIX{Приложение В}{Исходный код}
+
+Исходный код доступен по следующему адресу\\
+\url{https://github.com/vstu-cad-stuff/routing/tree/master}.
+
+\begin{center}
+    Модуль по построению маршрута на основе генетических алгоритмов
+\end{center}
 \lstinputlisting{../source/main_algorithm.py}
 
 \pagebreak
 
-\noindentМодуль со вспомогательными функциями:
+\begin{center}
+    Модуль со вспомогательными функциями
+\end{center}
 \lstinputlisting{../source/auxiliary.py}
 
-\noindentМодуль по загрузке данных из файлов:
+\begin{center}
+    Модуль по загрузке данных из файлов
+\end{center}
 \lstinputlisting{../source/data_loader.py}
 
 \pagebreak
 
-\noindentМодуль реализующий <<жадный>> алгоритм \ref{sec:greedy-alg}
+\begin{center}
+    Модуль реализующий <<жадный>> алгоритм \ref{sec:greedy-alg}
+\end{center}
 \lstinputlisting{../source/greedy_algorithm.py}
 
 \pagebreak
 
-\noindentМодуль по построению маршрутов на основе нескольких алгоритмов:
-\begin{enumerate}
+Модуль по построению маршрутов на основе нескольких алгоритмов:
+\begin{enumerate}\itemsep0pt
     \item выпуклая оболочка по алгоритму Грэхема
-    \item поиск терминальных кластеров по принадлежности точки к окружности
+    \item поиск узлов отправления-назначения по принадлежности к окружности
     \item построение маршрутов по алгоритму из пункта \ref{sec:second_alg}
 \end{enumerate}
 \lstinputlisting{../source/short_path.py}
