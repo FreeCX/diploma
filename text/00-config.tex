@@ -115,19 +115,11 @@
 
 \addto{\captionsrussian}{\renewcommand*{\contentsname}{\centeringСодержание\vspace{1em}}}
 
+% номер документа
+\newcommand\MASTERWORK{МД--40 461 806--10.27--04--16.81}
 % студент
 \newcommand\STUDENTO{Голубев Алексей Владимирович}
 \newcommand\STUDENTT{Голубева Алексея Владимировича}
-% номер приказа
-\newcommand\ORDER{XX}
-% номер для ТЗ
-\newcommand\SPECIFICATION{XXX}
-% количество листов в ТЗ
-\newcommand\SPAGES{XX}
-% последние две цифры года
-\makeatletter
-    \newcommand\YEAR{\expandafter\@gobbletwo\number\numexpr\the\year\relax}
-\makeatother
 % поле с подписью
 \newcommand\UNDER[2]{$\underset{\text{#2}}{\text{#1}}$}
 % стиль подписи
@@ -155,7 +147,7 @@
     % остпуп после верхнего колонтитула
     \headsep=8pt
     % верхний колонтитул (по центру)
-    \fancyhead[C]{МД--40 461 806--10.27--\ORDER--\YEAR.81}
+    \fancyhead[C]{\MASTERWORK}
     % нумерация страницы
     \fancyfoot[C]{\thepage}
     % убираем разделительную линию
