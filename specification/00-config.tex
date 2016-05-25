@@ -13,8 +13,8 @@
 \usepackage{fancybox, fancyhdr}
 \graphicspath{{../images/}}
 
-% Times New Roman
-\renewcommand{\rmdefault}{ftm}
+% Заюзаем шрифт Computer Modern
+\renewcommand{\rmdefault}{cmr}
 
 % стили заголовков
 \titleclass{\part}{top}
@@ -110,7 +110,7 @@
 \addto{\captionsrussian}{\renewcommand*{\contentsname}{\centeringСодержание\vspace{1em}}}
 
 % номер документа
-\newcommand\MASTERWORK{МД--40 461 806--10.27--04--16.81}
+\newcommand\MASTERWORK{МД--40 461 806--10.27--04--16.90}
 % студент
 \newcommand\STUDENTO{Голубев Алексей Владимирович}
 \newcommand\STUDENTT{Голубева Алексея Владимировича}
@@ -143,15 +143,16 @@
 \newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
 
 \newenvironment{changemargin}[2]{%
-\begin{list}{}{%
-    \setlength{\topsep}{0pt}%
-    \setlength{\leftmargin}{#1}%
-    \setlength{\rightmargin}{#2}%
-    \setlength{\listparindent}{\parindent}%
-    \setlength{\itemindent}{\parindent}%
-    \setlength{\parsep}{\parskip}%
-}%
-\item[]}{\end{list}}
+    \begin{list}{}{%
+        \setlength{\topsep}{0pt}%
+        \setlength{\leftmargin}{#1}%
+        \setlength{\rightmargin}{#2}%
+        \setlength{\listparindent}{\parindent}%
+        \setlength{\itemindent}{\parindent}%
+        \setlength{\parsep}{\parskip}%
+    }%
+    \item[]
+}{\end{list}}
 
 % табуляция для списков
 \setlist[enumerate,1]{leftmargin=22mm}
