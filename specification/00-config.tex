@@ -37,7 +37,6 @@
 
 % оступ для абзацев текста
 \setlength{\parindent}{15mm}
-% \newcommand{\hindent}{15mm}
 
 % настройка отступов в заголовках
 \titlespacing*{\part}{\parindent}{-10pt}{*2}
@@ -73,10 +72,9 @@
 
 \DeclareCaptionLabelFormat{figure}{Рисунок #2}
 \DeclareCaptionLabelFormat{table}{Таблица #2}
-\DeclareCaptionLabelSeparator{sep}{~---~}
-\captionsetup{labelsep=sep, justification=centering, font=small}
-\captionsetup[figure]{labelformat=figure}
-\captionsetup[table]{labelformat=table}
+\DeclareCaptionLabelSeparator{sep}{~--~}
+\captionsetup{labelsep=sep, justification=centering, font=normal}
+\captionsetup[table]{labelformat=table, justification=raggedright}
 
 \renewcommand{\cfttoctitlefont}{\normalfont\hspace{0.38\textwidth}}
 \renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}

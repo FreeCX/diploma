@@ -14,7 +14,7 @@
 \usepackage[square, numbers, sort&compress]{natbib}
 \usepackage{listings}
 \usepackage{fancybox, fancyhdr}
-\usepackage{algorithm2e}
+\usepackage[figure, boxed]{algorithm2e}
 \usepackage{hyperref}
 \usepackage{ctable} % for \specialrule command
 \usepackage{enumitem}
@@ -78,10 +78,10 @@
 
 \DeclareCaptionLabelFormat{figure}{Рисунок #2}
 \DeclareCaptionLabelFormat{table}{Таблица #2}
-\DeclareCaptionLabelSeparator{sep}{~---~}
-\captionsetup{labelsep=sep, justification=centering, font=small}
+\DeclareCaptionLabelSeparator{sep}{~--~}
+\captionsetup{labelsep=sep, justification=centering, font=normal}
 \captionsetup[figure]{labelformat=figure}
-\captionsetup[table]{labelformat=table}
+\captionsetup[table]{labelformat=table, justification=raggedright}
 % используем кирилицу для subfigure
 \renewcommand{\thesubfigure}{\asbuk{subfigure}}
 
