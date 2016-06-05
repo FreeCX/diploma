@@ -4,10 +4,21 @@
 \usepackage[russian]{babel}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{algorithm2e}
 \setbeamertemplate{caption}[numbered]
+% default theme
 \usetheme[minimal, numbers, totalnumbers, nologo, nonav]{Statmod}
+% printing theme
+% \usetheme{Boxes}
 \hypersetup{colorlinks, urlcolor=blue, linkcolor=white}
 \graphicspath{{../images//}}
+\renewcommand{\rmdefault}{cmr}
+
+\SetKwInput{KwData}{Исходные параметры}
+\SetKwInput{KwResult}{Результат}
+\SetKwBlock{Begin}{начало блока}{конец блока}
+\SetKwFor{ForEach}{для каждого}{выполнять}{конец цикла}
+\SetAlgorithmName{Алгоритм}{алгоритм}{Список алгоритмов}
 
 \author{Голубев Алексей Владимирович, САПР-2п1}
 \title[Метод построения маршрутов обществ. транспорта]
